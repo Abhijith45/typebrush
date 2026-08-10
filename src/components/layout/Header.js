@@ -1,4 +1,5 @@
 import Link from "next/link";
+import ThemeToggle from "./ThemeToggle";
 
 export default function Header() {
   return (
@@ -16,6 +17,7 @@ export default function Header() {
         <Link href="/typing-practice" style={{ fontWeight: "500" }}>
           Practice
         </Link>
+        <ThemeToggle />
       </nav>
     </header>
   );

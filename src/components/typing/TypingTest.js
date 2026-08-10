@@ -5,7 +5,6 @@ import TypingStats from "./TypingStats";
 import TypingPassage from "./TypingPassage";
 import TypingInput from "./TypingInput";
 import TypingResult from "./TypingResult";
-import RestartButton from "./RestartButton";
 import { calculateWpm } from "@/lib/typing/calculateWpm";
 import { calculateAccuracy } from "@/lib/typing/calculateAccuracy";
 import { getPassage, getCurrentTime } from "@/lib/typing/typingUtils";
@@ -217,7 +216,7 @@ export default function TypingTest({ duration = 60, mode = "standard", isPractic
         seconds={secondsRemaining}
       />
 
-      <div style={{ position: "relative", padding: "1.5rem", backgroundColor: "var(--sub-alt-color)", borderRadius: "var(--border-radius)", border: isFocused ? "1px solid var(--accent-color)" : "1px solid transparent", cursor: testState === "RUNNING" ? "text" : "default" }}>
+      <div style={{ position: "relative", padding: "1.5rem", backgroundColor: "var(--surface-color)", border: "1px solid var(--border-color)", borderRadius: "var(--border-radius)", cursor: testState === "RUNNING" ? "text" : "default" }}>
         <TypingInput
           value={typedText}
           onChange={handleInputChange}
@@ -244,9 +243,16 @@ export default function TypingTest({ duration = 60, mode = "standard", isPractic
         )}
       </div>
 
-      <div style={{ display: "flex", justifyContent: "center", marginTop: "1rem" }}>
-        <RestartButton onRestart={restartTest} />
-      </div>
+      {testState === "RUNNING" && (
+        <div style={{ display: "flex", justifyContent: "center", gap: "1rem", marginTop: "1rem" }}>
+          <button onClick={restartTest} className="control-btn" aria-label="Reset typing test">
+            Reset
+          </button>
+          <button onClick={() => finishTest(secondsElapsed)} className="control-btn primary" aria-label="Finish typing test">
+            Finish
+          </button>
+        </div>
+      )}
     </div>
   );
 }

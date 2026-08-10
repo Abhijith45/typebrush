@@ -2,11 +2,11 @@ export default function RestartButton({ onRestart }) {
   return (
     <button
       onClick={onRestart}
-      className="control-btn"
-      style={{ fontSize: "1rem", display: "inline-flex", gap: "0.5rem" }}
-      aria-label="Restart typing test"
+      className="control-btn primary"
+      style={{ fontSize: "0.95rem" }}
+      aria-label="Start another typing test"
     >
-      🔄 Try Again
+      New Test
     </button>
   );
 }
