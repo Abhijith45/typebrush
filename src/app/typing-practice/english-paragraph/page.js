@@ -1,5 +1,7 @@
 import Link from "next/link";
 
+import ParagraphPracticeContainer from "@/components/typing/ParagraphPracticeContainer";
+
 export const metadata = {
   title: "English Paragraph Typing Practice | Free Speed Practice",
   description: "Practice typing English paragraphs online. Select from easy, medium, and hard paragraphs to build confidence, rhythm, and accuracy.",
@@ -18,11 +20,8 @@ export default function EnglishParagraphPractice() {
         </p>
       </div>
 
-      <div className="placeholder-box">
-        <p className="placeholder-text">⌨️ English Paragraph Practice Interface</p>
-        <p style={{ fontSize: "0.95rem" }}>
-          The interactive paragraph selector and practice interface will be available here in V1.2.
-        </p>
+      <div>
+        <ParagraphPracticeContainer />
       </div>
 
       <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap", fontSize: "0.9rem" }}>

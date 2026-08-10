@@ -1,22 +1,21 @@
 "use client";
 
-import { useRef, useEffect } from "react";
+import { useEffect } from "react";
 
 export default function TypingInput({
   value,
   onChange,
   onKeyDown,
-  isFinished,
+  isDisabled,
   inputRef,
-  isFocused,
   onFocus,
   onBlur
 }) {
   useEffect(() => {
-    if (inputRef.current && !isFinished) {
+    if (inputRef.current && !isDisabled) {
       inputRef.current.focus();
     }
-  }, [isFinished, inputRef]);
+  }, [isDisabled, inputRef]);
 
   return (
     <textarea
@@ -27,7 +26,7 @@ export default function TypingInput({
       onFocus={onFocus}
       onBlur={onBlur}
       className="hidden-textarea"
-      disabled={isFinished}
+      disabled={isDisabled}
       autoComplete="off"
       autoCapitalize="off"
       autoCorrect="off"

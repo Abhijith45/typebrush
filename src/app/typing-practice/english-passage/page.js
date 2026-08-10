@@ -1,5 +1,7 @@
 import Link from "next/link";
 
+import PassagePracticeContainer from "@/components/typing/PassagePracticeContainer";
+
 export const metadata = {
   title: "English Passage Typing Practice | Long-form Practice online",
   description: "Improve your typing stamina with free English passage typing practice. Select from a variety of long essays and science passages.",
@@ -18,11 +20,8 @@ export default function EnglishPassagePractice() {
         </p>
       </div>
 
-      <div className="placeholder-box">
-        <p className="placeholder-text">⌨️ English Passage Practice Interface</p>
-        <p style={{ fontSize: "0.95rem" }}>
-          The interactive passage selector and practice interface will be available here in V1.2.
-        </p>
+      <div>
+        <PassagePracticeContainer />
       </div>
 
       <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap", fontSize: "0.9rem" }}>

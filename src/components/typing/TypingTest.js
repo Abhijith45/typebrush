@@ -10,18 +10,51 @@ import { calculateWpm } from "@/lib/typing/calculateWpm";
 import { calculateAccuracy } from "@/lib/typing/calculateAccuracy";
 import { getPassage, getCurrentTime } from "@/lib/typing/typingUtils";
 
-export default function TypingTest({ duration = 60, mode = "standard" }) {
-  const [passage, setPassage] = useState(() => getPassage(mode));
+export default function TypingTest({ duration = 60, mode = "standard", isPractice = false, customPassage = null }) {
+  const [passage, setPassage] = useState(() => customPassage || getPassage(mode));
   const [typedText, setTypedText] = useState("");
   const [testState, setTestState] = useState("IDLE"); // IDLE | RUNNING | COMPLETED
   const [secondsElapsed, setSecondsElapsed] = useState(0);
-  const [secondsRemaining, setSecondsRemaining] = useState(duration);
+  const [secondsRemaining, setSecondsRemaining] = useState(isPractice ? 0 : duration);
   const [mistakeCount, setMistakeCount] = useState(0);
   const [isFocused, setIsFocused] = useState(false);
 
   const timerRef = useRef(null);
   const startTimeRef = useRef(null);
   const inputRef = useRef(null);
+
+  // Initialize passage selection logic
+  const initializePassage = useCallback(() => {
+    if (!customPassage) {
+      const selected = getPassage(mode, passage.id);
+      setPassage(selected);
+    }
+  }, [mode, passage.id, customPassage]);
+
+  // Restart function
+  const restartTest = useCallback(() => {
+    setTypedText("");
+    setSecondsElapsed(0);
+    setSecondsRemaining(isPractice ? 0 : duration);
+    setMistakeCount(0);
+    setTestState("IDLE");
+    startTimeRef.current = null;
+    if (timerRef.current) {
+      clearInterval(timerRef.current);
+      timerRef.current = null;
+    }
+    initializePassage();
+  }, [duration, isPractice, initializePassage]);
+
+  // Sync custom passage prop if it updates
+  useEffect(() => {
+    if (customPassage) {
+      setTimeout(() => {
+        setPassage(customPassage);
+        restartTest();
+      }, 0);
+    }
+  }, [customPassage, restartTest]);
 
   // Re-sync duration prop when it changes statically
   useEffect(() => {
@@ -55,48 +88,34 @@ export default function TypingTest({ duration = 60, mode = "standard" }) {
     // Set up high precision interval using timestamp offsets
     timerRef.current = setInterval(() => {
       if (!startTimeRef.current) return;
-      const elapsed = Math.floor((getCurrentTime() - startTimeRef.current) / 1000);
+      const elapsed = Math.max(0, Math.floor((getCurrentTime() - startTimeRef.current) / 1000));
       setSecondsElapsed(elapsed);
       
-      const remaining = duration - elapsed;
-      if (remaining <= 0) {
-        setSecondsRemaining(0);
-        finishTest(elapsed);
+      if (isPractice) {
+        setSecondsRemaining(elapsed); // Count up for practice modes
       } else {
-        setSecondsRemaining(remaining);
+        const remaining = duration - elapsed;
+        if (remaining <= 0) {
+          setSecondsRemaining(0);
+          finishTest(elapsed);
+        } else {
+          setSecondsRemaining(remaining);
+        }
       }
     }, 200);
-  }, [duration, finishTest]);
 
-  const restartTest = () => {
-    setTypedText("");
-    setSecondsElapsed(0);
-    setSecondsRemaining(duration);
-    setMistakeCount(0);
-    setTestState("IDLE");
-    startTimeRef.current = null;
-    if (timerRef.current) {
-      clearInterval(timerRef.current);
-      timerRef.current = null;
-    }
-    
-    const nextPassage = getPassage(mode, passage.id);
-    setPassage(nextPassage);
-    
-    // Focus after layout updates
+    // Auto focus the input textarea immediately
     setTimeout(() => {
-      if (inputRef.current) inputRef.current.focus();
-    }, 0);
-  };
+      if (inputRef.current) {
+        inputRef.current.focus();
+        setIsFocused(true);
+      }
+    }, 10);
+  }, [duration, isPractice, finishTest]);
 
   const handleInputChange = (e) => {
-    if (testState === "COMPLETED") return;
+    if (testState !== "RUNNING") return;
     const value = e.target.value;
-
-    // Start timer on first keystroke
-    if (testState === "IDLE" && value.length > 0) {
-      startTest();
-    }
 
     if (value.length <= passage.text.length) {
       // Analyze new keystroke errors
@@ -121,16 +140,13 @@ export default function TypingTest({ duration = 60, mode = "standard" }) {
   };
 
   const handleKeyDown = (e) => {
+    if (testState !== "RUNNING") return;
     // Prevent default scroll behaviors inside typing area on Space key
-    if (e.key === " " && testState !== "COMPLETED") {
+    if (e.key === " ") {
       e.preventDefault();
       
       const nextVal = typedText + " ";
       if (nextVal.length <= passage.text.length) {
-        if (testState === "IDLE") {
-          startTest();
-        }
-        
         // Count space mistake if incorrect
         const lastIdx = nextVal.length - 1;
         const targetChar = passage.text[lastIdx];
@@ -150,7 +166,8 @@ export default function TypingTest({ duration = 60, mode = "standard" }) {
   };
 
   const handleWrapperClick = () => {
-    if (inputRef.current && testState !== "COMPLETED") {
+    // Only capture focus click when test is active
+    if (testState === "RUNNING" && inputRef.current) {
       inputRef.current.focus();
     }
   };
@@ -171,16 +188,18 @@ export default function TypingTest({ duration = 60, mode = "standard" }) {
     elapsedSeconds: secondsElapsed || 1
   });
 
-  const currentAccuracy = calculateAccuracy({
-    correctCharacters: correctCount,
-    totalTypedCharacters: typedText.length
-  });
+  const currentAccuracy = testState === "IDLE" 
+    ? null 
+    : calculateAccuracy({
+        correctCharacters: correctCount,
+        totalTypedCharacters: typedText.length
+      });
 
   if (testState === "COMPLETED") {
     return (
       <TypingResult
         wpm={currentWpm}
-        accuracy={currentAccuracy}
+        accuracy={currentAccuracy === null ? 100 : currentAccuracy}
         errors={mistakeCount}
         correctChars={correctCount}
         incorrectChars={incorrectCount}
@@ -193,19 +212,18 @@ export default function TypingTest({ duration = 60, mode = "standard" }) {
   return (
     <div className="typing-container" onClick={handleWrapperClick}>
       <TypingStats
-        wpm={currentWpm}
+        wpm={testState === "IDLE" ? 0 : currentWpm}
         accuracy={currentAccuracy}
         seconds={secondsRemaining}
       />
 
-      <div style={{ position: "relative", padding: "1.5rem", backgroundColor: "var(--sub-alt-color)", borderRadius: "var(--border-radius)", border: isFocused ? "1px solid var(--accent-color)" : "1px solid transparent", cursor: "text" }}>
+      <div style={{ position: "relative", padding: "1.5rem", backgroundColor: "var(--sub-alt-color)", borderRadius: "var(--border-radius)", border: isFocused ? "1px solid var(--accent-color)" : "1px solid transparent", cursor: testState === "RUNNING" ? "text" : "default" }}>
         <TypingInput
           value={typedText}
           onChange={handleInputChange}
           onKeyDown={handleKeyDown}
-          isFinished={testState === "COMPLETED"}
+          isDisabled={testState !== "RUNNING"}
           inputRef={inputRef}
-          isFocused={isFocused}
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
         />
@@ -213,28 +231,15 @@ export default function TypingTest({ duration = 60, mode = "standard" }) {
         <TypingPassage
           text={passage.text}
           typedText={typedText}
-          isFocused={isFocused}
+          isFocused={isFocused && testState === "RUNNING"}
         />
 
-        {!isFocused && (
-          <div
-            style={{
-              position: "absolute",
-              inset: 0,
-              backgroundColor: "rgba(0,0,0,0.35)",
-              backdropFilter: "blur(1px)",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              color: "var(--accent-color)",
-              fontWeight: "bold",
-              fontSize: "1.1rem",
-              pointerEvents: "none",
-              userSelect: "none",
-              borderRadius: "var(--border-radius)"
-            }}
-          >
-            🖱️ Click here to focus & start typing
+        {testState === "IDLE" && (
+          <div className="start-overlay">
+            <span className="start-overlay-title">Ready to test your skills?</span>
+            <button onClick={startTest} className="cta-button" style={{ padding: "0.6rem 1.75rem" }}>
+              {isPractice ? "Start Practice" : "Start Test"}
+            </button>
           </div>
         )}
       </div>
