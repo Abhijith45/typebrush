@@ -35,9 +35,9 @@ export default function Footer() {
         <div>
           <h4 style={{ color: "var(--main-color)", fontSize: "0.95rem", marginBottom: "0.75rem" }}>Company</h4>
           <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: "0.5rem", fontSize: "0.85rem" }}>
-            <li><span style={{ cursor: "not-allowed", opacity: 0.6 }}>About Us</span></li>
-            <li><span style={{ cursor: "not-allowed", opacity: 0.6 }}>Privacy Policy</span></li>
-            <li><span style={{ cursor: "not-allowed", opacity: 0.6 }}>Terms of Service</span></li>
+            <li><Link href="/about">About Us</Link></li>
+            <li><Link href="/privacy">Privacy Policy</Link></li>
+            <li><Link href="/terms">Terms of Service</Link></li>
           </ul>
         </div>
       </div>

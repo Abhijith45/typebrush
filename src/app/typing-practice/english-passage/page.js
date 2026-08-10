@@ -1,9 +1,10 @@
 import Link from "next/link";
-
 import PassagePracticeContainer from "@/components/typing/PassagePracticeContainer";
+import Breadcrumbs from "@/components/layout/Breadcrumbs";
+import Schema from "@/components/layout/Schema";
 
 export const metadata = {
-  title: "English Passage Typing Practice | Long-form Practice online",
+  title: "English Passage Typing Practice | Long-form Practice online | TypeBrush",
   description: "Improve your typing stamina with free English passage typing practice. Select from a variety of long essays and science passages.",
   alternates: {
     canonical: "https://typebrush.in/typing-practice/english-passage"
@@ -11,11 +12,44 @@ export const metadata = {
 };
 
 export default function EnglishPassagePractice() {
+  const breadcrumbItems = [
+    { label: "Typing Practice", url: "/typing-practice" },
+    { label: "Passage Practice" }
+  ];
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://typebrush.in"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Typing Practice",
+        "item": "https://typebrush.in/typing-practice"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Passage Practice",
+        "item": "https://typebrush.in/typing-practice/english-passage"
+      }
+    ]
+  };
+
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "2.5rem" }}>
+      <Schema data={breadcrumbSchema} />
+      <Breadcrumbs items={breadcrumbItems} />
+
       <div>
         <h1 style={{ fontSize: "2rem", marginBottom: "0.5rem" }}>English Passage Practice</h1>
-        <p style={{ color: "var(--text-color)", opacity: 0.8 }}>
+        <p style={{ color: "var(--text-color)", opacity: 0.8, lineHeight: "1.6rem" }}>
           Select a long-form cohesive passage template below to begin. Focus on keeping your shoulders relaxed, sitting upright, and moving your fingers smoothly.
         </p>
       </div>
@@ -24,7 +58,7 @@ export default function EnglishPassagePractice() {
         <PassagePracticeContainer />
       </div>
 
-      <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap", fontSize: "0.9rem" }}>
+      <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap", fontSize: "0.9rem", borderTop: "1px solid var(--sub-alt-color)", paddingTop: "1rem" }}>
         <span>Switch practice modes:</span>
         <Link href="/typing-practice/english-paragraph" style={{ color: "var(--accent-color)", textDecoration: "underline" }}>English Paragraph Practice</Link>
         <Link href="/typing-test/10-minute" style={{ color: "var(--accent-color)", textDecoration: "underline" }}>Take a 10-Minute Test</Link>

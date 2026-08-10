@@ -1,7 +1,9 @@
 import Link from "next/link";
+import Breadcrumbs from "@/components/layout/Breadcrumbs";
+import Schema from "@/components/layout/Schema";
 
 export const metadata = {
-  title: "Typing Practice | Free Exercises to Improve Typing WPM",
+  title: "Typing Practice | Free Exercises to Improve Typing WPM | TypeBrush",
   description: "Improve your typing with free typing practice. Exercises include paragraphs and passages categorized by easy, medium, and hard difficulties.",
   alternates: {
     canonical: "https://typebrush.in/typing-practice"
@@ -9,11 +11,35 @@ export const metadata = {
 };
 
 export default function TypingPracticeLanding() {
+  const breadcrumbItems = [{ label: "Typing Practice" }];
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://typebrush.in"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Typing Practice",
+        "item": "https://typebrush.in/typing-practice"
+      }
+    ]
+  };
+
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "2.5rem" }}>
+      <Schema data={breadcrumbSchema} />
+      <Breadcrumbs items={breadcrumbItems} />
+
       <div>
         <h1 style={{ fontSize: "2rem", marginBottom: "0.5rem" }}>Typing Practice Programs</h1>
-        <p style={{ color: "var(--text-color)", opacity: 0.8 }}>
+        <p style={{ color: "var(--text-color)", opacity: 0.8, lineHeight: "1.6rem" }}>
           Practice makes perfect. Unlike our timed typing speed tests, the practice section offers unlimited/untimed exercise formats designed to help you concentrate on posture, rhythm, and accuracy.
         </p>
       </div>
@@ -22,7 +48,7 @@ export default function TypingPracticeLanding() {
         <div className="card" style={{ display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
           <div>
             <h2 style={{ fontSize: "1.35rem", color: "var(--accent-color)", marginBottom: "0.5rem" }}>English Paragraph Practice</h2>
-            <p style={{ opacity: 0.7, fontSize: "0.95rem" }}>
+            <p style={{ opacity: 0.7, fontSize: "0.95rem", lineHeight: "1.5rem" }}>
               Focus on short to medium paragraphs categorized by Easy, Medium, and Hard difficulties. Great for quick daily routines.
             </p>
           </div>
@@ -34,7 +60,7 @@ export default function TypingPracticeLanding() {
         <div className="card" style={{ display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
           <div>
             <h2 style={{ fontSize: "1.35rem", color: "var(--accent-color)", marginBottom: "0.5rem" }}>English Passage Practice</h2>
-            <p style={{ opacity: 0.7, fontSize: "0.95rem" }}>
+            <p style={{ opacity: 0.7, fontSize: "0.95rem", lineHeight: "1.5rem" }}>
               Practice longer cohesive articles, historical excerpts, and stories. Designed to build endurance and continuous rhythm.
             </p>
           </div>

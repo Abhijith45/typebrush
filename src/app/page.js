@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Schema from "@/components/layout/Schema";
 
 export const metadata = {
   title: "Free Typing Tests & Practice Online | TypeBrush",
@@ -9,19 +10,73 @@ export const metadata = {
 };
 
 export default function Home() {
+  const websiteSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "TypeBrush",
+    "url": "https://typebrush.in",
+    "description": "Free browser-based typing test and practice platform to increase WPM and accuracy."
+  };
+
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is a good typing speed?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The average typing speed is about 40 WPM. Professional typists usually range between 65 to 80 WPM, while competitive typists exceed 100 WPM."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do I need to sign up to save my progress?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No! TypeBrush is designed to be fully functional without accounts. All calculations and logic run client-side in your browser."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How can I type faster?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Use all ten fingers on the keyboard and rest them on the home row (ASDF JKL;). Try to keep your eyes on the screen instead of looking down, and practice consistently for 10 minutes every day."
+        }
+      }
+    ]
+  };
+
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "4rem" }}>
+      <Schema data={websiteSchema} />
+      <Schema data={faqSchema} />
+
       {/* Hero Section */}
       <section style={{ textAlign: "center", maxWidth: "800px", margin: "2rem auto 0 auto", display: "flex", flexDirection: "column", alignItems: "center", gap: "1.25rem" }}>
         <h1 style={{ fontSize: "2.75rem", fontWeight: "800", letterSpacing: "-0.02em" }}>
           Free Typing Tests & Practice
         </h1>
         <p style={{ fontSize: "1.2rem", color: "var(--text-color)", opacity: 0.8, maxWidth: "600px" }}>
-          Improve your typing speed, accuracy, and confidence with free browser-based typing tests.
+          Improve your typing speed, accuracy, and confidence with free browser-based typing tests. Focus on rhythmic typing to build long-term muscle memory.
         </p>
-        <div style={{ marginTop: "1rem" }}>
+        <div style={{ marginTop: "1rem", display: "flex", gap: "1rem" }}>
           <Link href="/typing-test" className="cta-button" style={{ fontSize: "1.1rem", padding: "0.85rem 2rem" }}>
             Start Typing Test
+          </Link>
+          <Link
+            href="/typing-practice"
+            className="control-btn"
+            style={{
+              fontSize: "1.1rem",
+              padding: "0.85rem 2rem",
+              border: "1px solid var(--sub-color)",
+              textDecoration: "none"
+            }}
+          >
+            Practice Typing
           </Link>
         </div>
       </section>
@@ -77,28 +132,28 @@ export default function Home() {
       </section>
 
       {/* Practice Program Intro */}
-      <section style={{ display: "flex", flexDirection: "column", mdDirection: "row", gap: "2rem", borderTop: "1px solid var(--sub-alt-color)", paddingTop: "2.5rem" }}>
-        <div style={{ flex: 1 }}>
-          <h2>Keyboard Typing Practice</h2>
-          <p>
-            Struggling to build speed under a timer? Our dedicated Practice section offers untimed exercises. Work through paragraphs of varying difficulties or longer prose passages at your own pace to build consistent muscle memory.
-          </p>
-          <Link href="/typing-practice" className="cta-button" style={{ marginTop: "0.5rem" }}>
+      <section style={{ display: "flex", flexDirection: "column", gap: "1rem", borderTop: "1px solid var(--sub-alt-color)", paddingTop: "2.5rem" }}>
+        <h2>Keyboard Typing Practice</h2>
+        <p style={{ lineHeight: "1.6rem" }}>
+          Struggling to build speed under a timer? Our dedicated Practice section offers untimed exercises. Work through paragraphs of varying difficulties or longer prose passages at your own pace to build consistent muscle memory.
+        </p>
+        <div style={{ marginTop: "0.5rem" }}>
+          <Link href="/typing-practice" className="cta-button">
             Go to Practice Mode
           </Link>
         </div>
       </section>
 
       {/* How Typing Speed is Measured */}
-      <section className="card">
+      <section className="card" style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
         <h2>How Typing Speed Is Measured</h2>
-        <p>
+        <p style={{ lineHeight: "1.6rem" }}>
           Typing speed is calculated in Words Per Minute (WPM). A standard &ldquo;word&rdquo; is defined as 5 keystrokes (including spaces and punctuation).
         </p>
-        <p style={{ fontFamily: "var(--font-mono)", fontSize: "0.95rem", color: "var(--accent-color)", backgroundColor: "var(--bg-color)", padding: "1rem", borderRadius: "var(--border-radius)", margin: "1rem 0" }}>
+        <div style={{ fontFamily: "var(--font-mono)", fontSize: "0.95rem", color: "var(--accent-color)", backgroundColor: "var(--bg-color)", padding: "1rem", borderRadius: "var(--border-radius)", border: "1px solid var(--sub-alt-color)" }}>
           WPM = (Total Correct Characters / 5) / (Time Elapsed in Minutes)
-        </p>
-        <p>
+        </div>
+        <p style={{ lineHeight: "1.6rem" }}>
           Accuracy is the percentage of correct keystrokes out of the total inputs. Focus on accuracy first: speed will naturally follow once your fingers memorize key locations.
         </p>
       </section>
@@ -111,15 +166,15 @@ export default function Home() {
         <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
           <div>
             <h3 style={{ fontSize: "1.1rem", marginBottom: "0.25rem" }}>What is a good typing speed?</h3>
-            <p style={{ fontSize: "0.95rem", opacity: 0.75 }}>The average typing speed is about 40 WPM. Professional typists usually range between 65 to 80 WPM, while competitive typists exceed 100 WPM.</p>
+            <p style={{ fontSize: "0.95rem", opacity: 0.75, lineHeight: "1.5rem" }}>The average typing speed is about 40 WPM. Professional typists usually range between 65 to 80 WPM, while competitive typists exceed 100 WPM.</p>
           </div>
           <div>
             <h3 style={{ fontSize: "1.1rem", marginBottom: "0.25rem" }}>Do I need to sign up to save my progress?</h3>
-            <p style={{ fontSize: "0.95rem", opacity: 0.75 }}>No! TypeBrush is designed to be fully functional without accounts. In a future roadmap release, personal statistics will be stored locally in your browser&apos;s LocalStorage.</p>
+            <p style={{ fontSize: "0.95rem", opacity: 0.75, lineHeight: "1.5rem" }}>No! TypeBrush is designed to be fully functional without accounts. All calculations and logic run client-side in your browser.</p>
           </div>
           <div>
             <h3 style={{ fontSize: "1.1rem", marginBottom: "0.25rem" }}>How can I type faster?</h3>
-            <p style={{ fontSize: "0.95rem", opacity: 0.75 }}>Use all ten fingers on the keyboard and rest them on the home row (ASDF JKL;). Try to keep your eyes on the screen instead of looking down, and practice consistently for 10 minutes every day.</p>
+            <p style={{ fontSize: "0.95rem", opacity: 0.75, lineHeight: "1.5rem" }}>Use all ten fingers on the keyboard and rest them on the home row (ASDF JKL;). Try to keep your eyes on the screen instead of looking down, and practice consistently for 10 minutes every day.</p>
           </div>
         </div>
       </section>

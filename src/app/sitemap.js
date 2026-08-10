@@ -13,6 +13,9 @@ export default function sitemap() {
     "/typing-practice",
     "/typing-practice/english-paragraph",
     "/typing-practice/english-passage",
+    "/about",
+    "/privacy",
+    "/terms"
   ];
 
   return routes.map((route) => ({
