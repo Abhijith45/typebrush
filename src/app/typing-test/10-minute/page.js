@@ -1,5 +1,7 @@
 import Link from "next/link";
 
+import TypingTest from "@/components/typing/TypingTest";
+
 export const metadata = {
   title: "10-Minute Typing Test | Professional Typing Exam Prep",
   description: "Check your sustained WPM with our free 10-minute typing test. Ideal preparation for competitive exams and professional typing certifications.",
@@ -18,11 +20,8 @@ export default function TenMinuteTest() {
         </p>
       </div>
 
-      <div className="placeholder-box">
-        <p className="placeholder-text">⌨️ 10-Minute Typing Test Interface</p>
-        <p style={{ fontSize: "0.95rem" }}>
-          The typing test interface will be available here in V1.2.
-        </p>
+      <div>
+        <TypingTest duration={600} mode="standard" />
       </div>
 
       <section className="card">

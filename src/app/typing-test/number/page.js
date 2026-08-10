@@ -1,5 +1,7 @@
 import Link from "next/link";
 
+import TypingTest from "@/components/typing/TypingTest";
+
 export const metadata = {
   title: "Number Typing Test | Practice Numeric Keypad Typing",
   description: "Test and improve your numeric typing speed. Practice typing number sequences and decimals to check your numbers-only speed (KPM/WPM).",
@@ -18,11 +20,8 @@ export default function NumberTest() {
         </p>
       </div>
 
-      <div className="placeholder-box">
-        <p className="placeholder-text">⌨️ Number Typing Test Interface</p>
-        <p style={{ fontSize: "0.95rem" }}>
-          The typing test interface will be available here in V1.2.
-        </p>
+      <div>
+        <TypingTest duration={60} mode="number" />
       </div>
 
       <section className="card">

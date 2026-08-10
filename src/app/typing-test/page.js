@@ -1,5 +1,7 @@
 import Link from "next/link";
 
+import TypingTest from "@/components/typing/TypingTest";
+
 export const metadata = {
   title: "Typing Test | Check Your WPM Typing Speed",
   description: "Test your typing speed and accuracy with timed online tests. Select 1-minute, 2-minute, 5-minute, or 10-minute tests, or try our numbers test.",
@@ -18,11 +20,8 @@ export default function TypingTestLanding() {
         </p>
       </div>
 
-      <div className="placeholder-box">
-        <p className="placeholder-text">⌨️ Typing Test Engine Placeholder</p>
-        <p style={{ fontSize: "0.95rem" }}>
-          The interactive typing test interface will be available here in V1.2.
-        </p>
+      <div>
+        <TypingTest duration={60} mode="standard" />
       </div>
 
       <section>

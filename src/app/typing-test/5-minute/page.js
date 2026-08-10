@@ -1,5 +1,7 @@
 import Link from "next/link";
 
+import TypingTest from "@/components/typing/TypingTest";
+
 export const metadata = {
   title: "5-Minute Typing Test | Online Speed & Focus Test",
   description: "Improve your focus and muscle memory with our free 5-minute typing test. Detailed reports on WPM, accuracy, and keyboard weak spots.",
@@ -18,11 +20,8 @@ export default function FiveMinuteTest() {
         </p>
       </div>
 
-      <div className="placeholder-box">
-        <p className="placeholder-text">⌨️ 5-Minute Typing Test Interface</p>
-        <p style={{ fontSize: "0.95rem" }}>
-          The typing test interface will be available here in V1.2.
-        </p>
+      <div>
+        <TypingTest duration={300} mode="standard" />
       </div>
 
       <section className="card">

@@ -1,5 +1,7 @@
 import Link from "next/link";
 
+import TypingTest from "@/components/typing/TypingTest";
+
 export const metadata = {
   title: "2-Minute Typing Test | Improve Typing Stamina",
   description: "Take the 2-minute typing test to build stamina and spelling consistency. Free online typing test with real-time stats and accuracy reports.",
@@ -18,11 +20,8 @@ export default function TwoMinuteTest() {
         </p>
       </div>
 
-      <div className="placeholder-box">
-        <p className="placeholder-text">⌨️ 2-Minute Typing Test Interface</p>
-        <p style={{ fontSize: "0.95rem" }}>
-          The typing test interface will be available here in V1.2.
-        </p>
+      <div>
+        <TypingTest duration={120} mode="standard" />
       </div>
 
       <section className="card">
