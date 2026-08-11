@@ -2,7 +2,7 @@ import { KEY_FINGER_MAP } from "./gymData";
 
 /**
  * Deterministic analysis engine that evaluates typing history to construct
- * a personalized typing profile and ranked practice recommendations.
+ * a personalized typing profile, character-level error rates, and evidence-based recommendations.
  */
 export function analyzeTypingHistory(history) {
   if (!Array.isArray(history) || history.length === 0) {
@@ -18,8 +18,31 @@ export function analyzeTypingHistory(history) {
       accuracyTrend: 0,
       weakKeys: [],
       weakFingers: [],
-      recommendations: [],
-      speedAccuracyBalance: "no-data"
+      recommendations: [
+        {
+          type: "weak-keys",
+          title: "O, P & R Key Workout",
+          reason: "Complete a few typing tests to unlock personalized weak-key insights.",
+          config: { keys: ["O", "P", "R"] },
+          isFallback: true
+        },
+        {
+          type: "finger",
+          title: "Left Index Finger Drill",
+          reason: "Train precision across R, F, V, T, G, and B key transitions.",
+          config: { finger: "Left Index" },
+          isFallback: true
+        },
+        {
+          type: "speed",
+          title: "15-Second Speed Burst",
+          reason: "Build initial cadence and finger coordination.",
+          config: { id: "sb-15" },
+          isFallback: true
+        }
+      ],
+      speedAccuracyBalance: "no-data",
+      hasSufficientData: false
     };
   }
 
@@ -41,30 +64,42 @@ export function analyzeTypingHistory(history) {
   const wpmTrend = recentWpm - averageWpm;
   const accuracyTrend = Math.round((recentAccuracy - averageAccuracy) * 10) / 10;
 
-  // Aggregate key-level errors and attempts across history
-  const keyMap = {}; // key -> { attempts, errors }
+  // Aggregate character-level errors and attempts across history
+  const keyMap = {}; // key -> { attempts, errors, correct }
+  let totalTrackedAttempts = 0;
 
   history.forEach((record) => {
     if (record.keyStats && typeof record.keyStats === "object") {
       Object.entries(record.keyStats).forEach(([k, stats]) => {
+        if (!stats || typeof stats !== "object") return;
         const keyUpper = k.toUpperCase();
         if (!keyMap[keyUpper]) {
-          keyMap[keyUpper] = { attempts: 0, errors: 0 };
+          keyMap[keyUpper] = { attempts: 0, errors: 0, correct: 0 };
         }
-        keyMap[keyUpper].attempts += stats.attempts || 0;
-        keyMap[keyUpper].errors += stats.errors || 0;
+        const attempts = Math.max(0, Number(stats.attempts) || 0);
+        const errors = Math.max(0, Number(stats.errors) || 0);
+        const correct = Math.max(0, Number(stats.correct) || 0);
+
+        keyMap[keyUpper].attempts += attempts;
+        keyMap[keyUpper].errors += errors;
+        keyMap[keyUpper].correct += correct;
+        totalTrackedAttempts += attempts;
       });
     }
   });
 
-  // Calculate error rates for keys
+  // Sample Threshold: Require minimum 5 attempts for a key to qualify for weak-key ranking
+  const MIN_ATTEMPTS_THRESHOLD = 5;
   const weakKeys = [];
+
   Object.entries(keyMap).forEach(([key, stats]) => {
-    if (stats.attempts >= 5 && stats.errors > 0) {
+    if (stats.attempts >= MIN_ATTEMPTS_THRESHOLD && stats.errors > 0) {
       const errorRate = stats.errors / stats.attempts;
+      const accuracyPct = Math.round(((stats.attempts - stats.errors) / stats.attempts) * 100);
       weakKeys.push({
         key,
         errorRate: Math.round(errorRate * 100) / 100,
+        accuracyPct,
         errors: stats.errors,
         attempts: stats.attempts,
         priority: errorRate >= 0.15 ? "high" : errorRate >= 0.08 ? "medium" : "low"
@@ -72,22 +107,35 @@ export function analyzeTypingHistory(history) {
     }
   });
 
-  // Sort weak keys descending by error rate and errors
+  // Sort weak keys descending by error rate (primary) and error count (secondary)
   weakKeys.sort((a, b) => b.errorRate - a.errorRate || b.errors - a.errors);
 
-  // Map weak keys to finger weaknesses
-  const fingerErrors = {};
-  weakKeys.forEach((item) => {
-    const fingerInfo = KEY_FINGER_MAP[item.key];
-    if (fingerInfo) {
+  // Aggregate finger performance based on actual attempt & error totals for assigned keys
+  const fingerMap = {}; // finger -> { attempts, errors }
+  Object.entries(keyMap).forEach(([key, stats]) => {
+    const fingerInfo = KEY_FINGER_MAP[key];
+    if (fingerInfo && fingerInfo.finger) {
       const finger = fingerInfo.finger;
-      fingerErrors[finger] = (fingerErrors[finger] || 0) + item.errors;
+      if (!fingerMap[finger]) {
+        fingerMap[finger] = { attempts: 0, errors: 0 };
+      }
+      fingerMap[finger].attempts += stats.attempts;
+      fingerMap[finger].errors += stats.errors;
     }
   });
 
-  const weakFingers = Object.entries(fingerErrors)
-    .map(([finger, errorCount]) => ({ finger, errorCount }))
-    .sort((a, b) => b.errorCount - a.errorCount);
+  const weakFingers = Object.entries(fingerMap)
+    .filter(([_, stats]) => stats.attempts >= MIN_ATTEMPTS_THRESHOLD && stats.errors > 0)
+    .map(([finger, stats]) => ({
+      finger,
+      attempts: stats.attempts,
+      errors: stats.errors,
+      errorRate: Math.round((stats.errors / stats.attempts) * 100) / 100,
+      accuracyPct: Math.round(((stats.attempts - stats.errors) / stats.attempts) * 100)
+    }))
+    .sort((a, b) => b.errorRate - a.errorRate || b.errors - a.errors);
+
+  const hasSufficientData = totalTrackedAttempts >= 15 && (weakKeys.length > 0 || weakFingers.length > 0);
 
   // Speed vs Accuracy balance evaluation
   let speedAccuracyBalance = "balanced";
@@ -99,67 +147,74 @@ export function analyzeTypingHistory(history) {
     speedAccuracyBalance = "build-foundation";
   }
 
-  // Generate top 3 ranked recommendations
+  // Generate top 3 ranked recommendations based on evidence
   const recommendations = [];
 
-  // Recommendation 1: Weak Keys (if weak keys detected)
-  if (weakKeys.length > 0) {
+  // Recommendation 1: Weak Keys
+  if (hasSufficientData && weakKeys.length > 0) {
     const topKeys = weakKeys.slice(0, 3).map((k) => k.key);
+    const topKeyObj = weakKeys[0];
     recommendations.push({
       type: "weak-keys",
       title: `${topKeys.join(", ")} Key Training`,
-      reason: `These keys account for a significant portion of your recent typing mistakes.`,
-      config: { keys: topKeys }
+      reason: `Based on your recent typing: Key "${topKeyObj.key}" has an error rate of ${Math.round(topKeyObj.errorRate * 100)}% across ${topKeyObj.attempts} attempts.`,
+      config: { keys: topKeys },
+      isFallback: false
     });
   } else {
-    // Default fallback weak keys recommendation
     recommendations.push({
       type: "weak-keys",
       title: "O, P & R Key Workout",
-      reason: "Build accuracy on top-row corner keys commonly prone to hesitation.",
-      config: { keys: ["O", "P", "R"] }
+      reason: "Complete a few typing tests to unlock personalized weak-key insights.",
+      config: { keys: ["O", "P", "R"] },
+      isFallback: true
     });
   }
 
-  // Recommendation 2: Finger Training (if weak finger detected)
-  if (weakFingers.length > 0) {
-    const topFinger = weakFingers[0].finger;
+  // Recommendation 2: Finger Training
+  if (hasSufficientData && weakFingers.length > 0) {
+    const topFingerObj = weakFingers[0];
     recommendations.push({
       type: "finger",
-      title: `${topFinger} Conditioning`,
-      reason: `Keys controlled by your ${topFinger} show lower accuracy across tests.`,
-      config: { finger: topFinger }
+      title: `${topFingerObj.finger} Conditioning`,
+      reason: `Keys controlled by your ${topFingerObj.finger} show a ${Math.round(topFingerObj.errorRate * 100)}% error rate.`,
+      config: { finger: topFingerObj.finger },
+      isFallback: false
     });
   } else {
     recommendations.push({
       type: "finger",
       title: "Left Index Finger Drill",
       reason: "Train precision across R, F, V, T, G, and B key transitions.",
-      config: { finger: "Left Index" }
+      config: { finger: "Left Index" },
+      isFallback: true
     });
   }
 
-  // Recommendation 3: Speed or Accuracy specific recommendation
+  // Recommendation 3: Speed vs Accuracy
   if (speedAccuracyBalance === "accuracy-first") {
     recommendations.push({
       type: "pair",
       title: "Key Pair Fluency (TH & ER)",
       reason: "Your speed is strong, but focusing on smooth key transitions will boost accuracy.",
-      config: { pair: "th" }
+      config: { pair: "th" },
+      isFallback: false
     });
   } else if (speedAccuracyBalance === "speed-first") {
     recommendations.push({
       type: "speed",
       title: "15-Second Speed Burst",
       reason: "Your accuracy is excellent! Use short sprints to push your maximum WPM cadence.",
-      config: { id: "sb-15" }
+      config: { id: "sb-15" },
+      isFallback: false
     });
   } else {
     recommendations.push({
       type: "pair",
       title: "Key Pair Transition (ER)",
       reason: "Mastering common two-letter pairs builds natural typing momentum.",
-      config: { pair: "er" }
+      config: { pair: "er" },
+      isFallback: false
     });
   }
 
@@ -176,6 +231,7 @@ export function analyzeTypingHistory(history) {
     weakKeys: weakKeys.slice(0, 5),
     weakFingers: weakFingers.slice(0, 3),
     recommendations: recommendations.slice(0, 3),
-    speedAccuracyBalance
+    speedAccuracyBalance,
+    hasSufficientData
   };
 }

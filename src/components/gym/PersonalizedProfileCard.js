@@ -70,8 +70,8 @@ export default function PersonalizedProfileCard({ onStartRecommendedPractice }) 
     );
   }
 
-  // 2. Initial insights state (1-2 tests)
-  if (profile.testCount < 3) {
+  // 2. Initial insights state (1-2 tests or insufficient character data)
+  if (profile.testCount < 3 || !profile.hasSufficientData) {
     return (
       <div className="card" style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "1rem" }}>
@@ -82,7 +82,7 @@ export default function PersonalizedProfileCard({ onStartRecommendedPractice }) 
             <div>
               <h3 style={{ fontSize: "1.25rem", margin: 0 }}>Your Typing Profile</h3>
               <p style={{ fontSize: "0.85rem", color: "var(--sub-color)", margin: 0 }}>
-                {profile.testCount} {profile.testCount === 1 ? "test" : "tests"} completed (Early Insights)
+                {profile.testCount} {profile.testCount === 1 ? "test" : "tests"} completed (Building Character Intelligence)
               </p>
             </div>
           </div>
@@ -110,7 +110,8 @@ export default function PersonalizedProfileCard({ onStartRecommendedPractice }) 
         {profile.recommendations.length > 0 && (
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "1rem", backgroundColor: "var(--surface-color)", padding: "1rem", borderRadius: "12px", border: "1px solid var(--border-color)" }}>
             <div>
-              <h4 style={{ margin: 0, fontSize: "1rem", color: "var(--accent-color)" }}>Recommended Workout: {profile.recommendations[0].title}</h4>
+              <span style={{ fontSize: "0.75rem", textTransform: "uppercase", color: "var(--sub-color)", fontWeight: "600" }}>Starter Recommendation</span>
+              <h4 style={{ margin: "0.25rem 0 0 0", fontSize: "1rem", color: "var(--accent-color)" }}>{profile.recommendations[0].title}</h4>
               <p style={{ margin: 0, fontSize: "0.85rem", opacity: 0.8 }}>{profile.recommendations[0].reason}</p>
             </div>
             {onStartRecommendedPractice && (
@@ -147,7 +148,7 @@ export default function PersonalizedProfileCard({ onStartRecommendedPractice }) 
     );
   }
 
-  // 3. Full personalized profile & progress state (3+ tests)
+  // 3. Full evidence-based profile & progress state (3+ tests with sufficient character statistics)
   const topRec = profile.recommendations[0];
 
   return (
@@ -225,14 +226,16 @@ export default function PersonalizedProfileCard({ onStartRecommendedPractice }) 
       {/* Weakness Progress Tracker */}
       {profile.weakKeys.length > 0 && (
         <div style={{ display: "flex", flexDirection: "column", gap: "0.6rem", borderTop: "1px solid var(--border-color)", paddingTop: "1rem" }}>
-          <h4 style={{ fontSize: "0.95rem", color: "var(--main-color)", margin: 0 }}>Tracked Weak Key Progress</h4>
+          <h4 style={{ fontSize: "0.95rem", color: "var(--main-color)", margin: 0 }}>Verified Weak Key Precision</h4>
           <div style={{ display: "flex", flexWrap: "wrap", gap: "0.6rem" }}>
             {profile.weakKeys.map((item) => (
               <div
                 key={item.key}
-                style={{ display: "flex", alignItems: "center", gap: "0.4rem", padding: "0.3rem 0.75rem", borderRadius: "8px", backgroundColor: "var(--surface-color)", border: "1px solid var(--border-color)", fontSize: "0.85rem" }}
+                style={{ display: "flex", alignItems: "center", gap: "0.5rem", padding: "0.35rem 0.85rem", borderRadius: "8px", backgroundColor: "var(--surface-color)", border: "1px solid var(--border-color)", fontSize: "0.85rem" }}
               >
                 <strong style={{ color: "var(--accent-color)" }}>Key &quot;{item.key}&quot;</strong>
+                <span style={{ color: "var(--sub-color)" }}>•</span>
+                <span>{item.accuracyPct}% Acc ({item.attempts} attempts)</span>
                 <span style={{ color: "var(--sub-color)" }}>•</span>
                 <span style={{ color: item.errorRate <= 0.08 ? "var(--accent-color)" : "#ef4444", fontWeight: "600" }}>
                   {item.errorRate <= 0.08 ? "✓ Improving" : "Needs Practice"}
@@ -248,7 +251,7 @@ export default function PersonalizedProfileCard({ onStartRecommendedPractice }) 
         <div style={{ backgroundColor: "var(--surface-color)", border: "1px solid var(--border-color)", padding: "1.25rem", borderRadius: "12px", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "1rem" }}>
           <div style={{ maxWidth: "520px" }}>
             <span className="hero-pill" style={{ marginBottom: "0.4rem", padding: "0.2rem 0.6rem", fontSize: "0.75rem" }}>
-              Adaptive Recommendation
+              {topRec.isFallback ? "Starter Recommendation" : "Evidence-Based Recommendation"}
             </span>
             <h4 style={{ fontSize: "1.15rem", margin: "0.25rem 0", color: "var(--accent-color)" }}>{topRec.title}</h4>
             <p style={{ fontSize: "0.85rem", opacity: 0.8, margin: 0, lineHeight: "1.4rem" }}>{topRec.reason}</p>

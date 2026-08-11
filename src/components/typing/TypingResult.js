@@ -20,6 +20,8 @@ export default function TypingResult({
   duration = 0,
   testName = "Typing Test",
   canonicalPath = "/typing-test",
+  keyStats = {},
+  mistakePairs = {},
   onRestart
 }) {
   const [isScorecardOpen, setIsScorecardOpen] = useState(false);
@@ -33,9 +35,11 @@ export default function TypingResult({
       errors,
       correctChars,
       duration,
-      testName
+      testName,
+      keyStats,
+      mistakePairs
     });
-  }, [wpm, accuracy, errors, correctChars, duration, testName]);
+  }, [wpm, accuracy, errors, correctChars, duration, testName, keyStats, mistakePairs]);
 
   // Read history snapshot safely via useSyncExternalStore
   const historyJson = useSyncExternalStore(

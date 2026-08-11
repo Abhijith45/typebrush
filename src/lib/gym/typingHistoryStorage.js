@@ -15,14 +15,18 @@ export function getHistory() {
     const parsed = JSON.parse(raw);
     if (!Array.isArray(parsed)) return [];
 
-    // Filter valid records
+    // Filter valid records and sanitize keyStats
     return parsed.filter(
       (item) =>
         item &&
         typeof item === "object" &&
         typeof item.wpm === "number" &&
         typeof item.accuracy === "number"
-    );
+    ).map((item) => ({
+      ...item,
+      keyStats: item.keyStats && typeof item.keyStats === "object" ? item.keyStats : {},
+      mistakePairs: item.mistakePairs && typeof item.mistakePairs === "object" ? item.mistakePairs : {}
+    }));
   } catch (err) {
     console.warn("TypeBrush: Unable to read typing history from localStorage", err);
     return [];
@@ -35,18 +39,38 @@ export function saveResult(record) {
   try {
     const existing = getHistory();
 
+    const sanitizedKeyStats = {};
+    if (record.keyStats && typeof record.keyStats === "object") {
+      Object.entries(record.keyStats).forEach(([char, stats]) => {
+        if (stats && typeof stats === "object") {
+          sanitizedKeyStats[char] = {
+            attempts: Math.max(0, Number(stats.attempts) || 0),
+            errors: Math.max(0, Number(stats.errors) || 0),
+            correct: Math.max(0, Number(stats.correct) || 0)
+          };
+        }
+      });
+    }
+
+    const sanitizedMistakePairs = {};
+    if (record.mistakePairs && typeof record.mistakePairs === "object") {
+      Object.entries(record.mistakePairs).forEach(([pair, count]) => {
+        sanitizedMistakePairs[pair] = Math.max(0, Number(count) || 0);
+      });
+    }
+
     const newRecord = {
       id: record.id || `rec-${Date.now()}-${Math.random().toString(36).substring(2, 6)}`,
       timestamp: record.timestamp || Date.now(),
-      testType: record.testType || "standard",
+      testType: record.testName || record.testType || "standard",
       wpm: Math.round(record.wpm || 0),
       accuracy: Math.round((record.accuracy || 0) * 10) / 10,
       duration: record.duration || 60,
       errors: record.errors || 0,
       correctChars: record.correctChars || 0,
       totalChars: (record.correctChars || 0) + (record.errors || 0),
-      keyStats: record.keyStats || {},
-      mistakePairs: record.mistakePairs || {}
+      keyStats: sanitizedKeyStats,
+      mistakePairs: sanitizedMistakePairs
     };
 
     // FIFO rotation: keep last 50 items

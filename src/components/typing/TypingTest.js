@@ -9,7 +9,7 @@ import { calculateWpm } from "@/lib/typing/calculateWpm";
 import { calculateAccuracy } from "@/lib/typing/calculateAccuracy";
 import { getPassage, getCurrentTime } from "@/lib/typing/typingUtils";
 
-export default function TypingTest({ duration = 60, mode = "standard", isPractice = false, customPassage = null }) {
+export default function TypingTest({ duration = 60, mode = "standard", isPractice = false, customPassage = null, onTestComplete = null }) {
   const [passage, setPassage] = useState(() => customPassage || getPassage(mode, null, true));
   const [typedText, setTypedText] = useState("");
   const [testState, setTestState] = useState("IDLE"); // IDLE | RUNNING | COMPLETED
@@ -17,6 +17,11 @@ export default function TypingTest({ duration = 60, mode = "standard", isPractic
   const [secondsRemaining, setSecondsRemaining] = useState(isPractice ? 0 : duration);
   const [mistakeCount, setMistakeCount] = useState(0);
   const [isFocused, setIsFocused] = useState(false);
+  const [completedStats, setCompletedStats] = useState(null);
+
+  // Ref to track character-level attempts, errors, and correct counts during keystrokes
+  const keyStatsRef = useRef({});
+  const mistakePairsRef = useRef({});
 
   // Randomize passage on client mount after hydration
   useEffect(() => {
@@ -45,7 +50,10 @@ export default function TypingTest({ duration = 60, mode = "standard", isPractic
     setSecondsElapsed(0);
     setSecondsRemaining(isPractice ? 0 : duration);
     setMistakeCount(0);
+    setCompletedStats(null);
     setTestState("IDLE");
+    keyStatsRef.current = {};
+    mistakePairsRef.current = {};
     startTimeRef.current = null;
     if (timerRef.current) {
       clearInterval(timerRef.current);
@@ -87,10 +95,17 @@ export default function TypingTest({ duration = 60, mode = "standard", isPractic
     if (finalElapsed !== null) {
       setSecondsElapsed(finalElapsed);
     }
+    setCompletedStats({
+      keyStats: { ...keyStatsRef.current },
+      mistakePairs: { ...mistakePairsRef.current }
+    });
   }, []);
 
   const startTest = useCallback(() => {
     setTestState("RUNNING");
+    setCompletedStats(null);
+    keyStatsRef.current = {};
+    mistakePairsRef.current = {};
     startTimeRef.current = getCurrentTime();
     
     // Set up high precision interval using timestamp offsets
@@ -121,6 +136,31 @@ export default function TypingTest({ duration = 60, mode = "standard", isPractic
     }, 10);
   }, [duration, isPractice, finishTest]);
 
+  const recordKeystroke = (enteredChar, targetChar) => {
+    const normalizedTarget = targetChar.length === 1 && /[A-Za-z]/.test(targetChar)
+      ? targetChar.toLowerCase()
+      : targetChar;
+
+    if (!keyStatsRef.current[normalizedTarget]) {
+      keyStatsRef.current[normalizedTarget] = { attempts: 0, errors: 0, correct: 0 };
+    }
+
+    keyStatsRef.current[normalizedTarget].attempts += 1;
+
+    if (enteredChar === targetChar) {
+      keyStatsRef.current[normalizedTarget].correct += 1;
+    } else {
+      keyStatsRef.current[normalizedTarget].errors += 1;
+      setMistakeCount((prev) => prev + 1);
+
+      const normalizedEntered = enteredChar.length === 1 && /[A-Za-z]/.test(enteredChar)
+        ? enteredChar.toLowerCase()
+        : enteredChar;
+      const pairKey = `${normalizedTarget}->${normalizedEntered}`;
+      mistakePairsRef.current[pairKey] = (mistakePairsRef.current[pairKey] || 0) + 1;
+    }
+  };
+
   const handleInputChange = (e) => {
     if (testState !== "RUNNING") return;
     const value = e.target.value;
@@ -131,9 +171,7 @@ export default function TypingTest({ duration = 60, mode = "standard", isPractic
         const lastIdx = value.length - 1;
         const enteredChar = value[lastIdx];
         const targetChar = passage.text[lastIdx];
-        if (enteredChar !== targetChar) {
-          setMistakeCount((prev) => prev + 1);
-        }
+        recordKeystroke(enteredChar, targetChar);
       }
       setTypedText(value);
 
@@ -155,12 +193,9 @@ export default function TypingTest({ duration = 60, mode = "standard", isPractic
       
       const nextVal = typedText + " ";
       if (nextVal.length <= passage.text.length) {
-        // Count space mistake if incorrect
         const lastIdx = nextVal.length - 1;
         const targetChar = passage.text[lastIdx];
-        if (targetChar !== " ") {
-          setMistakeCount((prev) => prev + 1);
-        }
+        recordKeystroke(" ", targetChar);
         setTypedText(nextVal);
 
         if (nextVal.length === passage.text.length) {
@@ -174,7 +209,6 @@ export default function TypingTest({ duration = 60, mode = "standard", isPractic
   };
 
   const handleWrapperClick = () => {
-    // Only capture focus click when test is active
     if (testState === "RUNNING" && inputRef.current) {
       inputRef.current.focus();
     }
@@ -221,6 +255,23 @@ export default function TypingTest({ duration = 60, mode = "standard", isPractic
     derivedCanonicalPath = `/typing-test/${mins}-minute`;
   }
 
+  useEffect(() => {
+    if (testState === "COMPLETED" && onTestComplete && completedStats) {
+      onTestComplete({
+        wpm: currentWpm,
+        accuracy: currentAccuracy === null ? 100 : currentAccuracy,
+        errors: mistakeCount,
+        correctChars: correctCount,
+        incorrectChars: incorrectCount,
+        duration: secondsElapsed || 1,
+        testName: derivedTestName,
+        canonicalPath: derivedCanonicalPath,
+        keyStats: completedStats.keyStats,
+        mistakePairs: completedStats.mistakePairs
+      });
+    }
+  }, [testState, completedStats, onTestComplete, currentWpm, currentAccuracy, mistakeCount, correctCount, incorrectCount, secondsElapsed, derivedTestName, derivedCanonicalPath]);
+
   if (testState === "COMPLETED") {
     return (
       <TypingResult
@@ -232,6 +283,8 @@ export default function TypingTest({ duration = 60, mode = "standard", isPractic
         duration={secondsElapsed || 1}
         testName={derivedTestName}
         canonicalPath={derivedCanonicalPath}
+        keyStats={completedStats?.keyStats || {}}
+        mistakePairs={completedStats?.mistakePairs || {}}
         onRestart={restartTest}
       />
     );
