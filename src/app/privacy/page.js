@@ -1,5 +1,3 @@
-import Breadcrumbs from "@/components/layout/Breadcrumbs";
-
 export const metadata = {
   title: "Privacy Policy | TypeBrush",
   description: "Read the TypeBrush Privacy Policy. We do not track, collect, or store your typing logs or personal information. All tests run client-side.",
@@ -11,7 +9,6 @@ export const metadata = {
 export default function PrivacyPage() {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "2rem", maxWidth: "800px", margin: "0 auto" }}>
-      <Breadcrumbs items={[{ label: "Privacy Policy" }]} />
       <div>
         <h1 style={{ fontSize: "2rem", marginBottom: "0.5rem" }}>Privacy Policy</h1>
         <p style={{ color: "var(--text-color)", opacity: 0.85 }}>

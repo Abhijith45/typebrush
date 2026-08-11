@@ -1,7 +1,5 @@
 import Link from "next/link";
 import ParagraphPracticeContainer from "@/components/typing/ParagraphPracticeContainer";
-import Breadcrumbs from "@/components/layout/Breadcrumbs";
-import Schema from "@/components/layout/Schema";
 
 export const metadata = {
   title: "English Paragraph Typing Practice | Free Speed Practice | TypeBrush",
@@ -12,40 +10,8 @@ export const metadata = {
 };
 
 export default function EnglishParagraphPractice() {
-  const breadcrumbItems = [
-    { label: "Typing Practice", url: "/typing-practice" },
-    { label: "Paragraph Practice" }
-  ];
-
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "name": "Home",
-        "item": "https://typebrush.in"
-      },
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "name": "Typing Practice",
-        "item": "https://typebrush.in/typing-practice"
-      },
-      {
-        "@type": "ListItem",
-        "position": 3,
-        "name": "Paragraph Practice",
-        "item": "https://typebrush.in/typing-practice/english-paragraph"
-      }
-    ]
-  };
-
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "2.5rem" }}>
-      <Schema data={breadcrumbSchema} />
-      <Breadcrumbs items={breadcrumbItems} />
 
       <div>
         <h1 style={{ fontSize: "2rem", marginBottom: "0.5rem" }}>English Paragraph Practice</h1>

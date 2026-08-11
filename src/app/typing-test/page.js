@@ -1,6 +1,5 @@
 import Link from "next/link";
 import TypingTest from "@/components/typing/TypingTest";
-import Breadcrumbs from "@/components/layout/Breadcrumbs";
 import Schema from "@/components/layout/Schema";
 
 export const metadata = {
@@ -12,27 +11,6 @@ export const metadata = {
 };
 
 export default function TypingTestLanding() {
-  const breadcrumbItems = [{ label: "Typing Test" }];
-
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "name": "Home",
-        "item": "https://typebrush.in"
-      },
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "name": "Typing Test",
-        "item": "https://typebrush.in/typing-test"
-      }
-    ]
-  };
-
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -58,9 +36,7 @@ export default function TypingTestLanding() {
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "2.5rem" }}>
-      <Schema data={breadcrumbSchema} />
       <Schema data={faqSchema} />
-      <Breadcrumbs items={breadcrumbItems} />
 
       <div>
         <h1 style={{ fontSize: "2.25rem", marginBottom: "0.5rem" }}>Online Typing Test</h1>

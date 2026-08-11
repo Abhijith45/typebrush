@@ -53,15 +53,15 @@ export default function TypingResult({
   };
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "2rem", width: "100%", maxWidth: "600px", margin: "0 auto" }}>
+    <div style={{ display: "flex", flexDirection: "column", gap: "1rem", width: "100%", maxWidth: "1200px", margin: "0 auto", }}>
       <div style={{ textAlign: "center" }}>
-        <h2 style={{ fontSize: "2rem", color: "var(--accent-color)", marginBottom: "0.25rem" }}>
+        <h2 style={{ fontSize: "2rem", color: "var(--accent-color)", marginBottom: "0.15rem", textAlign: "center" }}>
           Test Complete
         </h2>
-        <p style={{ color: "var(--sub-color)" }}>Here is your performance summary</p>
+        <p style={{ color: "var(--sub-color)", textAlign: "center" }}>Here is your performance summary</p>
       </div>
 
-      <div className="results-container">
+      <div className="results-container" style={{maxWidth: "600px",width: "100%",margin: "0 auto"}}>
         <div className="result-card" style={{ textAlign: "center", alignItems: "center" }}>
           <span className="material-icons-outlined" style={{ fontSize: "2rem", color: "var(--accent-color)", marginBottom: "0.25rem" }}>speed</span>
           <span style={{ fontSize: "0.85rem", textTransform: "uppercase", color: "var(--sub-color)", fontWeight: "600" }}>Speed</span>
@@ -77,31 +77,31 @@ export default function TypingResult({
         </div>
       </div>
 
-      <div className="result-card" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1.5rem" }}>
+      <div className="result-card" style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr", gap: "1.5rem", marginTop:'1rem' }}>
         <div>
-          <p style={{ color: "var(--sub-color)", fontSize: "0.85rem", marginBottom: "0.25rem", display: "flex", alignItems: "center", gap: "0.3rem" }}>
-            <span className="material-icons-outlined" style={{ fontSize: "1.1rem", color: "#ef4444" }}>error_outline</span>
+          <p style={{ color: "var(--sub-color)", fontSize: "1.05rem", marginBottom: "0.25rem", display: "flex", alignItems: "center", gap: "0.3rem" }}>
+            <span className="material-icons-outlined" style={{ fontSize: "1.35rem", color: "#ef4444" }}>error_outline</span>
             Errors
           </p>
           <p style={{ fontSize: "1.25rem", fontWeight: "bold", color: "#ef4444" }}>{errors}</p>
         </div>
         <div>
-          <p style={{ color: "var(--sub-color)", fontSize: "0.85rem", marginBottom: "0.25rem", display: "flex", alignItems: "center", gap: "0.3rem" }}>
-            <span className="material-icons-outlined" style={{ fontSize: "1.1rem", color: "var(--accent-color)" }}>keyboard</span>
+          <p style={{ color: "var(--sub-color)", fontSize: "1.05rem", marginBottom: "0.25rem", display: "flex", alignItems: "center", gap: "0.3rem" }}>
+            <span className="material-icons-outlined" style={{ fontSize: "1.35rem", color: "var(--accent-color)" }}>keyboard</span>
             Characters Typed
           </p>
           <p style={{ fontSize: "1.25rem", fontWeight: "bold", color: "var(--main-color)" }}>{correctChars + incorrectChars}</p>
         </div>
         <div>
-          <p style={{ color: "var(--sub-color)", fontSize: "0.85rem", marginBottom: "0.25rem", display: "flex", alignItems: "center", gap: "0.3rem" }}>
-            <span className="material-icons-outlined" style={{ fontSize: "1.1rem", color: "var(--accent-color)" }}>timer</span>
+          <p style={{ color: "var(--sub-color)", fontSize: "1.05rem", marginBottom: "0.25rem", display: "flex", alignItems: "center", gap: "0.3rem" }}>
+            <span className="material-icons-outlined" style={{ fontSize: "1.35rem", color: "var(--accent-color)" }}>timer</span>
             Time Elapsed
           </p>
           <p style={{ fontSize: "1.25rem", fontWeight: "bold", color: "var(--main-color)" }}>{duration}s</p>
         </div>
         <div>
-          <p style={{ color: "var(--sub-color)", fontSize: "0.85rem", marginBottom: "0.25rem", display: "flex", alignItems: "center", gap: "0.3rem" }}>
-            <span className="material-icons-outlined" style={{ fontSize: "1.1rem", color: "var(--accent-color)" }}>check_circle_outline</span>
+          <p style={{ color: "var(--sub-color)", fontSize: "1.05rem", marginBottom: "0.25rem", display: "flex", alignItems: "center", gap: "0.3rem" }}>
+            <span className="material-icons-outlined" style={{ fontSize: "1.35rem", color: "var(--accent-color)" }}>check_circle_outline</span>
             Correct Characters
           </p>
           <p style={{ fontSize: "1.25rem", fontWeight: "bold", color: "var(--main-color)" }}>{correctChars}</p>

@@ -1,7 +1,5 @@
 import Link from "next/link";
 import TypingTest from "@/components/typing/TypingTest";
-import Breadcrumbs from "@/components/layout/Breadcrumbs";
-import Schema from "@/components/layout/Schema";
 
 export const metadata = {
   title: "10-Minute Typing Test | Professional Typing Exam Prep | TypeBrush",
@@ -12,40 +10,8 @@ export const metadata = {
 };
 
 export default function TenMinuteTest() {
-  const breadcrumbItems = [
-    { label: "Typing Test", url: "/typing-test" },
-    { label: "10 Minute Test" }
-  ];
-
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "name": "Home",
-        "item": "https://typebrush.in"
-      },
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "name": "Typing Test",
-        "item": "https://typebrush.in/typing-test"
-      },
-      {
-        "@type": "ListItem",
-        "position": 3,
-        "name": "10-Minute Typing Test",
-        "item": "https://typebrush.in/typing-test/10-minute"
-      }
-    ]
-  };
-
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "2.5rem" }}>
-      <Schema data={breadcrumbSchema} />
-      <Breadcrumbs items={breadcrumbItems} />
 
       <div>
         <h1 style={{ fontSize: "2rem", marginBottom: "0.5rem" }}>10-Minute Typing Test</h1>

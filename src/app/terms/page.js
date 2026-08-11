@@ -1,5 +1,3 @@
-import Breadcrumbs from "@/components/layout/Breadcrumbs";
-
 export const metadata = {
   title: "Terms of Service | TypeBrush",
   description: "Review the Terms of Service for TypeBrush. Clean, free, browser-based typing tests and practice under simple user terms.",
@@ -11,7 +9,6 @@ export const metadata = {
 export default function TermsPage() {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "2rem", maxWidth: "800px", margin: "0 auto" }}>
-      <Breadcrumbs items={[{ label: "Terms of Service" }]} />
       <div>
         <h1 style={{ fontSize: "2rem", marginBottom: "0.5rem" }}>Terms of Service</h1>
         <p style={{ color: "var(--text-color)", opacity: 0.85 }}>

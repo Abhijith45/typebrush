@@ -263,7 +263,7 @@ h3 {
 
 p {
   color: var(--text-color);
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 /* Pill Badges */
@@ -555,7 +555,7 @@ p {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 2rem;
-  margin-top: 2rem;
+  margin-top: 1.25rem;
 }
 
 @media (max-width: 768px) {
@@ -566,7 +566,7 @@ p {
 
 .result-card {
   background-color: var(--surface-color);
-  padding: 2.25rem;
+  padding: 1.45rem;
   border-radius: var(--border-radius);
   border: 1px solid var(--border-color);
   display: flex;
