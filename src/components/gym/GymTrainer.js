@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from "react";
 import TypingTest from "@/components/typing/TypingTest";
+import { savePracticeSession } from "@/lib/gym/practiceHistoryStorage";
 import {
   WEAK_KEYS_WORDS,
   FINGER_DRILLS,
@@ -14,6 +15,7 @@ import {
 
 export default function GymTrainer({ initialKeyToPractice = null }) {
   const [activeMode, setActiveMode] = useState("weak-keys");
+  const [difficulty, setDifficulty] = useState("medium");
   
   // Weak keys state
   const [selectedWeakKeys, setSelectedWeakKeys] = useState(() => 
@@ -38,7 +40,7 @@ export default function GymTrainer({ initialKeyToPractice = null }) {
   // State to track if currently in active practice session
   const [isPracticing, setIsPracticing] = useState(() => !!initialKeyToPractice);
 
-  // Construct active passage text and title based on mode configuration
+  // Construct active passage text and title based on mode configuration and difficulty
   const activeExercise = useMemo(() => {
     switch (activeMode) {
       case "weak-keys": {
@@ -48,7 +50,13 @@ export default function GymTrainer({ initialKeyToPractice = null }) {
           const dict = WEAK_KEYS_WORDS[key.toUpperCase()] || WEAK_KEYS_WORDS["R"];
           words.push(...dict);
         });
-        const passageText = words.slice(0, 18).join(" ");
+        
+        // Filter word length based on difficulty
+        let wordCount = 18;
+        if (difficulty === "easy") wordCount = 10;
+        if (difficulty === "hard") wordCount = 28;
+
+        const passageText = words.slice(0, wordCount).join(" ");
         return {
           title: `Weak Keys Practice (${keys.join(", ")})`,
           text: passageText,
@@ -107,6 +115,7 @@ export default function GymTrainer({ initialKeyToPractice = null }) {
     }
   }, [
     activeMode,
+    difficulty,
     selectedWeakKeys,
     selectedFinger,
     selectedPairKey,
@@ -118,11 +127,25 @@ export default function GymTrainer({ initialKeyToPractice = null }) {
   const toggleWeakKey = (key) => {
     setSelectedWeakKeys((prev) => {
       if (prev.includes(key)) {
-        if (prev.length === 1) return prev; // Keep at least 1 key
+        if (prev.length === 1) return prev;
         return prev.filter((k) => k !== key);
       }
       return [...prev, key];
     });
+  };
+
+  const handleTestComplete = (results) => {
+    if (results) {
+      savePracticeSession({
+        trainingType: activeMode,
+        target: selectedWeakKeys.join(", "),
+        difficulty,
+        duration: results.duration || 60,
+        wpm: results.wpm || 0,
+        accuracy: results.accuracy || 0,
+        errors: results.errors || 0
+      });
+    }
   };
 
   const categories = [
@@ -143,7 +166,7 @@ export default function GymTrainer({ initialKeyToPractice = null }) {
           <div>
             <span className="hero-pill" style={{ marginBottom: "0.5rem" }}>
               <span className="material-icons-outlined" style={{ fontSize: "1rem" }}>fitness_center</span>
-              Typing Gym Training Session
+              Typing Gym Session ({difficulty.toUpperCase()})
             </span>
             <h2 style={{ fontSize: "1.75rem", margin: 0 }}>{activeExercise.title}</h2>
           </div>
@@ -168,6 +191,7 @@ export default function GymTrainer({ initialKeyToPractice = null }) {
           }}
           isPractice={activeMode !== "speed"}
           duration={activeExercise.duration}
+          onTestComplete={handleTestComplete}
         />
       </div>
     );
@@ -213,9 +237,33 @@ export default function GymTrainer({ initialKeyToPractice = null }) {
 
       {/* Mode Configuration Card */}
       <div className="card" style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
-        <h3 style={{ fontSize: "1.25rem", color: "var(--accent-color)" }}>
-          Configuration: {categories.find((c) => c.id === activeMode)?.label}
-        </h3>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "1rem" }}>
+          <h3 style={{ fontSize: "1.25rem", color: "var(--accent-color)", margin: 0 }}>
+            Configuration: {categories.find((c) => c.id === activeMode)?.label}
+          </h3>
+
+          {/* Adaptive Difficulty Level Selector */}
+          <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+            <span style={{ fontSize: "0.8rem", color: "var(--sub-color)", fontWeight: "600" }}>Difficulty:</span>
+            {["easy", "medium", "hard"].map((level) => (
+              <button
+                key={level}
+                type="button"
+                onClick={() => setDifficulty(level)}
+                className={`cta-button ${difficulty === level ? "primary" : ""}`}
+                style={{
+                  padding: "0.3rem 0.75rem",
+                  fontSize: "0.75rem",
+                  textTransform: "capitalize",
+                  backgroundColor: difficulty === level ? "var(--accent-color)" : "var(--sub-alt-color)",
+                  color: difficulty === level ? "#ffffff" : "var(--text-color)"
+                }}
+              >
+                {level}
+              </button>
+            ))}
+          </div>
+        </div>
 
         {/* 1. Weak Keys Configuration */}
         {activeMode === "weak-keys" && (
