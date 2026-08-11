@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
 :root {
   /* Premium Emerald Light theme (Default) */
   --bg-color: #f8fafc;
@@ -19,7 +21,21 @@
   --shadow-hover: 0 20px 30px -10px rgba(5, 150, 105, 0.12), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
   
   --font-sans: var(--font-geist-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --font-mono: 'JetBrains Mono', var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+/* Hidden Textarea Utility */
+.hidden-textarea {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  pointer-events: none;
+  z-index: -1;
+  overflow: hidden;
 }
 
 [data-theme="dark"] {
@@ -467,23 +483,22 @@ p {
 .word-wrapper {
   position: relative;
   font-family: var(--font-mono);
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   line-height: 2.2rem;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.02em;
   color: var(--text-color);
   user-select: none;
   text-align: left;
   min-height: 120px;
   height: auto;
-  display: flex;
-  flex-wrap: wrap;
-  align-content: flex-start;
-  gap: 0.5rem;
+  white-space: pre-wrap;
+  word-break: break-word;
   cursor: text;
 }
 
 .char {
   position: relative;
+  display: inline;
   color: var(--text-color);
   opacity: 0.55;
   transition: color 0.1s ease, opacity 0.1s ease;
@@ -509,10 +524,10 @@ p {
 .caret {
   position: absolute;
   width: 2px;
-  height: 1.35em;
+  height: 1.25em;
   background-color: var(--accent-color);
   left: 0;
-  top: 10%;
+  top: 15%;
   animation: blink 1s infinite;
 }
 

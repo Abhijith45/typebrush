@@ -26,6 +26,18 @@ export default function TypingInput({
       onFocus={onFocus}
       onBlur={onBlur}
       className="hidden-textarea"
+      style={{
+        position: "absolute",
+        opacity: 0,
+        width: 0,
+        height: 0,
+        padding: 0,
+        margin: 0,
+        border: 0,
+        pointerEvents: "none",
+        zIndex: -1,
+        overflow: "hidden"
+      }}
       disabled={isDisabled}
       autoComplete="off"
       autoCapitalize="off"
