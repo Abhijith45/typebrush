@@ -77,7 +77,7 @@ export default function TypingResult({
         </div>
       </div>
 
-      <div className="result-card" style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr", gap: "1.5rem", marginTop:'1rem' }}>
+      <div className="result-card result-breakdown-grid" style={{ marginTop: '1rem' }}>
         <div>
           <p style={{ color: "var(--sub-color)", fontSize: "1.05rem", marginBottom: "0.25rem", display: "flex", alignItems: "center", gap: "0.3rem" }}>
             <span className="material-icons-outlined" style={{ fontSize: "1.35rem", color: "#ef4444" }}>error_outline</span>

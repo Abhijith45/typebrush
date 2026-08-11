@@ -14,7 +14,7 @@ export default function Header() {
           </Link>
         </div>
 
-        <nav style={{ display: "flex", gap: "2rem", alignItems: "center" }}>
+        <nav className="desktop-nav" style={{ display: "flex", gap: "2rem", alignItems: "center" }}>
           <Link href="/" style={{ fontWeight: "600", fontSize: "0.95rem" }}>
             Home
           </Link>
