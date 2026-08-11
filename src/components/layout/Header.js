@@ -6,21 +6,29 @@ export default function Header() {
     <header>
       <div className="header-inner">
         <div style={{ display: "flex", alignItems: "center" }}>
-          <Link href="/" style={{ fontSize: "1.4rem", fontWeight: "800", color: "var(--accent-color)", letterSpacing: "0.03em", display: "flex", alignItems: "center", gap: "0.4rem" }}>
-            <span className="material-icons-outlined" style={{ fontSize: "1.75rem" }}>keyboard</span>
-            TypeBrush
+          <Link href="/" style={{ fontSize: "1.35rem", fontWeight: "800", color: "var(--main-color)", letterSpacing: "-0.02em", display: "flex", alignItems: "center", gap: "0.5rem" }}>
+            <span className="icon-badge icon-badge-emerald" style={{ width: "36px", height: "36px", fontSize: "1.2rem", margin: 0 }}>
+              <span className="material-icons-outlined">keyboard</span>
+            </span>
+            <span>Type<span className="highlight-emerald">Brush</span></span>
           </Link>
         </div>
 
-        <nav style={{ display: "flex", gap: "1.5rem", alignItems: "center" }}>
-          <Link href="/typing-test" style={{ fontWeight: "500" }}>
+        <nav style={{ display: "flex", gap: "2rem", alignItems: "center" }}>
+          <Link href="/" style={{ fontWeight: "600", fontSize: "0.95rem" }}>
+            Home
+          </Link>
+          <Link href="/typing-test" style={{ fontWeight: "600", fontSize: "0.95rem" }}>
             Typing Test
           </Link>
-          <Link href="/typing-practice" style={{ fontWeight: "500" }}>
+          <Link href="/typing-practice" style={{ fontWeight: "600", fontSize: "0.95rem" }}>
             Practice
           </Link>
-          <ThemeToggle />
         </nav>
+
+        <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+          <ThemeToggle />
+        </div>
       </div>
     </header>
   );
