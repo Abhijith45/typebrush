@@ -235,8 +235,10 @@ export default function TypingTest({ duration = 60, mode = "standard", isPractic
 
         {testState === "IDLE" && (
           <div className="start-overlay">
+            <span className="material-icons-outlined" style={{ fontSize: "2.5rem", color: "var(--accent-color)" }}>play_circle_outline</span>
             <span className="start-overlay-title">Ready to test your skills?</span>
             <button onClick={startTest} className="cta-button" style={{ padding: "0.6rem 1.75rem" }}>
+              <span className="material-icons-outlined">play_arrow</span>
               {isPractice ? "Start Practice" : "Start Test"}
             </button>
           </div>
@@ -246,9 +248,11 @@ export default function TypingTest({ duration = 60, mode = "standard", isPractic
       {testState === "RUNNING" && (
         <div style={{ display: "flex", justifyContent: "center", gap: "1rem", marginTop: "1rem" }}>
           <button onClick={restartTest} className="control-btn" aria-label="Reset typing test">
+            <span className="material-icons-outlined">restart_alt</span>
             Reset
           </button>
           <button onClick={() => finishTest(secondsElapsed)} className="control-btn primary" aria-label="Finish typing test">
+            <span className="material-icons-outlined">done</span>
             Finish
           </button>
         </div>

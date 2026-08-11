@@ -39,7 +39,11 @@ export default function ThemeToggle() {
       }}
       className="theme-toggle-btn"
     >
-      {theme === "light" ? "☾" : "☀"}
+      {theme === "light" ? (
+        <span className="material-icons-outlined">dark_mode</span>
+      ) : (
+        <span className="material-icons-outlined">light_mode</span>
+      )}
     </button>
   );
 }
