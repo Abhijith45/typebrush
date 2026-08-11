@@ -1,4 +1,8 @@
+"use client";
+
+import { useState } from "react";
 import RestartButton from "./RestartButton";
+import ScorecardDialog from "@/components/scorecard/ScorecardDialog";
 
 export default function TypingResult({
   wpm = 0,
@@ -7,8 +11,11 @@ export default function TypingResult({
   correctChars = 0,
   incorrectChars = 0,
   duration = 0,
+  testName = "Typing Test",
   onRestart
 }) {
+  const [isScorecardOpen, setIsScorecardOpen] = useState(false);
+
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "2rem", width: "100%", maxWidth: "600px", margin: "0 auto" }}>
       <div style={{ textAlign: "center" }}>
@@ -65,9 +72,32 @@ export default function TypingResult({
         </div>
       </div>
 
-      <div style={{ display: "flex", justifyContent: "center", marginTop: "1rem" }}>
+      <div style={{ display: "flex", justifyContent: "center", gap: "1rem", marginTop: "1rem", flexWrap: "wrap" }}>
+        <button
+          onClick={() => setIsScorecardOpen(true)}
+          className="control-btn"
+          style={{ fontSize: "0.95rem", display: "inline-flex", alignItems: "center", gap: "0.4rem" }}
+          aria-label="Download typing test scorecard"
+        >
+          <span className="material-icons-outlined">file_download</span>
+          Download Scorecard
+        </button>
         <RestartButton onRestart={onRestart} />
       </div>
+
+      <ScorecardDialog
+        isOpen={isScorecardOpen}
+        onClose={() => setIsScorecardOpen(false)}
+        resultData={{
+          wpm,
+          accuracy,
+          errors,
+          correctChars,
+          incorrectChars,
+          duration,
+          testName
+        }}
+      />
     </div>
   );
 }

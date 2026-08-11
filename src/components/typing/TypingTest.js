@@ -194,6 +194,17 @@ export default function TypingTest({ duration = 60, mode = "standard", isPractic
         totalTypedCharacters: typedText.length
       });
 
+  // Derive descriptive test name for scorecard generator
+  let derivedTestName = "Typing Test";
+  if (mode === "number") {
+    derivedTestName = "Number Typing Test";
+  } else if (isPractice) {
+    derivedTestName = customPassage?.title ? `${customPassage.title} Practice` : "English Typing Practice";
+  } else if (duration > 0) {
+    const mins = Math.round(duration / 60);
+    derivedTestName = `${mins} Minute Typing Test`;
+  }
+
   if (testState === "COMPLETED") {
     return (
       <TypingResult
@@ -203,6 +214,7 @@ export default function TypingTest({ duration = 60, mode = "standard", isPractic
         correctChars={correctCount}
         incorrectChars={incorrectCount}
         duration={secondsElapsed || 1}
+        testName={derivedTestName}
         onRestart={restartTest}
       />
     );
