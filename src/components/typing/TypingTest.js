@@ -194,15 +194,22 @@ export default function TypingTest({ duration = 60, mode = "standard", isPractic
         totalTypedCharacters: typedText.length
       });
 
-  // Derive descriptive test name for scorecard generator
+  // Derive descriptive test name and canonical path for sharing/scorecard
   let derivedTestName = "Typing Test";
+  let derivedCanonicalPath = "/typing-test";
+
   if (mode === "number") {
     derivedTestName = "Number Typing Test";
+    derivedCanonicalPath = "/typing-test/number";
   } else if (isPractice) {
     derivedTestName = customPassage?.title ? `${customPassage.title} Practice` : "English Typing Practice";
+    derivedCanonicalPath = customPassage?.type === "passage"
+      ? "/typing-practice/english-passage"
+      : "/typing-practice/english-paragraph";
   } else if (duration > 0) {
     const mins = Math.round(duration / 60);
     derivedTestName = `${mins} Minute Typing Test`;
+    derivedCanonicalPath = `/typing-test/${mins}-minute`;
   }
 
   if (testState === "COMPLETED") {
@@ -215,6 +222,7 @@ export default function TypingTest({ duration = 60, mode = "standard", isPractic
         incorrectChars={incorrectCount}
         duration={secondsElapsed || 1}
         testName={derivedTestName}
+        canonicalPath={derivedCanonicalPath}
         onRestart={restartTest}
       />
     );

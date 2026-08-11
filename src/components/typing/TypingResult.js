@@ -3,6 +3,8 @@
 import { useState } from "react";
 import RestartButton from "./RestartButton";
 import ScorecardDialog from "@/components/scorecard/ScorecardDialog";
+import ShareDialog from "@/components/sharing/ShareDialog";
+import { buildShareContent } from "@/lib/sharing/buildShareContent";
 
 export default function TypingResult({
   wpm = 0,
@@ -12,9 +14,43 @@ export default function TypingResult({
   incorrectChars = 0,
   duration = 0,
   testName = "Typing Test",
+  canonicalPath = "/typing-test",
   onRestart
 }) {
   const [isScorecardOpen, setIsScorecardOpen] = useState(false);
+  const [isShareOpen, setIsShareOpen] = useState(false);
+
+  const shareContent = buildShareContent({
+    wpm,
+    accuracy,
+    errors,
+    testName,
+    canonicalPath
+  });
+
+  const handleShareClick = async () => {
+    // Attempt native Web Share API first
+    if (typeof navigator !== "undefined" && navigator.share) {
+      try {
+        await navigator.share({
+          title: shareContent.title,
+          text: shareContent.text,
+          url: shareContent.url
+        });
+        return; // Successfully shared or closed native sheet
+      } catch (err) {
+        // User cancelled native share sheet (AbortError) -> return silently
+        if (err.name === "AbortError") {
+          return;
+        }
+        // Fallback to dialog for other errors
+        console.warn("Native Web Share API failed, opening fallback dialog:", err);
+      }
+    }
+
+    // Open fallback dialog if native sharing is unavailable or failed
+    setIsShareOpen(true);
+  };
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "2rem", width: "100%", maxWidth: "600px", margin: "0 auto" }}>
@@ -72,16 +108,27 @@ export default function TypingResult({
         </div>
       </div>
 
-      <div style={{ display: "flex", justifyContent: "center", gap: "1rem", marginTop: "1rem", flexWrap: "wrap" }}>
+      <div style={{ display: "flex", justifyContent: "center", gap: "0.75rem", marginTop: "1rem", flexWrap: "wrap" }}>
         <button
           onClick={() => setIsScorecardOpen(true)}
           className="control-btn"
-          style={{ fontSize: "0.95rem", display: "inline-flex", alignItems: "center", gap: "0.4rem" }}
+          style={{ fontSize: "0.9rem", display: "inline-flex", alignItems: "center", gap: "0.4rem" }}
           aria-label="Download typing test scorecard"
         >
           <span className="material-icons-outlined">file_download</span>
           Download Scorecard
         </button>
+
+        <button
+          onClick={handleShareClick}
+          className="control-btn"
+          style={{ fontSize: "0.9rem", display: "inline-flex", alignItems: "center", gap: "0.4rem" }}
+          aria-label="Share typing test result"
+        >
+          <span className="material-icons-outlined">share</span>
+          Share Result
+        </button>
+
         <RestartButton onRestart={onRestart} />
       </div>
 
@@ -97,6 +144,12 @@ export default function TypingResult({
           duration,
           testName
         }}
+      />
+
+      <ShareDialog
+        isOpen={isShareOpen}
+        onClose={() => setIsShareOpen(false)}
+        shareContent={shareContent}
       />
     </div>
   );
