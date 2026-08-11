@@ -53,23 +53,23 @@ export default function TypingTestLanding() {
       <section style={{ borderTop: "1px solid var(--sub-alt-color)", paddingTop: "2.5rem" }}>
         <h2 style={{ fontSize: "1.5rem", marginBottom: "1.25rem" }}>Select a Timing Configuration</h2>
         <div className="grid-cards">
-          <Link href="/typing-test/1-minute" className="card">
+          <Link href="/typing-test/1-minute" className="card" style={{ alignItems: "center", textAlign: "center" }}>
             <h3 style={{ color: "var(--accent-color)" }}>1 Minute Typing Test</h3>
             <p style={{ fontSize: "0.85rem", opacity: 0.7, marginTop: "0.25rem", lineHeight: "1.4rem" }}>Quick raw-speed test to verify keystroke velocity.</p>
           </Link>
-          <Link href="/typing-test/2-minute" className="card">
+          <Link href="/typing-test/2-minute" className="card" style={{ alignItems: "center", textAlign: "center" }}>
             <h3 style={{ color: "var(--accent-color)" }}>2 Minute Typing Test</h3>
             <p style={{ fontSize: "0.85rem", opacity: 0.7, marginTop: "0.25rem", lineHeight: "1.4rem" }}>Build consistent typing rhythm and correct spacing.</p>
           </Link>
-          <Link href="/typing-test/5-minute" className="card">
+          <Link href="/typing-test/5-minute" className="card" style={{ alignItems: "center", textAlign: "center" }}>
             <h3 style={{ color: "var(--accent-color)" }}>5 Minute Typing Test</h3>
             <p style={{ fontSize: "0.85rem", opacity: 0.7, marginTop: "0.25rem", lineHeight: "1.4rem" }}>Improve muscle memory and maintain physical posture.</p>
           </Link>
-          <Link href="/typing-test/10-minute" className="card">
+          <Link href="/typing-test/10-minute" className="card" style={{ alignItems: "center", textAlign: "center" }}>
             <h3 style={{ color: "var(--accent-color)" }}>10 Minute Typing Test</h3>
             <p style={{ fontSize: "0.85rem", opacity: 0.7, marginTop: "0.25rem", lineHeight: "1.4rem" }}>Standard duration for professional certification prep.</p>
           </Link>
-          <Link href="/typing-test/number" className="card">
+          <Link href="/typing-test/number" className="card" style={{ alignItems: "center", textAlign: "center" }}>
             <h3 style={{ color: "var(--accent-color)" }}>Number Typing Test</h3>
             <p style={{ fontSize: "0.85rem", opacity: 0.7, marginTop: "0.25rem", lineHeight: "1.4rem" }}>Practice numeric sequence layout drills.</p>
           </Link>
