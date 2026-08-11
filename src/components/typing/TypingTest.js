@@ -10,13 +10,22 @@ import { calculateAccuracy } from "@/lib/typing/calculateAccuracy";
 import { getPassage, getCurrentTime } from "@/lib/typing/typingUtils";
 
 export default function TypingTest({ duration = 60, mode = "standard", isPractice = false, customPassage = null }) {
-  const [passage, setPassage] = useState(() => customPassage || getPassage(mode));
+  const [passage, setPassage] = useState(() => customPassage || getPassage(mode, null, true));
   const [typedText, setTypedText] = useState("");
   const [testState, setTestState] = useState("IDLE"); // IDLE | RUNNING | COMPLETED
   const [secondsElapsed, setSecondsElapsed] = useState(0);
   const [secondsRemaining, setSecondsRemaining] = useState(isPractice ? 0 : duration);
   const [mistakeCount, setMistakeCount] = useState(0);
   const [isFocused, setIsFocused] = useState(false);
+
+  // Randomize passage on client mount after hydration
+  useEffect(() => {
+    if (!customPassage) {
+      setTimeout(() => {
+        setPassage(getPassage(mode));
+      }, 0);
+    }
+  }, [mode, customPassage]);
 
   const timerRef = useRef(null);
   const startTimeRef = useRef(null);

@@ -7,10 +7,10 @@ import { standardPassages, numberPassages } from "./typingConstants";
  * @param {string} lastId - ID of the last passage taken
  * @returns {Object} Selected passage object
  */
-export function getPassage(mode, lastId = null) {
+export function getPassage(mode, lastId = null, isInitial = false) {
   const collection = mode === "number" ? numberPassages : standardPassages;
   if (collection.length === 0) return { id: "empty", text: "" };
-  if (collection.length === 1) return collection[0];
+  if (collection.length === 1 || isInitial) return collection[0];
   
   const pool = collection.filter((p) => p.id !== lastId);
   const selectedPool = pool.length > 0 ? pool : collection;
