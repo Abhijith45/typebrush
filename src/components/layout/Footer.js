@@ -46,8 +46,9 @@ export default function Footer() {
 
           {/* Practice Programs Column */}
           <div>
-            <h4 style={{ color: "var(--main-color)", fontSize: "0.95rem", fontWeight: "700", marginBottom: "1rem" }}>Typing Practice</h4>
+            <h4 style={{ color: "var(--main-color)", fontSize: "0.95rem", fontWeight: "700", marginBottom: "1rem" }}>Gym & Practice</h4>
             <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: "0.6rem", fontSize: "0.85rem" }}>
+              <li><Link href="/typing-gym" style={{ fontWeight: "700", color: "var(--accent-color)" }}>Typing Gym</Link></li>
               <li><Link href="/typing-practice">Practice Overview</Link></li>
               <li><Link href="/typing-practice/english-paragraph">Paragraph Practice</Link></li>
               <li><Link href="/typing-practice/english-passage">Passage Practice</Link></li>

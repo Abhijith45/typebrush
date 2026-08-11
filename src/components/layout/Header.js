@@ -21,6 +21,9 @@ export default function Header() {
           <Link href="/typing-test" style={{ fontWeight: "600", fontSize: "0.95rem" }}>
             Typing Test
           </Link>
+          <Link href="/typing-gym" style={{ fontWeight: "600", fontSize: "0.95rem" }}>
+            Typing Gym
+          </Link>
           <Link href="/typing-practice" style={{ fontWeight: "600", fontSize: "0.95rem" }}>
             Practice
           </Link>

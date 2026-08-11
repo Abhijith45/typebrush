@@ -8,7 +8,8 @@ export default function BottomNav() {
 
   const navItems = [
     { label: "Home", path: "/", icon: "home" },
-    { label: "Typing Test", path: "/typing-test", icon: "speed" },
+    { label: "Test", path: "/typing-test", icon: "speed" },
+    { label: "Gym", path: "/typing-gym", icon: "fitness_center" },
     { label: "Practice", path: "/typing-practice", icon: "edit_note" },
     { label: "About", path: "/about", icon: "info" }
   ];
