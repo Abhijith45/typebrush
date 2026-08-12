@@ -1,6 +1,4 @@
 import Link from "next/link";
-import Breadcrumbs from "@/components/layout/Breadcrumbs";
-import Schema from "@/components/layout/Schema";
 
 export const metadata = {
   title: "Typing Practice | Free Exercises to Improve Typing WPM | TypeBrush",
@@ -11,31 +9,8 @@ export const metadata = {
 };
 
 export default function TypingPracticeLanding() {
-  const breadcrumbItems = [{ label: "Typing Practice" }];
-
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "name": "Home",
-        "item": "https://typebrush.in"
-      },
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "name": "Typing Practice",
-        "item": "https://typebrush.in/typing-practice"
-      }
-    ]
-  };
-
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "2.5rem" }}>
-      <Schema data={breadcrumbSchema} />
-      <Breadcrumbs items={breadcrumbItems} />
 
       <div>
         <h1 style={{ fontSize: "2rem", marginBottom: "0.5rem" }}>Typing Practice Programs</h1>

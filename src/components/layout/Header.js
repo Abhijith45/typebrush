@@ -14,12 +14,15 @@ export default function Header() {
           </Link>
         </div>
 
-        <nav style={{ display: "flex", gap: "2rem", alignItems: "center" }}>
+        <nav className="desktop-nav" style={{ display: "flex", gap: "2rem", alignItems: "center" }}>
           <Link href="/" style={{ fontWeight: "600", fontSize: "0.95rem" }}>
             Home
           </Link>
           <Link href="/typing-test" style={{ fontWeight: "600", fontSize: "0.95rem" }}>
             Typing Test
+          </Link>
+          <Link href="/typing-gym" style={{ fontWeight: "600", fontSize: "0.95rem" }}>
+            Typing Gym
           </Link>
           <Link href="/typing-practice" style={{ fontWeight: "600", fontSize: "0.95rem" }}>
             Practice

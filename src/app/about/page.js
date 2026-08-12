@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Breadcrumbs from "@/components/layout/Breadcrumbs";
 
 export const metadata = {
   title: "About Us | TypeBrush Typing Platform",
@@ -12,7 +11,6 @@ export const metadata = {
 export default function AboutPage() {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "2rem", maxWidth: "800px", margin: "0 auto" }}>
-      <Breadcrumbs items={[{ label: "About Us" }]} />
       <div>
         <h1 style={{ fontSize: "2rem", marginBottom: "0.5rem" }}>About TypeBrush</h1>
         <p style={{ color: "var(--text-color)", opacity: 0.85 }}>

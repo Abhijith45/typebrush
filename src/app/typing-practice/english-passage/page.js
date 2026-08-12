@@ -1,7 +1,5 @@
 import Link from "next/link";
 import PassagePracticeContainer from "@/components/typing/PassagePracticeContainer";
-import Breadcrumbs from "@/components/layout/Breadcrumbs";
-import Schema from "@/components/layout/Schema";
 
 export const metadata = {
   title: "English Passage Typing Practice | Long-form Practice online | TypeBrush",
@@ -12,40 +10,8 @@ export const metadata = {
 };
 
 export default function EnglishPassagePractice() {
-  const breadcrumbItems = [
-    { label: "Typing Practice", url: "/typing-practice" },
-    { label: "Passage Practice" }
-  ];
-
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "name": "Home",
-        "item": "https://typebrush.in"
-      },
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "name": "Typing Practice",
-        "item": "https://typebrush.in/typing-practice"
-      },
-      {
-        "@type": "ListItem",
-        "position": 3,
-        "name": "Passage Practice",
-        "item": "https://typebrush.in/typing-practice/english-passage"
-      }
-    ]
-  };
-
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "2.5rem" }}>
-      <Schema data={breadcrumbSchema} />
-      <Breadcrumbs items={breadcrumbItems} />
 
       <div>
         <h1 style={{ fontSize: "2rem", marginBottom: "0.5rem" }}>English Passage Practice</h1>
