@@ -3,6 +3,7 @@ import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import BottomNav from "@/components/layout/BottomNav";
+import MuiThemeProvider from "@/theme/muiThemeProvider";
 import Script from "next/script";
 
 const geistSans = Geist({
@@ -66,10 +67,12 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body>
-        <Header />
-        <main>{children}</main>
-        <Footer />
-        <BottomNav />
+        <MuiThemeProvider>
+          <Header />
+          <main>{children}</main>
+          <Footer />
+          <BottomNav />
+        </MuiThemeProvider>
       </body>
     </html>
   );

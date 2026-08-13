@@ -8,6 +8,8 @@ import ShareDialog from "@/components/sharing/ShareDialog";
 import { buildShareContent } from "@/lib/sharing/buildShareContent";
 import { saveResult, getHistory } from "@/lib/gym/typingHistoryStorage";
 import { analyzeTypingHistory } from "@/lib/gym/analysisEngine";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
 
 const emptySubscribe = () => () => {};
 
@@ -80,105 +82,283 @@ export default function TypingResult({
   };
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "1rem", width: "100%", maxWidth: "1200px", margin: "0 auto" }}>
-      <div style={{ textAlign: "center" }}>
-        <h2 style={{ fontSize: "2rem", color: "var(--accent-color)", marginBottom: "0.15rem", textAlign: "center" }}>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "1rem",
+        width: "100%",
+        maxWidth: "1200px",
+        margin: "0 auto"
+      }}
+    >
+      <Box sx={{ textAlign: "center" }}>
+        <Typography
+          component="h2"
+          sx={{
+            fontSize: "2rem",
+            color: "var(--accent-color)",
+            marginBottom: "0.15rem",
+            textAlign: "center",
+            fontWeight: "700"
+          }}
+        >
           Test Complete
-        </h2>
-        <p style={{ color: "var(--sub-color)", textAlign: "center" }}>Here is your performance summary</p>
-      </div>
+        </Typography>
+        <Typography component="p" sx={{ color: "var(--sub-color)", textAlign: "center", margin: 0 }}>
+          Here is your performance summary
+        </Typography>
+      </Box>
 
-      <div className="results-container" style={{ maxWidth: "600px", width: "100%", margin: "0 auto" }}>
-        <div className="result-card" style={{ textAlign: "center", alignItems: "center" }}>
-          <span className="material-icons-outlined" style={{ fontSize: "2rem", color: "var(--accent-color)", marginBottom: "0.25rem" }}>speed</span>
-          <span style={{ fontSize: "0.85rem", textTransform: "uppercase", color: "var(--sub-color)", fontWeight: "600" }}>Speed</span>
+      <Box
+        className="results-container"
+        sx={{
+          maxWidth: "600px",
+          width: "100%",
+          margin: "0 auto"
+        }}
+      >
+        <Box
+          className="result-card"
+          sx={{
+            textAlign: "center",
+            alignItems: "center"
+          }}
+        >
+          <span
+            className="material-icons-outlined"
+            style={{ fontSize: "2rem", color: "var(--accent-color)", marginBottom: "0.25rem" }}
+          >
+            speed
+          </span>
+          <span style={{ fontSize: "0.85rem", textTransform: "uppercase", color: "var(--sub-color)", fontWeight: "600" }}>
+            Speed
+          </span>
           <div className="wpm-large">
             {wpm} <span style={{ fontSize: "1.2rem", fontWeight: "normal" }}>WPM</span>
           </div>
-        </div>
+        </Box>
 
-        <div className="result-card" style={{ textAlign: "center", alignItems: "center" }}>
-          <span className="material-icons-outlined" style={{ fontSize: "2rem", color: "var(--accent-color)", marginBottom: "0.25rem" }}>track_changes</span>
-          <span style={{ fontSize: "0.85rem", textTransform: "uppercase", color: "var(--sub-color)", fontWeight: "600" }}>Accuracy</span>
+        <Box
+          className="result-card"
+          sx={{
+            textAlign: "center",
+            alignItems: "center"
+          }}
+        >
+          <span
+            className="material-icons-outlined"
+            style={{ fontSize: "2rem", color: "var(--accent-color)", marginBottom: "0.25rem" }}
+          >
+            track_changes
+          </span>
+          <span style={{ fontSize: "0.85rem", textTransform: "uppercase", color: "var(--sub-color)", fontWeight: "600" }}>
+            Accuracy
+          </span>
           <div className="accuracy-large">{accuracy}%</div>
-        </div>
-      </div>
+        </Box>
+      </Box>
 
-      <div className="result-card result-breakdown-grid" style={{ marginTop: "1rem" }}>
-        <div>
-          <p style={{ color: "var(--sub-color)", fontSize: "1.05rem", marginBottom: "0.25rem", display: "flex", alignItems: "center", gap: "0.3rem" }}>
-            <span className="material-icons-outlined" style={{ fontSize: "1.35rem", color: "#ef4444" }}>error_outline</span>
+      <Box className="result-card result-breakdown-grid" sx={{ marginTop: "1rem" }}>
+        <Box>
+          <Typography
+            component="p"
+            sx={{
+              color: "var(--sub-color)",
+              fontSize: "1.05rem",
+              marginBottom: "0.25rem",
+              display: "flex",
+              alignItems: "center",
+              gap: "0.3rem",
+              margin: 0
+            }}
+          >
+            <span className="material-icons-outlined" style={{ fontSize: "1.35rem", color: "#ef4444" }}>
+              error_outline
+            </span>
             Errors
-          </p>
-          <p style={{ fontSize: "1.25rem", fontWeight: "bold", color: "#ef4444" }}>{errors}</p>
-        </div>
-        <div>
-          <p style={{ color: "var(--sub-color)", fontSize: "1.05rem", marginBottom: "0.25rem", display: "flex", alignItems: "center", gap: "0.3rem" }}>
-            <span className="material-icons-outlined" style={{ fontSize: "1.35rem", color: "var(--accent-color)" }}>keyboard</span>
+          </Typography>
+          <Typography
+            component="p"
+            sx={{ fontSize: "1.25rem", fontWeight: "bold", color: "#ef4444", margin: 0 }}
+          >
+            {errors}
+          </Typography>
+        </Box>
+        <Box>
+          <Typography
+            component="p"
+            sx={{
+              color: "var(--sub-color)",
+              fontSize: "1.05rem",
+              marginBottom: "0.25rem",
+              display: "flex",
+              alignItems: "center",
+              gap: "0.3rem",
+              margin: 0
+            }}
+          >
+            <span className="material-icons-outlined" style={{ fontSize: "1.35rem", color: "var(--accent-color)" }}>
+              keyboard
+            </span>
             Characters Typed
-          </p>
-          <p style={{ fontSize: "1.25rem", fontWeight: "bold", color: "var(--main-color)" }}>{correctChars + incorrectChars}</p>
-        </div>
-        <div>
-          <p style={{ color: "var(--sub-color)", fontSize: "1.05rem", marginBottom: "0.25rem", display: "flex", alignItems: "center", gap: "0.3rem" }}>
-            <span className="material-icons-outlined" style={{ fontSize: "1.35rem", color: "var(--accent-color)" }}>timer</span>
+          </Typography>
+          <Typography
+            component="p"
+            sx={{ fontSize: "1.25rem", fontWeight: "bold", color: "var(--main-color)", margin: 0 }}
+          >
+            {correctChars + incorrectChars}
+          </Typography>
+        </Box>
+        <Box>
+          <Typography
+            component="p"
+            sx={{
+              color: "var(--sub-color)",
+              fontSize: "1.05rem",
+              marginBottom: "0.25rem",
+              display: "flex",
+              alignItems: "center",
+              gap: "0.3rem",
+              margin: 0
+            }}
+          >
+            <span className="material-icons-outlined" style={{ fontSize: "1.35rem", color: "var(--accent-color)" }}>
+              timer
+            </span>
             Time Elapsed
-          </p>
-          <p style={{ fontSize: "1.25rem", fontWeight: "bold", color: "var(--main-color)" }}>{duration}s</p>
-        </div>
-        <div>
-          <p style={{ color: "var(--sub-color)", fontSize: "1.05rem", marginBottom: "0.25rem", display: "flex", alignItems: "center", gap: "0.3rem" }}>
-            <span className="material-icons-outlined" style={{ fontSize: "1.35rem", color: "var(--accent-color)" }}>check_circle_outline</span>
+          </Typography>
+          <Typography
+            component="p"
+            sx={{ fontSize: "1.25rem", fontWeight: "bold", color: "var(--main-color)", margin: 0 }}
+          >
+            {duration}s
+          </Typography>
+        </Box>
+        <Box>
+          <Typography
+            component="p"
+            sx={{
+              color: "var(--sub-color)",
+              fontSize: "1.05rem",
+              marginBottom: "0.25rem",
+              display: "flex",
+              alignItems: "center",
+              gap: "0.3rem",
+              margin: 0
+            }}
+          >
+            <span className="material-icons-outlined" style={{
+              fontSize: "1.35rem",
+              color: "var(--accent-color)"
+            }}>
+              check_circle_outline
+            </span>
             Correct Characters
-          </p>
-          <p style={{ fontSize: "1.25rem", fontWeight: "bold", color: "var(--main-color)" }}>{correctChars}</p>
-        </div>
-      </div>
+          </Typography>
+          <Typography
+            component="p"
+            sx={{ fontSize: "1.25rem", fontWeight: "bold", color: "var(--main-color)", margin: 0 }}
+          >
+            {correctChars}
+          </Typography>
+        </Box>
+      </Box>
 
-      <div style={{ display: "flex", justifyContent: "center", gap: "0.75rem", marginTop: "1rem", flexWrap: "wrap" }}>
-        <button
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          gap: "0.75rem",
+          marginTop: "1rem",
+          flexWrap: "wrap"
+        }}
+      >
+        <Box
+          component="button"
           onClick={() => setIsScorecardOpen(true)}
           className="control-btn"
-          style={{ fontSize: "0.9rem", display: "inline-flex", alignItems: "center", gap: "0.4rem" }}
+          sx={{
+            fontSize: "0.9rem",
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "0.4rem"
+          }}
           aria-label="Download typing test scorecard"
         >
           <span className="material-icons-outlined">file_download</span>
           Download Scorecard
-        </button>
+        </Box>
 
-        <button
+        <Box
+          component="button"
           onClick={handleShareClick}
           className="control-btn"
-          style={{ fontSize: "0.9rem", display: "inline-flex", alignItems: "center", gap: "0.4rem" }}
+          sx={{
+            fontSize: "0.9rem",
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "0.4rem"
+          }}
           aria-label="Share typing test result"
         >
           <span className="material-icons-outlined">share</span>
           Share Result
-        </button>
+        </Box>
 
         <RestartButton onRestart={onRestart} />
-      </div>
+      </Box>
 
       {/* Personalized Practice Recommendation Box */}
       {weakKeysRecommendation && (
-        <div style={{ marginTop: "1.5rem", padding: "1.25rem", border: "1px solid var(--border-color)", borderRadius: "12px", backgroundColor: "var(--surface-color)", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "1rem" }}>
-          <div style={{ maxWidth: "560px" }}>
-            <span style={{ fontSize: "0.75rem", textTransform: "uppercase", color: "var(--accent-color)", fontWeight: "700", letterSpacing: "0.02em" }}>
+        <Box
+          sx={{
+            marginTop: "1.5rem",
+            padding: "1.25rem",
+            border: "1px solid var(--border-color)",
+            borderRadius: "12px",
+            backgroundColor: "var(--surface-color)",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            flexWrap: "wrap",
+            gap: "1rem"
+          }}
+        >
+          <Box sx={{ maxWidth: "560px" }}>
+            <Typography
+              component="span"
+              sx={{
+                fontSize: "0.75rem",
+                textTransform: "uppercase",
+                color: "var(--accent-color)",
+                fontWeight: "700",
+                letterSpacing: "0.02em",
+                display: "block"
+              }}
+            >
               Personalized Practice Recommendation
-            </span>
-            <h4 style={{ margin: "0.25rem 0", fontSize: "1.05rem", color: "var(--main-color)" }}>
+            </Typography>
+            <Typography
+              component="h4"
+              sx={{ margin: "0.25rem 0", fontSize: "1.05rem", color: "var(--main-color)", fontWeight: "600" }}
+            >
               {weakKeysRecommendation.title}
-            </h4>
-            <p style={{ margin: 0, fontSize: "0.85rem", opacity: 0.8, lineHeight: "1.4rem" }}>
+            </Typography>
+            <Typography component="p" sx={{ margin: 0, fontSize: "0.85rem", opacity: 0.8, lineHeight: "1.4rem" }}>
               {weakKeysRecommendation.reason}
-            </p>
-          </div>
+            </Typography>
+          </Box>
 
-          <Link href="/typing-gym" className="control-btn primary" style={{ fontSize: "0.9rem", padding: "0.6rem 1.4rem" }}>
+          <Link
+            href="/typing-gym"
+            className="control-btn primary"
+            style={{ fontSize: "0.9rem", padding: "0.6rem 1.4rem", display: "inline-flex", alignItems: "center", gap: "0.25rem" }}
+          >
             <span className="material-icons-outlined">fitness_center</span>
             Practice My Mistakes
           </Link>
-        </div>
+        </Box>
       )}
 
       <ScorecardDialog
@@ -200,6 +380,6 @@ export default function TypingResult({
         onClose={() => setIsShareOpen(false)}
         shareContent={shareContent}
       />
-    </div>
+    </Box>
   );
 }

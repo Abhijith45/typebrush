@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Box from "@mui/material/Box";
 
 export default function BottomNav() {
   const pathname = usePathname();
@@ -15,8 +16,17 @@ export default function BottomNav() {
   ];
 
   return (
-    <div className="bottom-nav-wrapper">
-      <nav className="bottom-nav" aria-label="Mobile navigation bar">
+    <Box className="bottom-nav-wrapper">
+      <Box
+        component="nav"
+        className="bottom-nav"
+        aria-label="Mobile navigation bar"
+        sx={{
+          display: "flex",
+          justifyContent: "space-around",
+          alignItems: "center"
+        }}
+      >
         {navItems.map((item) => {
           const isActive =
             item.path === "/"
@@ -31,14 +41,24 @@ export default function BottomNav() {
               aria-label={item.label}
               aria-current={isActive ? "page" : undefined}
             >
-              <span className="material-icons-outlined bottom-nav-icon">
+              <Box
+                component="span"
+                className="material-icons-outlined bottom-nav-icon"
+                sx={{ display: "block" }}
+              >
                 {item.icon}
-              </span>
-              <span className="bottom-nav-label">{item.label}</span>
+              </Box>
+              <Box
+                component="span"
+                className="bottom-nav-label"
+                sx={{ display: "block" }}
+              >
+                {item.label}
+              </Box>
             </Link>
           );
         })}
-      </nav>
-    </div>
+      </Box>
+    </Box>
   );
 }

@@ -2,13 +2,16 @@
 
 import { useState, useEffect, useRef } from "react";
 import { generateScorecard } from "@/lib/scorecard/generateScorecard";
+import Dialog from "@mui/material/Dialog";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import IconButton from "@mui/material/IconButton";
 
 export default function ScorecardDialog({ isOpen, onClose, resultData }) {
   const [name, setName] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [isGenerating, setIsGenerating] = useState(false);
   const inputRef = useRef(null);
-  const dialogRef = useRef(null);
 
   // Auto-focus input when modal opens and reset state
   useEffect(() => {
@@ -23,17 +26,6 @@ export default function ScorecardDialog({ isOpen, onClose, resultData }) {
       }, 50);
     }
   }, [isOpen]);
-
-  // Handle Escape key to close modal
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (isOpen && e.key === "Escape" && !isGenerating) {
-        onClose();
-      }
-    };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [isOpen, isGenerating, onClose]);
 
   if (!isOpen) return null;
 
@@ -89,34 +81,21 @@ export default function ScorecardDialog({ isOpen, onClose, resultData }) {
   };
 
   return (
-    <div
-      style={{
-        position: "fixed",
-        inset: 0,
-        backgroundColor: "rgba(15, 23, 42, 0.6)",
-        backdropFilter: "blur(4px)",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        zIndex: 1000,
-        padding: "1rem",
-        animation: "fadeIn 0.2s ease-out"
-      }}
-      onClick={(e) => {
-        if (e.target === e.currentTarget && !isGenerating) {
-          onClose();
+    <Dialog
+      open={isOpen}
+      onClose={isGenerating ? undefined : onClose}
+      maxWidth="xs"
+      fullWidth
+      slotProps={{
+        backdrop: {
+          style: {
+            backgroundColor: "rgba(15, 23, 42, 0.6)",
+            backdropFilter: "blur(4px)"
+          }
         }
       }}
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="dialog-title"
-    >
-      <div
-        ref={dialogRef}
-        className="card"
-        style={{
-          width: "100%",
-          maxWidth: "480px",
+      PaperProps={{
+        sx: {
           backgroundColor: "var(--surface-color)",
           border: "1px solid var(--border-color)",
           borderRadius: "var(--border-radius)",
@@ -124,101 +103,124 @@ export default function ScorecardDialog({ isOpen, onClose, resultData }) {
           boxShadow: "0 20px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.1)",
           display: "flex",
           flexDirection: "column",
-          gap: "1.25rem"
-        }}
-      >
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
-          <div>
-            <h3 id="dialog-title" style={{ fontSize: "1.35rem", fontWeight: "700", color: "var(--main-color)", marginBottom: "0.25rem" }}>
-              Download Your Scorecard
-            </h3>
-            <p style={{ fontSize: "0.9rem", color: "var(--sub-color)", margin: 0 }}>
-              Enter your name to personalize your scorecard.
-            </p>
-          </div>
+          gap: "1.25rem",
+          margin: "1rem"
+        }
+      }}
+    >
+      <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
+        <Box>
+          <Typography
+            component="h3"
+            id="dialog-title"
+            sx={{
+              fontSize: "1.35rem",
+              fontWeight: "700",
+              color: "var(--main-color)",
+              marginBottom: "0.25rem",
+              lineHeight: 1.2
+            }}
+          >
+            Download Your Scorecard
+          </Typography>
+          <Typography
+            component="p"
+            sx={{ fontSize: "0.9rem", color: "var(--sub-color)", margin: 0 }}
+          >
+            Enter your name to personalize your scorecard.
+          </Typography>
+        </Box>
+        <IconButton
+          onClick={onClose}
+          disabled={isGenerating}
+          sx={{
+            color: "var(--sub-color)",
+            padding: "0.25rem",
+            borderRadius: "4px"
+          }}
+          aria-label="Close dialog"
+        >
+          <span className="material-icons-outlined">close</span>
+        </IconButton>
+      </Box>
+
+      <Box component="form" onSubmit={handleDownload} sx={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
+        <Box sx={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+          <Typography
+            component="label"
+            htmlFor="user-name-input"
+            sx={{ fontSize: "0.85rem", fontWeight: "600", color: "var(--main-color)" }}
+          >
+            Your Name
+          </Typography>
+          <input
+            id="user-name-input"
+            ref={inputRef}
+            type="text"
+            value={name}
+            onChange={handleNameChange}
+            placeholder="Enter your name"
+            disabled={isGenerating}
+            maxLength={60}
+            style={{
+              width: "100%",
+              padding: "0.75rem 1rem",
+              borderRadius: "var(--border-radius)",
+              border: errorMessage ? "2px solid #ef4444" : "1px solid var(--border-color)",
+              backgroundColor: "var(--bg-color)",
+              color: "var(--main-color)",
+              fontSize: "0.95rem",
+              outline: "none",
+              transition: "border-color 0.2s ease"
+            }}
+          />
+          {errorMessage && (
+            <Typography
+              component="span"
+              sx={{ fontSize: "0.8rem", color: "#ef4444", fontWeight: "500" }}
+            >
+              {errorMessage}
+            </Typography>
+          )}
+        </Box>
+
+        <Box sx={{ display: "flex", justifyContent: "flex-end", gap: "0.75rem", marginTop: "0.5rem" }}>
           <button
+            type="button"
             onClick={onClose}
             disabled={isGenerating}
-            style={{
-              background: "none",
-              border: "none",
-              color: "var(--sub-color)",
-              cursor: isGenerating ? "not-allowed" : "pointer",
-              padding: "0.25rem",
-              borderRadius: "4px",
-              display: "flex",
-              alignItems: "center"
-            }}
-            aria-label="Close dialog"
+            className="control-btn"
+            style={{ padding: "0.6rem 1.25rem" }}
           >
-            <span className="material-icons-outlined">close</span>
+            Cancel
           </button>
-        </div>
-
-        <form onSubmit={handleDownload} style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
-          <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
-            <label htmlFor="user-name-input" style={{ fontSize: "0.85rem", fontWeight: "600", color: "var(--main-color)" }}>
-              Your Name
-            </label>
-            <input
-              id="user-name-input"
-              ref={inputRef}
-              type="text"
-              value={name}
-              onChange={handleNameChange}
-              placeholder="Enter your name"
-              disabled={isGenerating}
-              maxLength={60}
-              style={{
-                width: "100%",
-                padding: "0.75rem 1rem",
-                borderRadius: "var(--border-radius)",
-                border: errorMessage ? "2px solid #ef4444" : "1px solid var(--border-color)",
-                backgroundColor: "var(--bg-color)",
-                color: "var(--main-color)",
-                fontSize: "0.95rem",
-                outline: "none",
-                transition: "border-color 0.2s ease"
-              }}
-            />
-            {errorMessage && (
-              <span style={{ fontSize: "0.8rem", color: "#ef4444", fontWeight: "500" }}>
-                {errorMessage}
-              </span>
+          <button
+            type="submit"
+            disabled={isGenerating}
+            className="control-btn primary"
+            style={{
+              padding: "0.6rem 1.25rem",
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "0.4rem"
+            }}
+          >
+            {isGenerating ? (
+              <>
+                <span className="material-icons-outlined" style={{ animation: "spin 1s linear infinite" }}>
+                  sync
+                </span>
+                Preparing Scorecard...
+              </>
+            ) : (
+              <>
+                <span className="material-icons-outlined">file_download</span>
+                Download Now
+              </>
             )}
-          </div>
-
-          <div style={{ display: "flex", justifyContent: "flex-end", gap: "0.75rem", marginTop: "0.5rem" }}>
-            <button
-              type="button"
-              onClick={onClose}
-              disabled={isGenerating}
-              className="control-btn"
-              style={{ padding: "0.6rem 1.25rem" }}
-            >
-              Cancel
-            </button>
-            <button
-              type="submit"
-              disabled={isGenerating}
-              className="control-btn primary"
-              style={{ padding: "0.6rem 1.25rem", display: "inline-flex", alignItems: "center", gap: "0.4rem" }}
-            >
-              {isGenerating ? (
-                <>
-                  <span className="material-icons-outlined" style={{ animation: "spin 1s linear infinite" }}>sync</span>
-                  Preparing Scorecard...
-                </>
-              ) : (
-                <>
-                  <span className="material-icons-outlined">file_download</span>
-                  Download Now
-                </>
-              )}
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
+          </button>
+        </Box>
+      </Box>
+    </Dialog>
   );
 }
