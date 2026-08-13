@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import { Grid } from "@mui/material";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -33,6 +34,7 @@ export default function Footer() {
           gap: "2.5rem"
         }}
       >
+        <Grid con></Grid>
         <Box
           className="footer-grid"
           sx={{
