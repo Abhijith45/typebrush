@@ -4,7 +4,7 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import BottomNav from "@/components/layout/BottomNav";
 import MuiThemeProvider from "@/theme/muiThemeProvider";
-import Script from "next/script";
+import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -51,9 +51,7 @@ export default function RootLayout({ children }) {
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`} suppressHydrationWarning={true}>
       <head>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
-        <Script
-          id="theme-script"
-          strategy="beforeInteractive"
+        <script
           dangerouslySetInnerHTML={{
             __html: `
               (function() {
@@ -67,12 +65,14 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body>
-        <MuiThemeProvider>
-          <Header />
-          <main>{children}</main>
-          <Footer />
-          <BottomNav />
-        </MuiThemeProvider>
+        <AppRouterCacheProvider>
+          <MuiThemeProvider>
+            <Header />
+            <main>{children}</main>
+            <Footer />
+            <BottomNav />
+          </MuiThemeProvider>
+        </AppRouterCacheProvider>
       </body>
     </html>
   );
