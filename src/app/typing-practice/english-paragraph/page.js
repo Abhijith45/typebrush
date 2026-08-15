@@ -2,10 +2,18 @@ import Link from "next/link";
 import ParagraphPracticeContainer from "@/components/typing/ParagraphPracticeContainer";
 
 export const metadata = {
-  title: "English Paragraph Typing Practice | Free Speed Practice | TypeBrush",
-  description: "Practice typing English paragraphs online. Select from easy, medium, and hard paragraphs to build confidence, rhythm, and accuracy.",
+  title: "English Paragraph Typing Practice — Free Online Exercises | TypeBrush",
+  description: "Practice typing English paragraphs at your own pace. Choose Easy, Medium, or Hard difficulty. No timer, no pressure — just focused accuracy practice.",
   alternates: {
     canonical: "https://typebrush.in/typing-practice/english-paragraph"
+  },
+  openGraph: {
+    title: "English Paragraph Typing Practice — Free Online Exercises | TypeBrush",
+    description: "Practice typing English paragraphs at your own pace. Choose Easy, Medium, or Hard difficulty.",
+    url: "https://typebrush.in/typing-practice/english-paragraph",
+    siteName: "TypeBrush",
+    locale: "en_US",
+    type: "website"
   }
 };
 
@@ -16,7 +24,7 @@ export default function EnglishParagraphPractice() {
       <div>
         <h1 style={{ fontSize: "2rem", marginBottom: "0.5rem" }}>English Paragraph Practice</h1>
         <p style={{ color: "var(--text-color)", opacity: 0.8, lineHeight: "1.6rem" }}>
-          Select a short paragraph template below to begin practicing. These exercises are untimed so you can focus strictly on accuracy and hand placement.
+          Choose a paragraph below and practice at your own pace. These exercises are untimed so you can focus fully on accuracy, home-row positioning, and clean keystroke habits.
         </p>
       </div>
 
@@ -25,9 +33,10 @@ export default function EnglishParagraphPractice() {
       </div>
 
       <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap", fontSize: "0.9rem", borderTop: "1px solid var(--sub-alt-color)", paddingTop: "1rem" }}>
-        <span>Switch practice modes:</span>
-        <Link href="/typing-practice/english-passage" style={{ color: "var(--accent-color)", textDecoration: "underline" }}>English Passage Practice</Link>
-        <Link href="/typing-test/1-minute" style={{ color: "var(--accent-color)", textDecoration: "underline" }}>Take a 1-Minute Test</Link>
+        <span>Explore more:</span>
+        <Link href="/typing-practice/english-passage" style={{ color: "var(--accent-color)", textDecoration: "underline" }}>Passage Practice</Link>
+        <Link href="/typing-gym" style={{ color: "var(--accent-color)", textDecoration: "underline" }}>Typing Gym</Link>
+        <Link href="/typing-test/1-minute" style={{ color: "var(--accent-color)", textDecoration: "underline" }}>1-Minute Speed Test</Link>
       </div>
     </div>
   );

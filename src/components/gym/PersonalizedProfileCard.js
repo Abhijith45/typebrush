@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useSyncExternalStore } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { getHistory, clearHistory } from "@/lib/gym/typingHistoryStorage";
 import { analyzeTypingHistory } from "@/lib/gym/analysisEngine";
@@ -12,29 +12,57 @@ import Typography from "@mui/material/Typography";
 const emptySubscribe = () => () => {};
 
 export default function PersonalizedProfileCard({ onStartRecommendedPractice }) {
+  const [mounted, setMounted] = useState(false);
   const [showClearConfirm, setShowClearConfirm] = useState(false);
   const [showGoalModal, setShowGoalModal] = useState(false);
 
-  // Sync external stores for history & goals safely
-  const historyJson = useSyncExternalStore(
-    emptySubscribe,
-    () => (typeof window !== "undefined" ? JSON.stringify(getHistory()) : "[]"),
-    () => "[]"
-  );
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setMounted(true);
+    }, 0);
+    return () => clearTimeout(timer);
+  }, []);
 
-  const goalsJson = useSyncExternalStore(
-    emptySubscribe,
-    () => (typeof window !== "undefined" ? JSON.stringify(getGoals()) : '{"targetWpm":60,"targetAccuracy":95}'),
-    () => '{"targetWpm":60,"targetAccuracy":95}'
-  );
+  // Async state for history & goals
+  const [history, setHistory] = useState([]);
+  const [goals, setGoals] = useState({ targetWpm: 60, targetAccuracy: 95 });
 
-  const history = JSON.parse(historyJson);
-  const goals = JSON.parse(goalsJson);
+  useEffect(() => {
+    let isCurrent = true;
+    async function loadData() {
+      try {
+        const hist = await getHistory();
+        const gls = getGoals();
+        if (isCurrent) {
+          setHistory(hist);
+          setGoals(gls);
+        }
+      } catch (err) {
+        console.warn("PersonalizedProfileCard: Failed to load data", err);
+      }
+    }
+    loadData();
+    return () => {
+      isCurrent = false;
+    };
+  }, []);
+
+  const historyJson = JSON.stringify(history);
+  const goalsJson = JSON.stringify(goals);
+
   const profile = analyzeTypingHistory(history);
   const progress = evaluateProgress(history, goals);
 
-  const [tempTargetWpm, setTempTargetWpm] = useState(goals.targetWpm);
-  const [tempTargetAccuracy, setTempTargetAccuracy] = useState(goals.targetAccuracy);
+  const [tempTargetWpm, setTempTargetWpm] = useState(60);
+  const [tempTargetAccuracy, setTempTargetAccuracy] = useState(95);
+
+  const handleOpenGoalModal = () => {
+    if (goals) {
+      setTempTargetWpm(goals.targetWpm || 60);
+      setTempTargetAccuracy(goals.targetAccuracy || 95);
+    }
+    setShowGoalModal(true);
+  };
 
   const handleClear = () => {
     clearHistory();
@@ -47,7 +75,7 @@ export default function PersonalizedProfileCard({ onStartRecommendedPractice }) 
   };
 
   // 1. Zero history state
-  if (profile.testCount === 0) {
+  if (!mounted || profile.testCount === 0) {
     return (
       <Box
         className="card"
@@ -297,7 +325,7 @@ export default function PersonalizedProfileCard({ onStartRecommendedPractice }) 
           <Box
             component="button"
             type="button"
-            onClick={() => setShowGoalModal(true)}
+            onClick={handleOpenGoalModal}
             className="control-btn"
             sx={{ fontSize: "0.8rem", padding: "0.4rem 0.85rem", display: "inline-flex", alignItems: "center", gap: "0.25rem" }}
           >

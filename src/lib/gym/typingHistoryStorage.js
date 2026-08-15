@@ -1,22 +1,17 @@
+import { storageService } from "@/lib/storage/storageService";
+
 /**
  * Client-side local storage engine for TypeBrush typing test history.
- * 100% private, browser-bound storage under versioned key `typebrush:typing-history:v1`.
+ * Delegates to central storageService.
  */
 
-const STORAGE_KEY = "typebrush:typing-history:v1";
 const MAX_HISTORY_LIMIT = 50;
 
-export function getHistory() {
-  if (typeof window === "undefined") return [];
-
+export async function getHistory() {
   try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return [];
-    const parsed = JSON.parse(raw);
-    if (!Array.isArray(parsed)) return [];
-
+    const history = await storageService.getTypingHistory();
     // Filter valid records and sanitize keyStats
-    return parsed.filter(
+    return history.filter(
       (item) =>
         item &&
         typeof item === "object" &&
@@ -28,16 +23,16 @@ export function getHistory() {
       mistakePairs: item.mistakePairs && typeof item.mistakePairs === "object" ? item.mistakePairs : {}
     }));
   } catch (err) {
-    console.warn("TypeBrush: Unable to read typing history from localStorage", err);
+    console.warn("TypeBrush: Unable to read typing history", err);
     return [];
   }
 }
 
-export function saveResult(record) {
-  if (typeof window === "undefined" || !record) return null;
+export async function saveResult(record) {
+  if (!record) return null;
 
   try {
-    const existing = getHistory();
+    const existing = await getHistory();
 
     const sanitizedKeyStats = {};
     if (record.keyStats && typeof record.keyStats === "object") {
@@ -75,23 +70,28 @@ export function saveResult(record) {
 
     // FIFO rotation: keep last 50 items
     const updated = [...existing, newRecord].slice(-MAX_HISTORY_LIMIT);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+    
+    // Clear and rewrite history to IndexedDB to maintain strict limit
+    await storageService.clearTypingHistory();
+    for (const item of updated) {
+      await storageService.saveTypingResult(item);
+    }
+    
     return newRecord;
   } catch (err) {
-    console.warn("TypeBrush: Failed to save result to localStorage", err);
+    console.warn("TypeBrush: Failed to save result", err);
     return null;
   }
 }
 
-export function getLatestResult() {
-  const history = getHistory();
+export async function getLatestResult() {
+  const history = await getHistory();
   return history.length > 0 ? history[history.length - 1] : null;
 }
 
-export function clearHistory() {
-  if (typeof window === "undefined") return false;
+export async function clearHistory() {
   try {
-    localStorage.removeItem(STORAGE_KEY);
+    await storageService.clearTypingHistory();
     return true;
   } catch (err) {
     console.warn("TypeBrush: Failed to clear history", err);

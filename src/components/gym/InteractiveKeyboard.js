@@ -1,13 +1,25 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { QWERTY_ROWS, KEY_FINGER_MAP, FINGER_COLOR_MAP } from "@/lib/gym/gymData";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 
 export default function InteractiveKeyboard({ onSelectKeyForPractice }) {
+  const [mounted, setMounted] = useState(false);
   const [selectedKey, setSelectedKey] = useState("R");
   const [hoveredKey, setHoveredKey] = useState(null);
+  
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setMounted(true);
+    }, 0);
+    return () => clearTimeout(timer);
+  }, []);
 
   const activeKeySymbol = hoveredKey || selectedKey;
   const activeKeyInfo = KEY_FINGER_MAP[activeKeySymbol] || KEY_FINGER_MAP["R"];
@@ -18,10 +30,19 @@ export default function InteractiveKeyboard({ onSelectKeyForPractice }) {
   };
 
   const handlePracticeClick = () => {
-    if (onSelectKeyForPractice && selectedKey) {
+    if (onSelectKeyForPractice) {
       onSelectKeyForPractice(selectedKey);
+    } else {
+      const params = new URLSearchParams(searchParams.toString());
+      params.set("mode", "personalized");
+      params.set("practiceKey", selectedKey);
+      router.push(`/typing-gym?${params.toString()}#training-workspace`);
     }
   };
+
+  if (!mounted) {
+    return <div style={{ minHeight: "450px" }} />;
+  }
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: "1.5rem", width: "100%" }}>

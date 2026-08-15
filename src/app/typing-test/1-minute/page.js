@@ -2,10 +2,18 @@ import Link from "next/link";
 import TypingTest from "@/components/typing/TypingTest";
 
 export const metadata = {
-  title: "1-Minute Typing Test | Quick Speed & WPM Test | TypeBrush",
-  description: "Check your typing speed with our free 1-minute typing test. Start typing to get instant WPM and accuracy metrics, along with weak key diagnostics.",
+  title: "1-Minute Typing Test — Free WPM Speed Test | TypeBrush",
+  description: "Take a free 1-minute typing test and get your WPM instantly. No sign-up required. Ideal for a quick daily warm-up or checking your baseline typing speed.",
   alternates: {
     canonical: "https://typebrush.in/typing-test/1-minute"
+  },
+  openGraph: {
+    title: "1-Minute Typing Test — Free WPM Speed Test | TypeBrush",
+    description: "Take a free 1-minute typing test and get your WPM instantly. No sign-up required.",
+    url: "https://typebrush.in/typing-test/1-minute",
+    siteName: "TypeBrush",
+    locale: "en_US",
+    type: "website"
   }
 };
 
@@ -16,7 +24,7 @@ export default function OneMinuteTest() {
       <div>
         <h1 style={{ fontSize: "2rem", marginBottom: "0.5rem" }}>1-Minute Typing Test</h1>
         <p style={{ color: "var(--text-color)", opacity: 0.8, lineHeight: "1.6rem" }}>
-          A quick 60-second test designed to assess your raw typing speed and error rate. Focus on keeping your eyes on the screen and typing smoothly.
+          A free 60-second test to check your current WPM and accuracy. Keep your eyes on the screen, type steadily, and see your result the moment you finish.
         </p>
       </div>
 
@@ -25,9 +33,9 @@ export default function OneMinuteTest() {
       </div>
 
       <section className="card" style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-        <h2 style={{ fontSize: "1.25rem", color: "var(--accent-color)" }}>Why take a 1-minute test?</h2>
+        <h2 style={{ fontSize: "1.25rem", color: "var(--accent-color)" }}>Why Take a 1-Minute Typing Test?</h2>
         <p style={{ fontSize: "0.95rem", opacity: 0.8, lineHeight: "1.6rem" }}>
-          The 1-minute typing test is the most popular test length. It lets you quickly warm up, measure your baseline words-per-minute (WPM), and identify immediate key positioning errors without getting tired. It acts as a sprint for checking maximum finger speed.
+          The 1-minute test is the most widely used format for measuring raw typing speed. It&apos;s short enough to repeat several times in a session without fatigue, making it ideal for warming up, tracking daily progress, and identifying which keys slow you down. It&apos;s also the standard warm-up format used before government and corporate typing assessments.
         </p>
         <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap", fontSize: "0.9rem", borderTop: "1px solid var(--sub-alt-color)", paddingTop: "1rem" }}>
           <span>Try other tests:</span>

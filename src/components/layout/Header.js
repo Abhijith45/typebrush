@@ -9,9 +9,17 @@ function NavLink({ href, children }) {
   const pathname = usePathname();
   const isActive = href === "/" ? pathname === "/" : pathname.startsWith(href);
 
+  const handleClick = (e) => {
+    if (pathname === href) {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+
   return (
     <Link
       href={href}
+      onClick={handleClick}
       style={{
         fontWeight: "600",
         fontSize: "0.95rem",
@@ -25,6 +33,15 @@ function NavLink({ href, children }) {
 }
 
 export default function Header() {
+  const pathname = usePathname();
+
+  const handleLogoClick = (e) => {
+    if (pathname === "/") {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+
   return (
     <Box
       component="header"
@@ -60,6 +77,7 @@ export default function Header() {
         <Box sx={{ display: "flex", alignItems: "center" }}>
           <Link
             href="/"
+            onClick={handleLogoClick}
             style={{
               fontSize: "1.35rem",
               fontWeight: "800",

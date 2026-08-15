@@ -2,10 +2,18 @@ import Link from "next/link";
 import TypingTest from "@/components/typing/TypingTest";
 
 export const metadata = {
-  title: "Number Typing Test | Practice Numeric Keypad Typing | TypeBrush",
-  description: "Test and improve your numeric typing speed. Practice typing number sequences and decimals to check your numbers-only speed (KPM/WPM).",
+  title: "Number Typing Test — Practice Numeric Keypad Speed | TypeBrush",
+  description: "Free number typing test online. Practice typing digit sequences, decimals, and number codes. Ideal for data entry operators, billing staff, and banking exam prep.",
   alternates: {
     canonical: "https://typebrush.in/typing-test/number"
+  },
+  openGraph: {
+    title: "Number Typing Test — Practice Numeric Keypad Speed | TypeBrush",
+    description: "Free number typing test online. Practice typing digit sequences and number codes. No sign-up required.",
+    url: "https://typebrush.in/typing-test/number",
+    siteName: "TypeBrush",
+    locale: "en_US",
+    type: "website"
   }
 };
 
@@ -16,7 +24,7 @@ export default function NumberTest() {
       <div>
         <h1 style={{ fontSize: "2rem", marginBottom: "0.5rem" }}>Number Typing Test</h1>
         <p style={{ color: "var(--text-color)", opacity: 0.8, lineHeight: "1.6rem" }}>
-          Practice typing number codes and numeric sequences. Perfect for data entry operators, billing specialists, and accountants.
+          Practice typing numeric sequences, decimals, and number codes. Designed for data entry operators, billing specialists, accounting professionals, and anyone preparing for banking or government data entry exams.
         </p>
       </div>
 
@@ -25,9 +33,9 @@ export default function NumberTest() {
       </div>
 
       <section className="card" style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-        <h2 style={{ fontSize: "1.25rem", color: "var(--accent-color)" }}>The Importance of Numeric Practice</h2>
+        <h2 style={{ fontSize: "1.25rem", color: "var(--accent-color)" }}>Why Practice Number Typing?</h2>
         <p style={{ fontSize: "0.95rem", opacity: 0.8, lineHeight: "1.6rem" }}>
-          Numbers require moving your fingers away from the standard home row or utilizing the Numpad correctly. Practice maintaining a continuous flow to build precision on the top number row without looking down. It is essential for bookkeeping, database entry, inventory logging, and financial operations.
+          Typing numbers requires reaching away from the home row to the top number row or using the Numpad — an entirely different muscle movement than standard letter typing. Regular number typing practice builds the accuracy and speed needed for data entry jobs, banking operations, inventory management, and financial record-keeping.
         </p>
         <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap", fontSize: "0.9rem", borderTop: "1px solid var(--sub-alt-color)", paddingTop: "1rem" }}>
           <span>Try standard tests:</span>

@@ -5,6 +5,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { lightTheme } from "./lightTheme";
 import { darkTheme } from "./darkTheme";
+import { storageService } from "@/lib/storage/storageService";
 
 export default function MuiThemeProvider({ children }) {
   const [activeTheme, setActiveTheme] = useState(() => {
@@ -16,6 +17,9 @@ export default function MuiThemeProvider({ children }) {
   });
 
   useEffect(() => {
+    // Run legacy storage migration safely
+    storageService.migrateLegacyData();
+
     // Watch for theme toggles dynamically
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {

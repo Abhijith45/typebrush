@@ -2,10 +2,18 @@ import Link from "next/link";
 import TypingTest from "@/components/typing/TypingTest";
 
 export const metadata = {
-  title: "5-Minute Typing Test | Online Speed & Focus Test | TypeBrush",
-  description: "Improve your focus and muscle memory with our free 5-minute typing test. Detailed reports on WPM, accuracy, and keyboard weak spots.",
+  title: "5-Minute Typing Test — Build Stamina & Improve WPM | TypeBrush",
+  description: "Take a free 5-minute typing test online. Build keyboard stamina and sustained accuracy. Ideal for SSC, banking exam prep, and daily typing practice.",
   alternates: {
     canonical: "https://typebrush.in/typing-test/5-minute"
+  },
+  openGraph: {
+    title: "5-Minute Typing Test — Build Stamina & Improve WPM | TypeBrush",
+    description: "Take a free 5-minute typing test online. Build keyboard stamina and sustained accuracy.",
+    url: "https://typebrush.in/typing-test/5-minute",
+    siteName: "TypeBrush",
+    locale: "en_US",
+    type: "website"
   }
 };
 
@@ -16,7 +24,7 @@ export default function FiveMinuteTest() {
       <div>
         <h1 style={{ fontSize: "2rem", marginBottom: "0.5rem" }}>5-Minute Typing Test</h1>
         <p style={{ color: "var(--text-color)", opacity: 0.8, lineHeight: "1.6rem" }}>
-          A 300-second typing test focused on sustained typing rhythm, deep focus, and accuracy over longer prose.
+          A 5-minute test designed to build sustained typing stamina and reveal accuracy trends that short sprints can&apos;t show. Take a breath, set your pace, and type steadily.
         </p>
       </div>
 
@@ -25,9 +33,9 @@ export default function FiveMinuteTest() {
       </div>
 
       <section className="card" style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-        <h2 style={{ fontSize: "1.25rem", color: "var(--accent-color)" }}>Developing Focus and Precision</h2>
+        <h2 style={{ fontSize: "1.25rem", color: "var(--accent-color)" }}>Why Take a 5-Minute Typing Test?</h2>
         <p style={{ fontSize: "0.95rem", opacity: 0.8, lineHeight: "1.6rem" }}>
-          In a 5-minute test, error compounding becomes clear. If you start typing too fast initially, you may lose accuracy in the latter half of the test as physical fatigue sets in. Practice maintaining a steady, moderate pace and sitting in a comfortable posture. Sustained typing builds muscle memory that helps you copy text continuously.
+          At five minutes, error compounding becomes clear. If you start too fast, your accuracy will drop in the second half as your fingers tire. The 5-minute test is the best format for detecting this pattern and correcting it. It&apos;s also a common duration used in SSC CHSL, banking, and state government typing exams.
         </p>
         <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap", fontSize: "0.9rem", borderTop: "1px solid var(--sub-alt-color)", paddingTop: "1rem" }}>
           <span>Try other tests:</span>

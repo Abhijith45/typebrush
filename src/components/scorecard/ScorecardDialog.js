@@ -65,11 +65,15 @@ export default function ScorecardDialog({ isOpen, onClose, resultData }) {
         name: trimmedName,
         wpm: resultData?.wpm || 0,
         accuracy: resultData?.accuracy || 100,
+        rawAccuracy: resultData?.rawAccuracy || 100,
         errors: resultData?.errors || 0,
         correctChars: resultData?.correctChars || 0,
         incorrectChars: resultData?.incorrectChars || 0,
         duration: resultData?.duration || 0,
-        testName: resultData?.testName || "Typing Test"
+        testName: resultData?.testName || "Typing Test",
+        performanceLevel: resultData?.performanceLevel || "Intermediate Typist",
+        weakKeys: resultData?.weakKeys || "None detected",
+        recommendation: resultData?.recommendation || "Build speed and accuracy"
       });
       setIsGenerating(false);
       onClose();
@@ -121,13 +125,13 @@ export default function ScorecardDialog({ isOpen, onClose, resultData }) {
               lineHeight: 1.2
             }}
           >
-            Download Your Scorecard
+            Get Your Official Scorecard
           </Typography>
           <Typography
             component="p"
             sx={{ fontSize: "0.9rem", color: "var(--sub-color)", margin: 0 }}
           >
-            Enter your name to personalize your scorecard.
+            Personalize and download your official TypeBrush performance report.
           </Typography>
         </Box>
         <IconButton
@@ -151,7 +155,7 @@ export default function ScorecardDialog({ isOpen, onClose, resultData }) {
             htmlFor="user-name-input"
             sx={{ fontSize: "0.85rem", fontWeight: "600", color: "var(--main-color)" }}
           >
-            Your Name
+            Enter Full Name
           </Typography>
           <input
             id="user-name-input"
@@ -215,12 +219,26 @@ export default function ScorecardDialog({ isOpen, onClose, resultData }) {
             ) : (
               <>
                 <span className="material-icons-outlined">file_download</span>
-                Download Now
+                Download PDF Report
               </>
             )}
           </button>
         </Box>
       </Box>
+
+      <Typography
+        component="p"
+        sx={{
+          fontSize: "0.8rem",
+          color: "var(--sub-color)",
+          marginTop: "0.75rem",
+          borderTop: "1px solid var(--border-color)",
+          paddingTop: "0.75rem",
+          textAlign: "center"
+        }}
+      >
+        Generated locally. No personal data or keystrokes are sent to any server.
+      </Typography>
     </Dialog>
   );
 }

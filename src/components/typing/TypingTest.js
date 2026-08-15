@@ -18,6 +18,8 @@ export default function TypingTest({ duration = 60, mode = "standard", isPractic
   const [secondsElapsed, setSecondsElapsed] = useState(0);
   const [secondsRemaining, setSecondsRemaining] = useState(isPractice ? 0 : duration);
   const [mistakeCount, setMistakeCount] = useState(0);
+  const [totalKeystrokes, setTotalKeystrokes] = useState(0);
+  const [backspaceCount, setBackspaceCount] = useState(0);
   const [isFocused, setIsFocused] = useState(false);
   const [completedStats, setCompletedStats] = useState(null);
 
@@ -52,6 +54,8 @@ export default function TypingTest({ duration = 60, mode = "standard", isPractic
     setSecondsElapsed(0);
     setSecondsRemaining(isPractice ? 0 : duration);
     setMistakeCount(0);
+    setTotalKeystrokes(0);
+    setBackspaceCount(0);
     setCompletedStats(null);
     setTestState("IDLE");
     keyStatsRef.current = {};
@@ -174,6 +178,7 @@ export default function TypingTest({ duration = 60, mode = "standard", isPractic
         const enteredChar = value[lastIdx];
         const targetChar = passage.text[lastIdx];
         recordKeystroke(enteredChar, targetChar);
+        setTotalKeystrokes((prev) => prev + 1);
       }
       setTypedText(value);
 
@@ -189,6 +194,9 @@ export default function TypingTest({ duration = 60, mode = "standard", isPractic
 
   const handleKeyDown = (e) => {
     if (testState !== "RUNNING") return;
+    if (e.key === "Backspace") {
+      setBackspaceCount((prev) => prev + 1);
+    }
     // Prevent default scroll behaviors inside typing area on Space key
     if (e.key === " ") {
       e.preventDefault();
@@ -198,6 +206,7 @@ export default function TypingTest({ duration = 60, mode = "standard", isPractic
         const lastIdx = nextVal.length - 1;
         const targetChar = passage.text[lastIdx];
         recordKeystroke(" ", targetChar);
+        setTotalKeystrokes((prev) => prev + 1);
         setTypedText(nextVal);
 
         if (nextVal.length === passage.text.length) {
@@ -257,11 +266,19 @@ export default function TypingTest({ duration = 60, mode = "standard", isPractic
     derivedCanonicalPath = `/typing-test/${mins}-minute`;
   }
 
+  const rawAccuracy = totalKeystrokes > 0
+    ? Math.round(((totalKeystrokes - mistakeCount) / totalKeystrokes) * 100 * 10) / 10
+    : 100;
+
+  const correctedErrors = Math.max(0, mistakeCount - incorrectCount);
+  const uncorrectedErrors = incorrectCount;
+
   useEffect(() => {
     if (testState === "COMPLETED" && onTestComplete && completedStats) {
       onTestComplete({
         wpm: currentWpm,
         accuracy: currentAccuracy === null ? 100 : currentAccuracy,
+        rawAccuracy,
         errors: mistakeCount,
         correctChars: correctCount,
         incorrectChars: incorrectCount,
@@ -269,16 +286,21 @@ export default function TypingTest({ duration = 60, mode = "standard", isPractic
         testName: derivedTestName,
         canonicalPath: derivedCanonicalPath,
         keyStats: completedStats.keyStats,
-        mistakePairs: completedStats.mistakePairs
+        mistakePairs: completedStats.mistakePairs,
+        totalKeystrokes,
+        correctedErrors,
+        uncorrectedErrors,
+        backspacesUsed: backspaceCount
       });
     }
-  }, [testState, completedStats, onTestComplete, currentWpm, currentAccuracy, mistakeCount, correctCount, incorrectCount, secondsElapsed, derivedTestName, derivedCanonicalPath]);
+  }, [testState, completedStats, onTestComplete, currentWpm, currentAccuracy, rawAccuracy, mistakeCount, correctCount, incorrectCount, secondsElapsed, derivedTestName, derivedCanonicalPath, totalKeystrokes, correctedErrors, uncorrectedErrors, backspaceCount]);
 
   if (testState === "COMPLETED") {
     return (
       <TypingResult
         wpm={currentWpm}
         accuracy={currentAccuracy === null ? 100 : currentAccuracy}
+        rawAccuracy={rawAccuracy}
         errors={mistakeCount}
         correctChars={correctCount}
         incorrectChars={incorrectCount}
@@ -287,6 +309,10 @@ export default function TypingTest({ duration = 60, mode = "standard", isPractic
         canonicalPath={derivedCanonicalPath}
         keyStats={completedStats?.keyStats || {}}
         mistakePairs={completedStats?.mistakePairs || {}}
+        totalKeystrokes={totalKeystrokes}
+        correctedErrors={correctedErrors}
+        uncorrectedErrors={uncorrectedErrors}
+        backspacesUsed={backspaceCount}
         onRestart={restartTest}
       />
     );

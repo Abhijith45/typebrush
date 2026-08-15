@@ -15,6 +15,13 @@ export default function BottomNav() {
     { label: "About", path: "/about", icon: "info" }
   ];
 
+  const handleLinkClick = (e, href) => {
+    if (pathname === href) {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+
   return (
     <Box className="bottom-nav-wrapper">
       <Box
@@ -37,6 +44,7 @@ export default function BottomNav() {
             <Link
               key={item.path}
               href={item.path}
+              onClick={(e) => handleLinkClick(e, item.path)}
               className={`bottom-nav-item ${isActive ? "active" : ""}`}
               aria-label={item.label}
               aria-current={isActive ? "page" : undefined}
@@ -53,7 +61,7 @@ export default function BottomNav() {
                 className="bottom-nav-label"
                 sx={{ display: "block" }}
               >
-                {item.label}
+                {item.icon === "edit_note" && item.label === "Practice" ? "Practice" : item.label}
               </Box>
             </Link>
           );

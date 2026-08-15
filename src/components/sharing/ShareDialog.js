@@ -59,11 +59,31 @@ export default function ShareDialog({ isOpen, onClose, shareContent }) {
     }
   };
 
+  const handleNativeShare = async () => {
+    if (typeof navigator !== "undefined" && navigator.share) {
+      try {
+        await navigator.share({
+          title: shareContent.title,
+          text: shareContent.text,
+          url: shareContent.url
+        });
+        onClose();
+      } catch (err) {
+        if (err.name === "AbortError") {
+          return;
+        }
+        console.warn("Native share inside dialog failed:", err);
+      }
+    }
+  };
+
   // Intent URLs
   const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(text + "\n\n" + url)}`;
   const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`;
   const linkedinUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`;
   const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
+
+  const supportsNativeShare = typeof navigator !== "undefined" && !!navigator.share;
 
   return (
     <Dialog
@@ -159,14 +179,29 @@ export default function ShareDialog({ isOpen, onClose, shareContent }) {
         >
           Share to platform:
         </Typography>
-        <Box sx={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.75rem" }}>
+        <Box
+          sx={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+            gap: "0.75rem"
+          }}
+        >
           <a
             href={whatsappUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="control-btn"
-            style={{ textDecoration: "none", fontSize: "0.85rem", padding: "0.6rem" }}
+            style={{
+              textDecoration: "none",
+              fontSize: "0.85rem",
+              padding: "0.6rem",
+              display: "inline-flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: "0.4rem"
+            }}
           >
+            <span className="material-icons-outlined" style={{ fontSize: "1.1rem" }}>chat</span>
             WhatsApp
           </a>
           <a
@@ -174,8 +209,17 @@ export default function ShareDialog({ isOpen, onClose, shareContent }) {
             target="_blank"
             rel="noopener noreferrer"
             className="control-btn"
-            style={{ textDecoration: "none", fontSize: "0.85rem", padding: "0.6rem" }}
+            style={{
+              textDecoration: "none",
+              fontSize: "0.85rem",
+              padding: "0.6rem",
+              display: "inline-flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: "0.4rem"
+            }}
           >
+            <span className="material-icons-outlined" style={{ fontSize: "1.1rem" }}>flutter_dash</span>
             X (Twitter)
           </a>
           <a
@@ -183,8 +227,17 @@ export default function ShareDialog({ isOpen, onClose, shareContent }) {
             target="_blank"
             rel="noopener noreferrer"
             className="control-btn"
-            style={{ textDecoration: "none", fontSize: "0.85rem", padding: "0.6rem" }}
+            style={{
+              textDecoration: "none",
+              fontSize: "0.85rem",
+              padding: "0.6rem",
+              display: "inline-flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: "0.4rem"
+            }}
           >
+            <span className="material-icons-outlined" style={{ fontSize: "1.1rem" }}>business</span>
             LinkedIn
           </a>
           <a
@@ -192,10 +245,51 @@ export default function ShareDialog({ isOpen, onClose, shareContent }) {
             target="_blank"
             rel="noopener noreferrer"
             className="control-btn"
-            style={{ textDecoration: "none", fontSize: "0.85rem", padding: "0.6rem" }}
+            style={{
+              textDecoration: "none",
+              fontSize: "0.85rem",
+              padding: "0.6rem",
+              display: "inline-flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: "0.4rem"
+            }}
           >
+            <span className="material-icons-outlined" style={{ fontSize: "1.1rem" }}>public</span>
             Facebook
           </a>
+          <button
+            onClick={handleCopy}
+            className="control-btn"
+            style={{
+              fontSize: "0.85rem",
+              padding: "0.6rem",
+              display: "inline-flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: "0.4rem"
+            }}
+          >
+            <span className="material-icons-outlined" style={{ fontSize: "1.1rem" }}>link</span>
+            {copied ? "Copied!" : "Copy Link"}
+          </button>
+          {supportsNativeShare && (
+            <button
+              onClick={handleNativeShare}
+              className="control-btn"
+              style={{
+                fontSize: "0.85rem",
+                padding: "0.6rem",
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: "0.4rem"
+              }}
+            >
+              <span className="material-icons-outlined" style={{ fontSize: "1.1rem" }}>more_horiz</span>
+              More Options
+            </button>
+          )}
         </Box>
       </Box>
 
@@ -215,7 +309,7 @@ export default function ShareDialog({ isOpen, onClose, shareContent }) {
           style={{ padding: "0.65rem 1.25rem", display: "inline-flex", alignItems: "center", gap: "0.4rem" }}
         >
           <span className="material-icons-outlined">{copied ? "check" : "content_copy"}</span>
-          {copied ? "Copied!" : "Copy Result"}
+          {copied ? "Copied Summary!" : "Copy Result"}
         </button>
 
         <button onClick={onClose} className="control-btn" style={{ padding: "0.65rem 1.25rem" }}>

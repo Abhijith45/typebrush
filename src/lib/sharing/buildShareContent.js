@@ -19,7 +19,7 @@ export function buildShareContent({
   
   const fullUrl = `${BASE_URL}${cleanPath}`;
   const title = "My TypeBrush Typing Score";
-  const text = `I scored ${wpm} WPM with ${accuracy}% accuracy on TypeBrush's ${testName}. Can you beat my score?`;
+  const text = `⌨️ I just scored ${wpm} WPM with ${accuracy}% accuracy on a ${testName} at TypeBrush. Can you beat my score? Try the free typing test at`;
 
   return {
     title,
