@@ -8,10 +8,14 @@ import TypingResult from "./TypingResult";
 import { calculateWpm } from "@/lib/typing/calculateWpm";
 import { calculateAccuracy } from "@/lib/typing/calculateAccuracy";
 import { getPassage, getCurrentTime } from "@/lib/typing/typingUtils";
+import { useDeviceCapability } from "@/hooks/useDeviceCapability";
+import DesktopRequiredDialog from "@/components/common/DesktopRequiredDialog";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 
 export default function TypingTest({ duration = 60, mode = "standard", isPractice = false, customPassage = null, onTestComplete = null }) {
+  const device = useDeviceCapability();
+  const [isDesktopRequiredOpen, setIsDesktopRequiredOpen] = useState(false);
   const [passage, setPassage] = useState(() => customPassage || getPassage(mode, null, true));
   const [typedText, setTypedText] = useState("");
   const [testState, setTestState] = useState("IDLE"); // IDLE | RUNNING | COMPLETED
@@ -108,6 +112,10 @@ export default function TypingTest({ duration = 60, mode = "standard", isPractic
   }, []);
 
   const startTest = useCallback(() => {
+    if (!device.canStartTypingExperience) {
+      setIsDesktopRequiredOpen(true);
+      return;
+    }
     setTestState("RUNNING");
     setCompletedStats(null);
     keyStatsRef.current = {};
@@ -140,7 +148,7 @@ export default function TypingTest({ duration = 60, mode = "standard", isPractic
         setIsFocused(true);
       }
     }, 10);
-  }, [duration, isPractice, finishTest]);
+  }, [duration, isPractice, finishTest, device.canStartTypingExperience]);
 
   const recordKeystroke = (enteredChar, targetChar) => {
     const normalizedTarget = targetChar.length === 1 && /[A-Za-z]/.test(targetChar)
@@ -396,6 +404,11 @@ export default function TypingTest({ duration = 60, mode = "standard", isPractic
           </Box>
         </Box>
       )}
+
+      <DesktopRequiredDialog
+        isOpen={isDesktopRequiredOpen}
+        onClose={() => setIsDesktopRequiredOpen(false)}
+      />
     </Box>
   );
 }

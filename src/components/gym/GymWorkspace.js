@@ -11,10 +11,15 @@ import { getHistory } from "@/lib/gym/typingHistoryStorage";
 import { WEAK_KEYS_WORDS } from "@/lib/gym/gymData";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import { useDeviceCapability } from "@/hooks/useDeviceCapability";
+import DesktopRequiredDialog from "@/components/common/DesktopRequiredDialog";
 
 export default function GymWorkspace() {
   const searchParams = useSearchParams();
   const router = useRouter();
+
+  const device = useDeviceCapability();
+  const [isDesktopRequiredOpen, setIsDesktopRequiredOpen] = useState(false);
 
   // Defer showing client-only state to prevent hydration mismatches
   const [mounted, setMounted] = useState(false);
@@ -136,6 +141,10 @@ export default function GymWorkspace() {
 
   // Action: Launch a curriculum level
   const handleStartLevel = (program, level) => {
+    if (!device.canStartTypingExperience) {
+      setIsDesktopRequiredOpen(true);
+      return;
+    }
     setSelectedProgram(program);
     setSelectedLevel(level);
     setActiveDifficulty("medium");
@@ -144,6 +153,10 @@ export default function GymWorkspace() {
 
   // Action: Launch personalized recommended workout
   const handleStartPersonalized = () => {
+    if (!device.canStartTypingExperience) {
+      setIsDesktopRequiredOpen(true);
+      return;
+    }
     const program = GYM_PROGRAMS.find((p) => p.id === recommendation.programId) || GYM_PROGRAMS[0];
     const level = program.levels.find((l) => l.level === recommendation.level) || program.levels[0];
     
@@ -846,6 +859,11 @@ export default function GymWorkspace() {
           );
         })}
       </Box>
+
+      <DesktopRequiredDialog
+        isOpen={isDesktopRequiredOpen}
+        onClose={() => setIsDesktopRequiredOpen(false)}
+      />
     </Box>
   );
 }

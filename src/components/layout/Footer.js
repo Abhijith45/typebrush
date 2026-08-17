@@ -1,11 +1,17 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Snackbar, Alert } from "@mui/material";
+import FeedbackDialog from "@/components/feedback/FeedbackDialog";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
   const pathname = usePathname();
+  
+  const [isFeedbackOpen, setIsFeedbackOpen] = useState(false);
+  const [snackbar, setSnackbar] = useState({ open: false, message: "", severity: "success" });
 
   const handleLinkClick = (e, href) => {
     if (pathname === href) {
@@ -273,6 +279,27 @@ export default function Footer() {
                 <li>
                   <Link href="/terms" onClick={(e) => handleLinkClick(e, "/terms")}>Terms of Service</Link>
                 </li>
+                <li>
+                  <button
+                    onClick={() => setIsFeedbackOpen(true)}
+                    style={{
+                      background: "none",
+                      border: "none",
+                      padding: 0,
+                      color: "inherit",
+                      cursor: "pointer",
+                      fontSize: "inherit",
+                      fontFamily: "inherit",
+                      textAlign: "left",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "0.25rem",
+                      fontWeight: "700"
+                    }}
+                  >
+                    💬 Feedback
+                  </button>
+                </li>
               </ul>
             </div>
           </div>
@@ -299,6 +326,24 @@ export default function Footer() {
           </p>
         </div>
       </div>
+
+      <FeedbackDialog
+        isOpen={isFeedbackOpen}
+        onClose={() => setIsFeedbackOpen(false)}
+        onSuccess={() => setSnackbar({ open: true, message: "Thank you for helping improve TypeBrush!", severity: "success" })}
+        onFailure={(msg) => setSnackbar({ open: true, message: msg || "Unable to submit feedback. Please try again later.", severity: "error" })}
+      />
+
+      <Snackbar
+        open={snackbar.open}
+        autoHideDuration={5000}
+        onClose={() => setSnackbar({ ...snackbar, open: false })}
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+      >
+        <Alert onClose={() => setSnackbar({ ...snackbar, open: false })} severity={snackbar.severity} sx={{ width: "100%", borderRadius: "8px" }}>
+          {snackbar.message}
+        </Alert>
+      </Snackbar>
     </footer>
   );
 }

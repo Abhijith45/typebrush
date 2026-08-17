@@ -5,11 +5,14 @@ import Link from "next/link";
 import RestartButton from "./RestartButton";
 import ScorecardDialog from "@/components/scorecard/ScorecardDialog";
 import ShareDialog from "@/components/sharing/ShareDialog";
+import FeedbackDialog from "@/components/feedback/FeedbackDialog";
 import { buildShareContent } from "@/lib/sharing/buildShareContent";
 import { saveResult, getHistory } from "@/lib/gym/typingHistoryStorage";
 import { analyzeTypingHistory } from "@/lib/gym/analysisEngine";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import Snackbar from "@mui/material/Snackbar";
+import Alert from "@mui/material/Alert";
 
 export default function TypingResult({
   wpm = 0,
@@ -31,6 +34,8 @@ export default function TypingResult({
 }) {
   const [isScorecardOpen, setIsScorecardOpen] = useState(false);
   const [isShareOpen, setIsShareOpen] = useState(false);
+  const [isFeedbackOpen, setIsFeedbackOpen] = useState(false);
+  const [feedbackSnackbar, setFeedbackSnackbar] = useState({ open: false, message: "", severity: "success" });
 
   // Async state for history
   const [history, setHistory] = useState([]);
@@ -707,6 +712,22 @@ export default function TypingResult({
           Share Result
         </Box>
 
+        <Box
+          component="button"
+          onClick={() => setIsFeedbackOpen(true)}
+          className="control-btn"
+          sx={{
+            fontSize: "0.9rem",
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "0.4rem"
+          }}
+          aria-label="Submit user feedback"
+        >
+          <span className="material-icons-outlined">chat</span>
+          Feedback
+        </Box>
+
         <RestartButton onRestart={onRestart} />
       </Box>
 
@@ -785,6 +806,24 @@ export default function TypingResult({
         onClose={() => setIsShareOpen(false)}
         shareContent={shareContent}
       />
+
+      <FeedbackDialog
+        isOpen={isFeedbackOpen}
+        onClose={() => setIsFeedbackOpen(false)}
+        onSuccess={() => setFeedbackSnackbar({ open: true, message: "Thank you for helping improve TypeBrush!", severity: "success" })}
+        onFailure={(msg) => setFeedbackSnackbar({ open: true, message: msg || "Unable to submit feedback. Please try again later.", severity: "error" })}
+      />
+
+      <Snackbar
+        open={feedbackSnackbar.open}
+        autoHideDuration={5000}
+        onClose={() => setFeedbackSnackbar({ ...feedbackSnackbar, open: false })}
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+      >
+        <Alert onClose={() => setFeedbackSnackbar({ ...feedbackSnackbar, open: false })} severity={feedbackSnackbar.severity} sx={{ width: "100%", borderRadius: "8px" }}>
+          {feedbackSnackbar.message}
+        </Alert>
+      </Snackbar>
     </Box>
   );
 }
