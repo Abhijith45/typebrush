@@ -59,7 +59,7 @@ export default function Header() {
           md: "0.85rem 0"
         },
         transition: "background-color 0.3s ease, border-color 0.3s ease",
-        opacity: 0.95 // Matches the glass opacity look
+        opacity: 0.98 // Matches the glass opacity look
       }}
     >
       <Box
