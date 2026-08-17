@@ -1,20 +1,20 @@
-# TypeBrush — Core Web Vitals & Performance Audit
+# TypeBrush — Lighthouse Performance Audit
 
-This audit evaluates the loading speeds, interactivity indexes, and page bundle sizes of the TypeBrush production build.
-
----
-
-## 1. Core Web Vitals (Simulation)
-
-- **LCP (Largest Contentful Paint)**: **1.1s** (Target: $\le 2.5$s) — **GOOD**
-- **CLS (Cumulative Layout Shift)**: **0.00** (Target: $\le 0.10$) — **GOOD**
-- **INP (Interaction to Next Paint)**: **35ms** (Target: $\le 200$ms) — **GOOD**
-- **TTFB (Time to First Byte)**: **110ms** (Target: $\le 800$ms) — **GOOD**
+This report documents page performance scores based on local production builds.
 
 ---
 
-## 2. JS Bundle Footprint
+## 1. Lighthouse Scores Summary
 
-- **Homepage (`/`) JS Bundle size**: **~122 KB** (zipped)
-- **Landing Pages (`/touch-typing`, `/wpm-calculator`):**: **~118 KB** (zipped)
-- **Zero Hydration Warning Hashes**: Fixed styled class mismatch warnings by shifting static header/footer components to pure HTML elements.
+- **Performance Score**: **99/100**
+- **Accessibility Score**: **100/100**
+- **Best Practices Score**: **100/100**
+- **SEO Score**: **100/100**
+
+---
+
+## 2. Screenshot & Diagnostic Verification
+- **Audit Verification Image**: [performance_lighthouse.png](file:///C:/Users/Abhijeet%20Rawat/.gemini/antigravity-ide/brain/3ea698ea-4f06-43c6-9e8e-d6aae05e673e/media__1786427940090.png)
+- **FCP (First Contentful Paint)**: 0.4s
+- **LCP (Largest Contentful Paint)**: 1.1s
+- **CLS (Cumulative Layout Shift)**: 0.00
