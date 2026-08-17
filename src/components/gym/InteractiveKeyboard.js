@@ -1,11 +1,25 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { QWERTY_ROWS, KEY_FINGER_MAP, FINGER_COLOR_MAP } from "@/lib/gym/gymData";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
 
 export default function InteractiveKeyboard({ onSelectKeyForPractice }) {
+  const [mounted, setMounted] = useState(false);
   const [selectedKey, setSelectedKey] = useState("R");
   const [hoveredKey, setHoveredKey] = useState(null);
+  
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setMounted(true);
+    }, 0);
+    return () => clearTimeout(timer);
+  }, []);
 
   const activeKeySymbol = hoveredKey || selectedKey;
   const activeKeyInfo = KEY_FINGER_MAP[activeKeySymbol] || KEY_FINGER_MAP["R"];
@@ -16,18 +30,27 @@ export default function InteractiveKeyboard({ onSelectKeyForPractice }) {
   };
 
   const handlePracticeClick = () => {
-    if (onSelectKeyForPractice && selectedKey) {
+    if (onSelectKeyForPractice) {
       onSelectKeyForPractice(selectedKey);
+    } else {
+      const params = new URLSearchParams(searchParams.toString());
+      params.set("mode", "personalized");
+      params.set("practiceKey", selectedKey);
+      router.push(`/typing-gym?${params.toString()}#training-workspace`);
     }
   };
 
+  if (!mounted) {
+    return <div style={{ minHeight: "450px" }} />;
+  }
+
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem", width: "100%" }}>
+    <Box sx={{ display: "flex", flexDirection: "column", gap: "1.5rem", width: "100%" }}>
       {/* Visual QWERTY Keyboard */}
-      <div className="gym-keyboard-container">
-        <div className="gym-keyboard">
+      <Box className="gym-keyboard-container">
+        <Box className="gym-keyboard">
           {QWERTY_ROWS.map((row, rowIndex) => (
-            <div key={rowIndex} className="gym-keyboard-row">
+            <Box key={rowIndex} className="gym-keyboard-row">
               {row.map((keySymbol) => {
                 const info = KEY_FINGER_MAP[keySymbol] || { finger: "Thumbs" };
                 const colorClass = FINGER_COLOR_MAP[info.finger] || "finger-slate";
@@ -36,7 +59,8 @@ export default function InteractiveKeyboard({ onSelectKeyForPractice }) {
                 const isSpace = keySymbol === "Space";
 
                 return (
-                  <button
+                  <Box
+                    component="button"
                     key={keySymbol}
                     type="button"
                     onClick={() => handleKeyClick(keySymbol)}
@@ -49,54 +73,63 @@ export default function InteractiveKeyboard({ onSelectKeyForPractice }) {
                   >
                     <span className="gym-key-symbol">{keySymbol}</span>
                     <span className="gym-key-dot" aria-hidden="true" />
-                  </button>
+                  </Box>
                 );
               })}
-            </div>
+            </Box>
           ))}
-        </div>
+        </Box>
 
         {/* Legend Row */}
-        <div className="gym-keyboard-legend">
+        <Box className="gym-keyboard-legend">
           {Object.entries(FINGER_COLOR_MAP).map(([fingerName, colorClass]) => (
-            <div key={fingerName} className="legend-item">
+            <Box key={fingerName} className="legend-item">
               <span className={`legend-dot ${colorClass}`} aria-hidden="true" />
               <span className="legend-label">{fingerName}</span>
-            </div>
+            </Box>
           ))}
-        </div>
-      </div>
+        </Box>
+      </Box>
 
       {/* Selected Key Information Panel */}
-      <div className="card gym-info-panel">
-        <div style={{ display: "flex", alignItems: "center", gap: "1.25rem", flexWrap: "wrap" }}>
-          <div className={`gym-key-preview ${activeFingerColor}`}>
+      <Box className="card gym-info-panel">
+        <Box sx={{ display: "flex", alignItems: "center", gap: "1.25rem", flexWrap: "wrap" }}>
+          <Box className={`gym-key-preview ${activeFingerColor}`}>
             {activeKeySymbol}
-          </div>
-          <div style={{ flex: 1, minWidth: "200px" }}>
-            <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.25rem" }}>
-              <h3 style={{ fontSize: "1.25rem", margin: 0 }}>Key: {activeKeySymbol}</h3>
-              <span className={`finger-badge ${activeFingerColor}`}>
+          </Box>
+          <Box sx={{ flex: 1, minWidth: "200px" }}>
+            <Box sx={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.25rem" }}>
+              <Typography component="h3" sx={{ fontSize: "1.25rem", margin: 0, fontWeight: "600" }}>
+                Key: {activeKeySymbol}
+              </Typography>
+              <Box component="span" className={`finger-badge ${activeFingerColor}`}>
                 {activeKeyInfo.finger}
-              </span>
-            </div>
-            <p style={{ fontSize: "0.85rem", color: "var(--sub-color)", margin: 0 }}>
+              </Box>
+            </Box>
+            <Typography component="p" sx={{ fontSize: "0.85rem", color: "var(--sub-color)", margin: 0 }}>
               Position: <strong>{activeKeyInfo.row}</strong> ({activeKeyInfo.hand} Hand)
-            </p>
-          </div>
-          <div>
-            <button
+            </Typography>
+          </Box>
+          <Box>
+            <Box
+              component="button"
               type="button"
               onClick={handlePracticeClick}
               className="control-btn primary"
-              style={{ padding: "0.6rem 1.4rem", fontSize: "0.9rem" }}
+              sx={{
+                padding: "0.6rem 1.4rem",
+                fontSize: "0.9rem",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "0.25rem"
+              }}
             >
               <span className="material-icons-outlined">fitness_center</span>
               Practice Key &quot;{selectedKey}&quot;
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
+            </Box>
+          </Box>
+        </Box>
+      </Box>
+    </Box>
   );
 }

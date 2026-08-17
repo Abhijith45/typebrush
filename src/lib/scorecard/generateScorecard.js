@@ -1,17 +1,16 @@
-/**
- * Client-side PDF Scorecard Generator for TypeBrush.
- * Dynamically imports jsPDF to keep the initial application bundle lightweight.
- */
-
 export async function generateScorecard({
   name = "Typist",
   wpm = 0,
   accuracy = 100,
+  rawAccuracy = 100,
   errors = 0,
   correctChars = 0,
   incorrectChars = 0,
   duration = 0,
   testName = "Typing Test",
+  performanceLevel = "Intermediate Typist",
+  weakKeys = "None detected",
+  recommendation = "Build speed and accuracy",
   date = null
 }) {
   // Normalize user name
@@ -56,6 +55,7 @@ export async function generateScorecard({
   doc.setLineWidth(1);
   doc.roundedRect(12, 12, pageWidth - 24, pageHeight - 24, 6, 6, "S");
 
+  // Inner Emerald Border
   doc.setDrawColor(5, 150, 105); // #059669 Emerald Accent
   doc.setLineWidth(0.5);
   doc.roundedRect(15, 15, pageWidth - 30, pageHeight - 30, 4, 4, "S");
@@ -109,7 +109,7 @@ export async function generateScorecard({
   // WPM Box
   doc.setFillColor(255, 255, 255);
   doc.setDrawColor(226, 232, 240);
-  doc.roundedRect(35, 106, 65, 42, 4, 4, "FD");
+  doc.roundedRect(35, 106, 65, 40, 4, 4, "FD");
 
   doc.setFont("helvetica", "bold");
   doc.setFontSize(28);
@@ -119,12 +119,12 @@ export async function generateScorecard({
   doc.setFont("helvetica", "bold");
   doc.setFontSize(9);
   doc.setTextColor(100, 116, 139);
-  doc.text("WORDS PER MINUTE (WPM)", 67.5, 138, { align: "center" });
+  doc.text("WORDS PER MINUTE (WPM)", 67.5, 137, { align: "center" });
 
   // Accuracy Box
   doc.setFillColor(255, 255, 255);
   doc.setDrawColor(226, 232, 240);
-  doc.roundedRect(110, 106, 65, 42, 4, 4, "FD");
+  doc.roundedRect(110, 106, 65, 40, 4, 4, "FD");
 
   doc.setFont("helvetica", "bold");
   doc.setFontSize(28);
@@ -134,44 +134,49 @@ export async function generateScorecard({
   doc.setFont("helvetica", "bold");
   doc.setFontSize(9);
   doc.setTextColor(100, 116, 139);
-  doc.text("TYPING ACCURACY", 142.5, 138, { align: "center" });
+  doc.text("TYPING ACCURACY", 142.5, 137, { align: "center" });
 
   // Detailed Performance Breakdown Table
   doc.setFillColor(255, 255, 255);
   doc.setDrawColor(226, 232, 240);
-  doc.roundedRect(35, 158, 140, 82, 4, 4, "FD");
+  doc.roundedRect(35, 150, 140, 94, 4, 4, "FD");
 
   doc.setFont("helvetica", "bold");
   doc.setFontSize(11);
   doc.setTextColor(15, 23, 42);
-  doc.text("PERFORMANCE BREAKDOWN", 45, 168);
+  doc.text("PERFORMANCE BREAKDOWN", 45, 158);
 
   doc.setDrawColor(241, 245, 249);
-  doc.line(45, 172, 165, 172);
+  doc.line(45, 161, 165, 161);
 
   const tableRows = [
     { label: "Test Mode / Type", value: testName },
+    { label: "Performance Level", value: performanceLevel },
+    { label: "Raw Accuracy", value: `${rawAccuracy}%` },
+    { label: "Net Accuracy", value: `${accuracy}%` },
     { label: "Time Elapsed", value: `${duration} seconds` },
     { label: "Characters Typed", value: `${correctChars + incorrectChars}` },
     { label: "Correct Characters", value: `${correctChars}` },
     { label: "Errors / Mistakes", value: `${errors}` },
+    { label: "Weak Keys", value: weakKeys },
+    { label: "Recommended Drill", value: recommendation },
     { label: "Completion Date", value: completionDate }
   ];
 
-  let currentY = 180;
+  let currentY = 168;
 
   tableRows.forEach((row) => {
     doc.setFont("helvetica", "normal");
-    doc.setFontSize(10);
+    doc.setFontSize(9);
     doc.setTextColor(100, 116, 139);
     doc.text(row.label, 45, currentY);
 
     doc.setFont("helvetica", "bold");
-    doc.setFontSize(10);
+    doc.setFontSize(9);
     doc.setTextColor(15, 23, 42);
     doc.text(row.value, 165, currentY, { align: "right" });
 
-    currentY += 9;
+    currentY += 7;
   });
 
   // Footer Disclaimer & URL

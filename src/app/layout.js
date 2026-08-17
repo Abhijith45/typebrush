@@ -3,7 +3,8 @@ import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import BottomNav from "@/components/layout/BottomNav";
-import Script from "next/script";
+import MuiThemeProvider from "@/theme/muiThemeProvider";
+import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -18,17 +19,32 @@ const geistMono = Geist_Mono({
 export const metadata = {
   metadataBase: new URL("https://typebrush.in"),
   title: {
-    default: "Free Typing Tests & Practice Online | TypeBrush",
-    template: "%s | TypeBrush"
+    default: "Free Typing Test Online — Check Your WPM & Accuracy | TypeBrush",
+    template: "%s"
   },
-  description: "Test and improve your typing speed and accuracy with our free online typing test. Practice with timed tests, numbers, and custom passages.",
-  keywords: ["typing test", "typing speed test", "typing practice", "online typing test", "WPM test", "number typing test"],
+  description: "Take a free online typing test and check your WPM and accuracy. Practice with timed tests, paragraphs, passages, and targeted Typing Gym drills. No account required.",
+  keywords: [
+    "typing test",
+    "online typing test",
+    "typing speed test",
+    "free typing test",
+    "typing practice",
+    "WPM test",
+    "words per minute",
+    "number typing test",
+    "typing test for beginners",
+    "10 finger typing",
+    "SSC typing test",
+    "typing speed check",
+    "keyboard practice",
+    "touch typing"
+  ],
   alternates: {
     canonical: "/"
   },
   openGraph: {
-    title: "Free Typing Tests & Practice Online | TypeBrush",
-    description: "Build speed, test accuracy, and improve weak keys with browser-based keyboard typing drills.",
+    title: "Free Typing Test Online — Check Your WPM & Accuracy | TypeBrush",
+    description: "Test and improve your typing speed for free. Timed tests, targeted Typing Gym drills, and personalized weak-key recommendations. No account needed.",
     url: "https://typebrush.in",
     siteName: "TypeBrush",
     locale: "en_US",
@@ -36,8 +52,9 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Free Typing Tests & Practice Online | TypeBrush",
-    description: "Build speed, test accuracy, and improve weak keys with browser-based keyboard typing drills."
+    title: "Free Typing Test Online — Check Your WPM & Accuracy | TypeBrush",
+    description: "Test and improve your typing speed for free. Timed tests, targeted drills, and personalized weak-key recommendations.",
+    site: "@typebrush"
   },
   robots: {
     index: true,
@@ -50,9 +67,7 @@ export default function RootLayout({ children }) {
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`} suppressHydrationWarning={true}>
       <head>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
-        <Script
-          id="theme-script"
-          strategy="beforeInteractive"
+        <script
           dangerouslySetInnerHTML={{
             __html: `
               (function() {
@@ -66,10 +81,14 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body>
-        <Header />
-        <main>{children}</main>
-        <Footer />
-        <BottomNav />
+        <AppRouterCacheProvider>
+          <MuiThemeProvider>
+            <Header />
+            <main>{children}</main>
+            <Footer />
+            <BottomNav />
+          </MuiThemeProvider>
+        </AppRouterCacheProvider>
       </body>
     </html>
   );

@@ -8,14 +8,22 @@ import TypingResult from "./TypingResult";
 import { calculateWpm } from "@/lib/typing/calculateWpm";
 import { calculateAccuracy } from "@/lib/typing/calculateAccuracy";
 import { getPassage, getCurrentTime } from "@/lib/typing/typingUtils";
+import { useDeviceCapability } from "@/hooks/useDeviceCapability";
+import DesktopRequiredDialog from "@/components/common/DesktopRequiredDialog";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
 
 export default function TypingTest({ duration = 60, mode = "standard", isPractice = false, customPassage = null, onTestComplete = null }) {
+  const device = useDeviceCapability();
+  const [isDesktopRequiredOpen, setIsDesktopRequiredOpen] = useState(false);
   const [passage, setPassage] = useState(() => customPassage || getPassage(mode, null, true));
   const [typedText, setTypedText] = useState("");
   const [testState, setTestState] = useState("IDLE"); // IDLE | RUNNING | COMPLETED
   const [secondsElapsed, setSecondsElapsed] = useState(0);
   const [secondsRemaining, setSecondsRemaining] = useState(isPractice ? 0 : duration);
   const [mistakeCount, setMistakeCount] = useState(0);
+  const [totalKeystrokes, setTotalKeystrokes] = useState(0);
+  const [backspaceCount, setBackspaceCount] = useState(0);
   const [isFocused, setIsFocused] = useState(false);
   const [completedStats, setCompletedStats] = useState(null);
 
@@ -50,6 +58,8 @@ export default function TypingTest({ duration = 60, mode = "standard", isPractic
     setSecondsElapsed(0);
     setSecondsRemaining(isPractice ? 0 : duration);
     setMistakeCount(0);
+    setTotalKeystrokes(0);
+    setBackspaceCount(0);
     setCompletedStats(null);
     setTestState("IDLE");
     keyStatsRef.current = {};
@@ -102,18 +112,22 @@ export default function TypingTest({ duration = 60, mode = "standard", isPractic
   }, []);
 
   const startTest = useCallback(() => {
+    if (!device.canStartTypingExperience) {
+      setIsDesktopRequiredOpen(true);
+      return;
+    }
     setTestState("RUNNING");
     setCompletedStats(null);
     keyStatsRef.current = {};
     mistakePairsRef.current = {};
     startTimeRef.current = getCurrentTime();
-    
+
     // Set up high precision interval using timestamp offsets
     timerRef.current = setInterval(() => {
       if (!startTimeRef.current) return;
       const elapsed = Math.max(0, Math.floor((getCurrentTime() - startTimeRef.current) / 1000));
       setSecondsElapsed(elapsed);
-      
+
       if (isPractice) {
         setSecondsRemaining(elapsed); // Count up for practice modes
       } else {
@@ -134,7 +148,7 @@ export default function TypingTest({ duration = 60, mode = "standard", isPractic
         setIsFocused(true);
       }
     }, 10);
-  }, [duration, isPractice, finishTest]);
+  }, [duration, isPractice, finishTest, device.canStartTypingExperience]);
 
   const recordKeystroke = (enteredChar, targetChar) => {
     const normalizedTarget = targetChar.length === 1 && /[A-Za-z]/.test(targetChar)
@@ -172,12 +186,13 @@ export default function TypingTest({ duration = 60, mode = "standard", isPractic
         const enteredChar = value[lastIdx];
         const targetChar = passage.text[lastIdx];
         recordKeystroke(enteredChar, targetChar);
+        setTotalKeystrokes((prev) => prev + 1);
       }
       setTypedText(value);
 
       // Check early completion
       if (value.length === passage.text.length) {
-        const finalTime = startTimeRef.current 
+        const finalTime = startTimeRef.current
           ? Math.max(1, Math.floor((getCurrentTime() - startTimeRef.current) / 1000))
           : 1;
         finishTest(finalTime);
@@ -187,19 +202,23 @@ export default function TypingTest({ duration = 60, mode = "standard", isPractic
 
   const handleKeyDown = (e) => {
     if (testState !== "RUNNING") return;
+    if (e.key === "Backspace") {
+      setBackspaceCount((prev) => prev + 1);
+    }
     // Prevent default scroll behaviors inside typing area on Space key
     if (e.key === " ") {
       e.preventDefault();
-      
+
       const nextVal = typedText + " ";
       if (nextVal.length <= passage.text.length) {
         const lastIdx = nextVal.length - 1;
         const targetChar = passage.text[lastIdx];
         recordKeystroke(" ", targetChar);
+        setTotalKeystrokes((prev) => prev + 1);
         setTypedText(nextVal);
 
         if (nextVal.length === passage.text.length) {
-          const finalTime = startTimeRef.current 
+          const finalTime = startTimeRef.current
             ? Math.max(1, Math.floor((getCurrentTime() - startTimeRef.current) / 1000))
             : 1;
           finishTest(finalTime);
@@ -230,8 +249,8 @@ export default function TypingTest({ duration = 60, mode = "standard", isPractic
     elapsedSeconds: secondsElapsed || 1
   });
 
-  const currentAccuracy = testState === "IDLE" 
-    ? null 
+  const currentAccuracy = testState === "IDLE"
+    ? null
     : calculateAccuracy({
         correctCharacters: correctCount,
         totalTypedCharacters: typedText.length
@@ -255,11 +274,19 @@ export default function TypingTest({ duration = 60, mode = "standard", isPractic
     derivedCanonicalPath = `/typing-test/${mins}-minute`;
   }
 
+  const rawAccuracy = totalKeystrokes > 0
+    ? Math.round(((totalKeystrokes - mistakeCount) / totalKeystrokes) * 100 * 10) / 10
+    : 100;
+
+  const correctedErrors = Math.max(0, mistakeCount - incorrectCount);
+  const uncorrectedErrors = incorrectCount;
+
   useEffect(() => {
     if (testState === "COMPLETED" && onTestComplete && completedStats) {
       onTestComplete({
         wpm: currentWpm,
         accuracy: currentAccuracy === null ? 100 : currentAccuracy,
+        rawAccuracy,
         errors: mistakeCount,
         correctChars: correctCount,
         incorrectChars: incorrectCount,
@@ -267,16 +294,21 @@ export default function TypingTest({ duration = 60, mode = "standard", isPractic
         testName: derivedTestName,
         canonicalPath: derivedCanonicalPath,
         keyStats: completedStats.keyStats,
-        mistakePairs: completedStats.mistakePairs
+        mistakePairs: completedStats.mistakePairs,
+        totalKeystrokes,
+        correctedErrors,
+        uncorrectedErrors,
+        backspacesUsed: backspaceCount
       });
     }
-  }, [testState, completedStats, onTestComplete, currentWpm, currentAccuracy, mistakeCount, correctCount, incorrectCount, secondsElapsed, derivedTestName, derivedCanonicalPath]);
+  }, [testState, completedStats, onTestComplete, currentWpm, currentAccuracy, rawAccuracy, mistakeCount, correctCount, incorrectCount, secondsElapsed, derivedTestName, derivedCanonicalPath, totalKeystrokes, correctedErrors, uncorrectedErrors, backspaceCount]);
 
   if (testState === "COMPLETED") {
     return (
       <TypingResult
         wpm={currentWpm}
         accuracy={currentAccuracy === null ? 100 : currentAccuracy}
+        rawAccuracy={rawAccuracy}
         errors={mistakeCount}
         correctChars={correctCount}
         incorrectChars={incorrectCount}
@@ -285,20 +317,37 @@ export default function TypingTest({ duration = 60, mode = "standard", isPractic
         canonicalPath={derivedCanonicalPath}
         keyStats={completedStats?.keyStats || {}}
         mistakePairs={completedStats?.mistakePairs || {}}
+        totalKeystrokes={totalKeystrokes}
+        correctedErrors={correctedErrors}
+        uncorrectedErrors={uncorrectedErrors}
+        backspacesUsed={backspaceCount}
         onRestart={restartTest}
       />
     );
   }
 
   return (
-    <div className="typing-container" onClick={handleWrapperClick}>
+    <Box
+      className="typing-container"
+      onClick={handleWrapperClick}
+      sx={{ display: "flex", flexDirection: "column" }}
+    >
       <TypingStats
         wpm={testState === "IDLE" ? 0 : currentWpm}
         accuracy={currentAccuracy}
         seconds={secondsRemaining}
       />
 
-      <div style={{ position: "relative", padding: "1.5rem", backgroundColor: "var(--surface-color)", border: "1px solid var(--border-color)", borderRadius: "var(--border-radius)", cursor: testState === "RUNNING" ? "text" : "default" }}>
+      <Box
+        sx={{
+          position: "relative",
+          padding: "1.5rem",
+          backgroundColor: "var(--surface-color)",
+          border: "1px solid var(--border-color)",
+          borderRadius: "var(--border-radius)",
+          cursor: testState === "RUNNING" ? "text" : "default"
+        }}
+      >
         <TypingInput
           value={typedText}
           onChange={handleInputChange}
@@ -308,7 +357,7 @@ export default function TypingTest({ duration = 60, mode = "standard", isPractic
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
         />
-        
+
         <TypingPassage
           text={passage.text}
           typedText={typedText}
@@ -316,29 +365,50 @@ export default function TypingTest({ duration = 60, mode = "standard", isPractic
         />
 
         {testState === "IDLE" && (
-          <div className="start-overlay">
-            <span className="material-icons-outlined" style={{ fontSize: "2.5rem", color: "var(--accent-color)" }}>play_circle_outline</span>
-            <span className="start-overlay-title">Ready to test your skills?</span>
+          <Box className="start-overlay">
+            <span className="material-icons-outlined" style={{ fontSize: "2.5rem", color: "var(--accent-color)" }}>
+              play_circle_outline
+            </span>
+            <Typography component="span" className="start-overlay-title" sx={{ fontWeight: "600" }}>
+              Ready to test your skills?
+            </Typography>
             <button onClick={startTest} className="cta-button" style={{ padding: "0.6rem 1.75rem" }}>
               <span className="material-icons-outlined">play_arrow</span>
               {isPractice ? "Start Practice" : "Start Test"}
             </button>
-          </div>
+          </Box>
         )}
-      </div>
+      </Box>
 
       {testState === "RUNNING" && (
-        <div style={{ display: "flex", justifyContent: "center", gap: "1rem", marginTop: "1rem" }}>
-          <button onClick={restartTest} className="control-btn" aria-label="Reset typing test">
+        <Box sx={{ display: "flex", justifyContent: "center", gap: "1rem", marginTop: "1rem" }}>
+          <Box
+            component="button"
+            onClick={restartTest}
+            className="control-btn"
+            aria-label="Reset typing test"
+            sx={{ display: "inline-flex", alignItems: "center", gap: "0.25rem" }}
+          >
             <span className="material-icons-outlined">restart_alt</span>
             Reset
-          </button>
-          <button onClick={() => finishTest(secondsElapsed)} className="control-btn primary" aria-label="Finish typing test">
+          </Box>
+          <Box
+            component="button"
+            onClick={() => finishTest(secondsElapsed)}
+            className="control-btn primary"
+            aria-label="Finish typing test"
+            sx={{ display: "inline-flex", alignItems: "center", gap: "0.25rem" }}
+          >
             <span className="material-icons-outlined">done</span>
             Finish
-          </button>
-        </div>
+          </Box>
+        </Box>
       )}
-    </div>
+
+      <DesktopRequiredDialog
+        isOpen={isDesktopRequiredOpen}
+        onClose={() => setIsDesktopRequiredOpen(false)}
+      />
+    </Box>
   );
 }

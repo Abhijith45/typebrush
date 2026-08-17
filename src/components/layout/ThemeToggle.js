@@ -1,13 +1,14 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { storageService } from "@/lib/storage/storageService";
 
 export default function ThemeToggle() {
   const [theme, setTheme] = useState("light");
 
   useEffect(() => {
-    // Safely check theme on mount
-    const savedTheme = localStorage.getItem("theme") || "light";
+    // Safely check theme on mount via storageService
+    const savedTheme = storageService.getTheme();
     setTimeout(() => {
       setTheme(savedTheme);
     }, 0);
@@ -17,7 +18,7 @@ export default function ThemeToggle() {
     const nextTheme = theme === "light" ? "dark" : "light";
     setTheme(nextTheme);
     document.documentElement.setAttribute("data-theme", nextTheme);
-    localStorage.setItem("theme", nextTheme);
+    storageService.saveTheme(nextTheme);
   };
 
   return (

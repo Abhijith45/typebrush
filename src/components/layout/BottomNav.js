@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Box from "@mui/material/Box";
 
 export default function BottomNav() {
   const pathname = usePathname();
@@ -14,9 +15,25 @@ export default function BottomNav() {
     { label: "About", path: "/about", icon: "info" }
   ];
 
+  const handleLinkClick = (e, href) => {
+    if (pathname === href) {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+
   return (
-    <div className="bottom-nav-wrapper">
-      <nav className="bottom-nav" aria-label="Mobile navigation bar">
+    <Box className="bottom-nav-wrapper">
+      <Box
+        component="nav"
+        className="bottom-nav"
+        aria-label="Mobile navigation bar"
+        sx={{
+          display: "flex",
+          justifyContent: "space-around",
+          alignItems: "center"
+        }}
+      >
         {navItems.map((item) => {
           const isActive =
             item.path === "/"
@@ -27,18 +44,29 @@ export default function BottomNav() {
             <Link
               key={item.path}
               href={item.path}
+              onClick={(e) => handleLinkClick(e, item.path)}
               className={`bottom-nav-item ${isActive ? "active" : ""}`}
               aria-label={item.label}
               aria-current={isActive ? "page" : undefined}
             >
-              <span className="material-icons-outlined bottom-nav-icon">
+              <Box
+                component="span"
+                className="material-icons-outlined bottom-nav-icon"
+                sx={{ display: "block" }}
+              >
                 {item.icon}
-              </span>
-              <span className="bottom-nav-label">{item.label}</span>
+              </Box>
+              <Box
+                component="span"
+                className="bottom-nav-label"
+                sx={{ display: "block" }}
+              >
+                {item.icon === "edit_note" && item.label === "Practice" ? "Practice" : item.label}
+              </Box>
             </Link>
           );
         })}
-      </nav>
-    </div>
+      </Box>
+    </Box>
   );
 }

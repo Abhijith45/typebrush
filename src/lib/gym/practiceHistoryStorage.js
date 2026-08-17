@@ -1,21 +1,16 @@
+import { storageService } from "@/lib/storage/storageService";
+
 /**
  * Client-side local storage engine for TypeBrush practice session history.
- * Bounded to max 100 sessions under key `typebrush:practice-history:v1`.
+ * Delegates to central storageService.
  */
 
-const PRACTICE_STORAGE_KEY = "typebrush:practice-history:v1";
 const MAX_PRACTICE_LIMIT = 100;
 
-export function getPracticeHistory() {
-  if (typeof window === "undefined") return [];
-
+export async function getPracticeHistory() {
   try {
-    const raw = localStorage.getItem(PRACTICE_STORAGE_KEY);
-    if (!raw) return [];
-    const parsed = JSON.parse(raw);
-    if (!Array.isArray(parsed)) return [];
-
-    return parsed.filter(
+    const history = await storageService.getGymSessionHistory();
+    return history.filter(
       (item) =>
         item &&
         typeof item === "object" &&
@@ -28,11 +23,11 @@ export function getPracticeHistory() {
   }
 }
 
-export function savePracticeSession(session) {
-  if (typeof window === "undefined" || !session) return null;
+export async function savePracticeSession(session) {
+  if (!session) return null;
 
   try {
-    const existing = getPracticeHistory();
+    const existing = await getPracticeHistory();
 
     const newRecord = {
       id: session.id || `prac-${Date.now()}-${Math.random().toString(36).substring(2, 6)}`,
@@ -47,7 +42,13 @@ export function savePracticeSession(session) {
     };
 
     const updated = [...existing, newRecord].slice(-MAX_PRACTICE_LIMIT);
-    localStorage.setItem(PRACTICE_STORAGE_KEY, JSON.stringify(updated));
+    
+    // Clear and rewrite history to IndexedDB to maintain strict limit
+    await storageService.clearGymSessionHistory();
+    for (const item of updated) {
+      await storageService.saveGymSession(item);
+    }
+    
     return newRecord;
   } catch (err) {
     console.warn("TypeBrush: Failed to save practice session", err);
@@ -55,10 +56,9 @@ export function savePracticeSession(session) {
   }
 }
 
-export function clearPracticeHistory() {
-  if (typeof window === "undefined") return false;
+export async function clearPracticeHistory() {
   try {
-    localStorage.removeItem(PRACTICE_STORAGE_KEY);
+    await storageService.clearGymSessionHistory();
     return true;
   } catch (err) {
     console.warn("TypeBrush: Failed to clear practice history", err);

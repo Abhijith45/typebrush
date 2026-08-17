@@ -12,13 +12,15 @@ import {
   SYMBOL_DRILLS,
   SPEED_BURST_DRILLS
 } from "@/lib/gym/gymData";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
 
 export default function GymTrainer({ initialKeyToPractice = null }) {
   const [activeMode, setActiveMode] = useState("weak-keys");
   const [difficulty, setDifficulty] = useState("medium");
-  
+
   // Weak keys state
-  const [selectedWeakKeys, setSelectedWeakKeys] = useState(() => 
+  const [selectedWeakKeys, setSelectedWeakKeys] = useState(() =>
     initialKeyToPractice ? [initialKeyToPractice] : ["O", "P", "R"]
   );
 
@@ -50,7 +52,7 @@ export default function GymTrainer({ initialKeyToPractice = null }) {
           const dict = WEAK_KEYS_WORDS[key.toUpperCase()] || WEAK_KEYS_WORDS["R"];
           words.push(...dict);
         });
-        
+
         // Filter word length based on difficulty
         let wordCount = 18;
         if (difficulty === "easy") wordCount = 10;
@@ -161,26 +163,39 @@ export default function GymTrainer({ initialKeyToPractice = null }) {
 
   if (isPracticing) {
     return (
-      <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "1rem" }}>
-          <div>
+      <Box sx={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            flexWrap: "wrap",
+            gap: "1rem"
+          }}
+        >
+          <Box>
             <span className="hero-pill" style={{ marginBottom: "0.5rem" }}>
-              <span className="material-icons-outlined" style={{ fontSize: "1rem" }}>fitness_center</span>
+              <span className="material-icons-outlined" style={{ fontSize: "1rem" }}>
+                fitness_center
+              </span>
               Typing Gym Session ({difficulty.toUpperCase()})
             </span>
-            <h2 style={{ fontSize: "1.75rem", margin: 0 }}>{activeExercise.title}</h2>
-          </div>
+            <Typography component="h2" sx={{ fontSize: "1.75rem", margin: 0, fontWeight: "700" }}>
+              {activeExercise.title}
+            </Typography>
+          </Box>
 
-          <button
+          <Box
+            component="button"
             type="button"
             onClick={() => setIsPracticing(false)}
             className="control-btn"
-            style={{ fontSize: "0.85rem" }}
+            sx={{ fontSize: "0.85rem", display: "inline-flex", alignItems: "center", gap: "0.25rem" }}
           >
             <span className="material-icons-outlined">arrow_back</span>
             Change Gym Drill
-          </button>
-        </div>
+          </Box>
+        </Box>
 
         <TypingTest
           customPassage={{
@@ -193,85 +208,127 @@ export default function GymTrainer({ initialKeyToPractice = null }) {
           duration={activeExercise.duration}
           onTestComplete={handleTestComplete}
         />
-      </div>
+      </Box>
     );
   }
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "2.5rem" }} id="training-modes">
+    <Box sx={{ display: "flex", flexDirection: "column", gap: "2.5rem" }} id="training-modes">
       {/* Category Selection Cards */}
-      <div>
-        <h2 style={{ fontSize: "1.6rem", marginBottom: "0.5rem" }}>Choose a Training Category</h2>
-        <p style={{ color: "var(--text-color)", opacity: 0.8, marginBottom: "1.5rem" }}>
+      <Box>
+        <Typography component="h2" sx={{ fontSize: "1.6rem", marginBottom: "0.5rem", fontWeight: "700" }}>
+          Choose a Training Category
+        </Typography>
+        <Typography component="p" sx={{ color: "var(--text-color)", opacity: 0.8, marginBottom: "1.5rem" }}>
           Select a targeted workout below to train specific keyboard mechanics.
-        </p>
+        </Typography>
 
-        <div className="grid-cards">
+        <Box className="grid-cards">
           {categories.map((cat) => {
             const isSelected = activeMode === cat.id;
             return (
-              <div
+              <Box
                 key={cat.id}
                 onClick={() => setActiveMode(cat.id)}
                 className={`card ${isSelected ? "gym-cat-active" : ""}`}
-                style={{ cursor: "pointer", display: "flex", flexDirection: "column", justifyContent: "space-between" }}
+                sx={{ cursor: "pointer", display: "flex", flexDirection: "column", justifyContent: "space-between" }}
               >
-                <div>
-                  <div style={{ display: "flex", alignItems: "center", gap: "0.6rem", marginBottom: "0.75rem" }}>
-                    <span className="icon-badge icon-badge-emerald" style={{ width: "32px", height: "32px", fontSize: "1rem" }}>
+                <Box>
+                  <Box sx={{ display: "flex", alignItems: "center", gap: "0.6rem", marginBottom: "0.75rem" }}>
+                    <Box
+                      className="icon-badge icon-badge-emerald"
+                      sx={{ width: "32px", height: "32px", fontSize: "1rem" }}
+                    >
                       <span className="material-icons-outlined">{cat.icon}</span>
-                    </span>
-                    <h3 style={{ fontSize: "1.1rem", margin: 0 }}>{cat.label}</h3>
-                  </div>
-                  <p style={{ fontSize: "0.85rem", opacity: 0.75, lineHeight: "1.4rem" }}>{cat.desc}</p>
-                </div>
-                <div style={{ marginTop: "1rem", display: "flex", alignItems: "center", gap: "0.3rem", fontSize: "0.85rem", fontWeight: "600", color: isSelected ? "var(--accent-color)" : "var(--sub-color)" }}>
+                    </Box>
+                    <Typography component="h3" sx={{ fontSize: "1.1rem", margin: 0, fontWeight: "600" }}>
+                      {cat.label}
+                    </Typography>
+                  </Box>
+                  <Typography component="p" sx={{ fontSize: "0.85rem", opacity: 0.75, lineHeight: "1.4rem", margin: 0 }}>
+                    {cat.desc}
+                  </Typography>
+                </Box>
+                <Box
+                  sx={{
+                    marginTop: "1rem",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "0.3rem",
+                    fontSize: "0.85rem",
+                    fontWeight: "600",
+                    color: isSelected ? "var(--accent-color)" : "var(--sub-color)"
+                  }}
+                >
                   <span>Configure</span>
-                  <span className="material-icons-outlined" style={{ fontSize: "1rem" }}>arrow_forward</span>
-                </div>
-              </div>
+                  <span className="material-icons-outlined" style={{ fontSize: "1rem" }}>
+                    arrow_forward
+                  </span>
+                </Box>
+              </Box>
             );
           })}
-        </div>
-      </div>
+        </Box>
+      </Box>
 
       {/* Mode Configuration Card */}
-      <div className="card" style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "1rem" }}>
-          <h3 style={{ fontSize: "1.25rem", color: "var(--accent-color)", margin: 0 }}>
+      <Box className="card" sx={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            flexWrap: "wrap",
+            gap: "1rem"
+          }}
+        >
+          <Typography
+            component="h3"
+            sx={{ fontSize: "1.25rem", color: "var(--accent-color)", margin: 0, fontWeight: "600" }}
+          >
             Configuration: {categories.find((c) => c.id === activeMode)?.label}
-          </h3>
+          </Typography>
 
           {/* Adaptive Difficulty Level Selector */}
-          <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-            <span style={{ fontSize: "0.8rem", color: "var(--sub-color)", fontWeight: "600" }}>Difficulty:</span>
+          <Box sx={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+            <Typography component="span" sx={{ fontSize: "0.8rem", color: "var(--sub-color)", fontWeight: "600" }}>
+              Difficulty:
+            </Typography>
             {["easy", "medium", "hard"].map((level) => (
-              <button
+              <Box
+                component="button"
                 key={level}
                 type="button"
                 onClick={() => setDifficulty(level)}
                 className={`cta-button ${difficulty === level ? "primary" : ""}`}
-                style={{
+                sx={{
                   padding: "0.3rem 0.75rem",
                   fontSize: "0.75rem",
                   textTransform: "capitalize",
                   backgroundColor: difficulty === level ? "var(--accent-color)" : "var(--sub-alt-color)",
-                  color: difficulty === level ? "#ffffff" : "var(--text-color)"
+                  color: difficulty === level ? "#ffffff" : "var(--text-color)",
+                  boxShadow: "none",
+                  borderRadius: "9999px",
+                  border: "none",
+                  cursor: "pointer",
+                  "&:hover": {
+                    boxShadow: "none"
+                  }
                 }}
               >
                 {level}
-              </button>
+              </Box>
             ))}
-          </div>
-        </div>
+          </Box>
+        </Box>
 
         {/* 1. Weak Keys Configuration */}
         {activeMode === "weak-keys" && (
-          <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-            <p style={{ fontSize: "0.9rem", color: "var(--sub-color)", margin: 0 }}>
+          <Box sx={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+            <Typography component="p" sx={{ fontSize: "0.9rem", color: "var(--sub-color)", margin: 0 }}>
               Select target keys you want to practice. The workout will build word drills containing your selected keys.
-            </p>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: "0.4rem" }}>
+            </Typography>
+            <Box sx={{ display: "flex", flexWrap: "wrap", gap: "0.4rem" }}>
               {availableLetters.map((letter) => {
                 const isSelected = selectedWeakKeys.includes(letter);
                 return (
@@ -285,165 +342,212 @@ export default function GymTrainer({ initialKeyToPractice = null }) {
                   </button>
                 );
               })}
-            </div>
-            <p style={{ fontSize: "0.85rem", color: "var(--accent-color)", fontWeight: "600" }}>
+            </Box>
+            <Typography component="p" sx={{ fontSize: "0.85rem", color: "var(--accent-color)", fontWeight: "600", margin: 0 }}>
               Selected Keys ({selectedWeakKeys.length}): {selectedWeakKeys.join(", ")}
-            </p>
-          </div>
+            </Typography>
+          </Box>
         )}
 
         {/* 2. Finger Training Configuration */}
         {activeMode === "finger" && (
-          <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-            <p style={{ fontSize: "0.9rem", color: "var(--sub-color)", margin: 0 }}>
+          <Box sx={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+            <Typography component="p" sx={{ fontSize: "0.9rem", color: "var(--sub-color)", margin: 0 }}>
               Select a finger to practice its assigned touch-typing keys and build finger independence.
-            </p>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
+            </Typography>
+            <Box sx={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
               {Object.keys(FINGER_KEYS_LIST).map((finger) => (
-                <button
+                <Box
+                  component="button"
                   key={finger}
                   type="button"
                   onClick={() => setSelectedFinger(finger)}
                   className={`cta-button ${selectedFinger === finger ? "primary" : ""}`}
-                  style={{
+                  sx={{
                     padding: "0.5rem 1rem",
                     fontSize: "0.85rem",
                     backgroundColor: selectedFinger === finger ? "var(--accent-color)" : "var(--sub-alt-color)",
-                    color: selectedFinger === finger ? "#ffffff" : "var(--text-color)"
+                    color: selectedFinger === finger ? "#ffffff" : "var(--text-color)",
+                    boxShadow: "none",
+                    borderRadius: "9999px",
+                    border: "none",
+                    cursor: "pointer",
+                    "&:hover": {
+                      boxShadow: "none"
+                    }
                   }}
                 >
                   {finger}
-                </button>
+                </Box>
               ))}
-            </div>
-            <p style={{ fontSize: "0.85rem", color: "var(--accent-color)", fontWeight: "600" }}>
+            </Box>
+            <Typography component="p" sx={{ fontSize: "0.85rem", color: "var(--accent-color)", fontWeight: "600", margin: 0 }}>
               Assigned Keys: {(FINGER_KEYS_LIST[selectedFinger] || []).join(", ")}
-            </p>
-          </div>
+            </Typography>
+          </Box>
         )}
 
         {/* 3. Key Pairs Configuration */}
         {activeMode === "pair" && (
-          <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-            <p style={{ fontSize: "0.9rem", color: "var(--sub-color)", margin: 0 }}>
+          <Box sx={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+            <Typography component="p" sx={{ fontSize: "0.9rem", color: "var(--sub-color)", margin: 0 }}>
               Select a 2-letter pair to build fluidity and transition speed across key pairs.
-            </p>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
+            </Typography>
+            <Box sx={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
               {Object.keys(KEY_PAIRS_DRILLS).map((pairKey) => (
-                <button
+                <Box
+                  component="button"
                   key={pairKey}
                   type="button"
                   onClick={() => setSelectedPairKey(pairKey)}
                   className={`cta-button ${selectedPairKey === pairKey ? "primary" : ""}`}
-                  style={{
+                  sx={{
                     padding: "0.5rem 1.2rem",
                     fontSize: "0.9rem",
                     textTransform: "uppercase",
                     backgroundColor: selectedPairKey === pairKey ? "var(--accent-color)" : "var(--sub-alt-color)",
-                    color: selectedPairKey === pairKey ? "#ffffff" : "var(--text-color)"
+                    color: selectedPairKey === pairKey ? "#ffffff" : "var(--text-color)",
+                    boxShadow: "none",
+                    borderRadius: "9999px",
+                    border: "none",
+                    cursor: "pointer",
+                    "&:hover": {
+                      boxShadow: "none"
+                    }
                   }}
                 >
                   {pairKey}
-                </button>
+                </Box>
               ))}
-            </div>
-          </div>
+            </Box>
+          </Box>
         )}
 
         {/* 4. Number Practice Configuration */}
         {activeMode === "number" && (
-          <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-            <p style={{ fontSize: "0.9rem", color: "var(--sub-color)", margin: 0 }}>
+          <Box sx={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+            <Typography component="p" sx={{ fontSize: "0.9rem", color: "var(--sub-color)", margin: 0 }}>
               Select a numeric drill type to train number row positioning and decimal entry.
-            </p>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
+            </Typography>
+            <Box sx={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
               {NUMBER_DRILLS.map((drill) => (
-                <button
+                <Box
+                  component="button"
                   key={drill.id}
                   type="button"
                   onClick={() => setSelectedNumberDrillId(drill.id)}
                   className={`cta-button ${selectedNumberDrillId === drill.id ? "primary" : ""}`}
-                  style={{
+                  sx={{
                     padding: "0.5rem 1rem",
                     fontSize: "0.85rem",
                     backgroundColor: selectedNumberDrillId === drill.id ? "var(--accent-color)" : "var(--sub-alt-color)",
-                    color: selectedNumberDrillId === drill.id ? "#ffffff" : "var(--text-color)"
+                    color: selectedNumberDrillId === drill.id ? "#ffffff" : "var(--text-color)",
+                    boxShadow: "none",
+                    borderRadius: "9999px",
+                    border: "none",
+                    cursor: "pointer",
+                    "&:hover": {
+                      boxShadow: "none"
+                    }
                   }}
                 >
                   {drill.title}
-                </button>
+                </Box>
               ))}
-            </div>
-          </div>
+            </Box>
+          </Box>
         )}
 
         {/* 5. Symbol Practice Configuration */}
         {activeMode === "symbol" && (
-          <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-            <p style={{ fontSize: "0.9rem", color: "var(--sub-color)", margin: 0 }}>
+          <Box sx={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+            <Typography component="p" sx={{ fontSize: "0.9rem", color: "var(--sub-color)", margin: 0 }}>
               Select a symbol category to master special characters and Shift-key combinations.
-            </p>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
+            </Typography>
+            <Box sx={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
               {Object.entries(SYMBOL_DRILLS).map(([key, drill]) => (
-                <button
+                <Box
+                  component="button"
                   key={key}
                   type="button"
                   onClick={() => setSelectedSymbolGroupKey(key)}
                   className={`cta-button ${selectedSymbolGroupKey === key ? "primary" : ""}`}
-                  style={{
+                  sx={{
                     padding: "0.5rem 1rem",
                     fontSize: "0.85rem",
                     backgroundColor: selectedSymbolGroupKey === key ? "var(--accent-color)" : "var(--sub-alt-color)",
-                    color: selectedSymbolGroupKey === key ? "#ffffff" : "var(--text-color)"
+                    color: selectedSymbolGroupKey === key ? "#ffffff" : "var(--text-color)",
+                    boxShadow: "none",
+                    borderRadius: "9999px",
+                    border: "none",
+                    cursor: "pointer",
+                    "&:hover": {
+                      boxShadow: "none"
+                    }
                   }}
                 >
                   {drill.title}
-                </button>
+                </Box>
               ))}
-            </div>
-          </div>
+            </Box>
+          </Box>
         )}
 
         {/* 6. Speed Burst Configuration */}
         {activeMode === "speed" && (
-          <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-            <p style={{ fontSize: "0.9rem", color: "var(--sub-color)", margin: 0 }}>
+          <Box sx={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+            <Typography component="p" sx={{ fontSize: "0.9rem", color: "var(--sub-color)", margin: 0 }}>
               Choose a short burst duration to push your maximum WPM cadence.
-            </p>
-            <div style={{ display: "flex", gap: "0.75rem" }}>
+            </Typography>
+            <Box sx={{ display: "flex", gap: "0.75rem" }}>
               {SPEED_BURST_DRILLS.map((drill) => (
-                <button
+                <Box
+                  component="button"
                   key={drill.id}
                   type="button"
                   onClick={() => setSelectedSpeedBurstId(drill.id)}
                   className={`cta-button ${selectedSpeedBurstId === drill.id ? "primary" : ""}`}
-                  style={{
+                  sx={{
                     padding: "0.6rem 1.5rem",
                     fontSize: "0.9rem",
                     backgroundColor: selectedSpeedBurstId === drill.id ? "var(--accent-color)" : "var(--sub-alt-color)",
-                    color: selectedSpeedBurstId === drill.id ? "#ffffff" : "var(--text-color)"
+                    color: selectedSpeedBurstId === drill.id ? "#ffffff" : "var(--text-color)",
+                    boxShadow: "none",
+                    borderRadius: "9999px",
+                    border: "none",
+                    cursor: "pointer",
+                    "&:hover": {
+                      boxShadow: "none"
+                    }
                   }}
                 >
                   {drill.title} ({drill.duration}s)
-                </button>
+                </Box>
               ))}
-            </div>
-          </div>
+            </Box>
+          </Box>
         )}
 
         {/* Start Workout Button */}
-        <div style={{ marginTop: "1rem", display: "flex", justifyContent: "flex-start" }}>
-          <button
+        <Box sx={{ marginTop: "1rem", display: "flex", justifyContent: "flex-start" }}>
+          <Box
+            component="button"
             type="button"
             onClick={() => setIsPracticing(true)}
             className="control-btn primary"
-            style={{ padding: "0.8rem 2rem", fontSize: "1rem", display: "inline-flex", alignItems: "center", gap: "0.5rem" }}
+            sx={{
+              padding: "0.8rem 2rem",
+              fontSize: "1rem",
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "0.5rem"
+            }}
           >
             <span className="material-icons-outlined">play_arrow</span>
             Start Training Session
-          </button>
-        </div>
-      </div>
-    </div>
+          </Box>
+        </Box>
+      </Box>
+    </Box>
   );
 }

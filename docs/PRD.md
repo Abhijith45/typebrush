@@ -259,33 +259,26 @@ This is intended to make TypeBrush more than another basic WPM calculator.
 
 ## 6. Future Product Roadmap
 
-Not required for MVP.
+### V1 (Current)
+- **Framework**: Next.js App Router static export, CDN hosted.
+- **Storage Layer**: Local preferences in LocalStorage. Performance analytics, typing history, and progress levels stored client-side in **IndexedDB** (`TypeBrushDB`) with atomic fallback support.
+- **Typing Engine**: Timed tests, real-time typing analysis, Net/Raw accuracy metrics.
+- **Typing Gym**: Guided training (Curriculum goals, finger positioning, level progression) and Personalized training (error recommendation coach).
+- **Tooling**: Scorecards generation (PDF reports), custom responsive sharing.
 
-### Phase 2
+### V2 (Cloud Integration)
+- **User Accounts**: Authentication layer via Supabase Auth.
+- **Cross-Device Sync**: Synchronize local IndexedDB history and progress levels to the cloud.
+- **Dashboard**: Advanced profile statistics, growth trends, historical records from all devices.
 
-* Personal typing history using LocalStorage.
-* Weak-key training.
-* Daily typing challenge.
-* Programming typing test.
-* Code typing practice.
-* More passage categories.
-* Better statistics.
+### V3 (AI Typing Coach)
+- **Personalized Plans**: Local WebLLM-powered analysis of weak keys and error frequency to generate customized learning exercises.
+- **Weekly AI Reports**: Direct diagnostic coaching suggestions and progress emails.
+- **Monetization**: Introduce premium subscriptions for AI coaching and advanced insights.
 
-### Phase 3
-
-* Hindi typing.
-* English typing.
-* SSC typing tests.
-* SSC CHSL.
-* SSC CGL.
-* Kruti Dev.
-* Mangal.
-* Inscript.
-* Typing certificates.
-* Leaderboards.
-* Achievements/streaks.
-
-Do not implement these during MVP unless specifically required.
+### V4 (Gamification & Enterprise)
+- **Achievements & Leaderboards**: Global multiplayer typing challenges and certificates.
+- **Institutions**: College and school dashboards, team progress trackers, and classroom training mode.
 
 ---
 
@@ -328,57 +321,23 @@ Do not generate hundreds of thin keyword-targeted pages.
 ## 8. Technical Architecture
 
 ### Framework
-
 **Next.js App Router**
 
-### Rendering strategy
-
-Prefer **static generation** for SEO pages.
-
-Use:
-
-```js
-output: 'export'
-```
-
-where compatible with the architecture.
-
-Next.js static export can generate static HTML files that can be served by a CDN/static host.
+### Rendering Strategy
+Static HTML generation (`output: 'export'`) served via Netlify CDN.
 
 ### Components
+- **Server Components**: SEO layout, page structure, metadata configurations, indexable articles.
+- **Client Components**: Interactive QWERTY keyboard, typing test engine, results analytics grid, share modals, GymWorkspace state coordinator.
 
-Use Server Components for:
+### Database (Browser-bound)
+**IndexedDB** serves as the primary local database (`TypeBrushDB`) version 1. Exposes transactional stores for `typing_results`, `gym_sessions`, `progress_tracking`, `weak_key_analysis`, `user_achievements`, `scorecards`, and `future_ai_cache`.
 
-* SEO content
-* Page structure
-* Metadata
-* Explanatory content
-* Internal navigation
+### Fallback Layer
+If IndexedDB permissions are denied or unavailable (e.g. private browsing modes), the storage coordinator automatically redirects calls to LocalStorage under localized backup keys (`typebrush:backup:*`) ensuring zero application crashes.
 
-Use Client Components for:
-
-* Typing engine
-* Keyboard interaction
-* Timer
-* Real-time validation
-* Results
-* Interactive controls
-
-### Backend
-
-**None for MVP.**
-
-### Database
-
-**None for MVP.**
-
-### Authentication
-
-**None for MVP.**
-
-### Storage
-
-Use browser LocalStorage only where necessary.
+### Legacy Data Migration
+Upon app load, V1 LocalStorage keys are parsed, records are imported into corresponding IndexedDB stores, and old LocalStorage keys are safely deleted.
 
 ---
 
@@ -476,18 +435,14 @@ Search Console data should guide future pages and features.
 
 ## 13. Monetization
 
-Not part of the initial MVP.
+### V1-V2 (Growth Phase)
+- Fully free, privacy-friendly typing tests.
+- Non-intrusive advertisements on results screens.
 
-Potential future monetization:
-
-* Display advertising.
-* Non-intrusive ads around results/content.
-* Premium statistics.
-* Exam preparation features.
-* Certificates.
-* Classroom/teacher features.
-
-User experience and organic growth take priority over early monetization.
+### V3-V4 (Monetization Phase)
+- **AI Coach Premium Subscriptions**: Subscriptions for custom learning plans and local LLM diagnostics.
+- **Official Certification**: Pay-to-print verified typing speed certificates.
+- **SaaS / Institution Accounts**: B2B licenses for schools, colleges, and corporations to track user speeds.
 
 ---
 

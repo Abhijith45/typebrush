@@ -1,38 +1,133 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import ThemeToggle from "./ThemeToggle";
+import Box from "@mui/material/Box";
+
+function NavLink({ href, children }) {
+  const pathname = usePathname();
+  const isActive = href === "/" ? pathname === "/" : pathname.startsWith(href);
+
+  const handleClick = (e) => {
+    if (pathname === href) {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+
+  return (
+    <Link
+      href={href}
+      onClick={handleClick}
+      style={{
+        fontWeight: "600",
+        fontSize: "0.95rem",
+        color: isActive ? "var(--accent-color)" : "inherit",
+        transition: "color 0.2s ease"
+      }}
+    >
+      {children}
+    </Link>
+  );
+}
 
 export default function Header() {
+  const pathname = usePathname();
+
+  const handleLogoClick = (e) => {
+    if (pathname === "/") {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+
   return (
-    <header>
-      <div className="header-inner">
-        <div style={{ display: "flex", alignItems: "center" }}>
-          <Link href="/" style={{ fontSize: "1.35rem", fontWeight: "800", color: "var(--main-color)", letterSpacing: "-0.02em", display: "flex", alignItems: "center", gap: "0.5rem" }}>
-            <span className="icon-badge icon-badge-emerald" style={{ width: "36px", height: "36px", fontSize: "1.2rem", margin: 0 }}>
+    <Box
+      component="header"
+      sx={{
+        position: "sticky",
+        top: 0,
+        zIndex: 100,
+        width: "100%",
+        backgroundColor: "var(--bg-color)",
+        backdropFilter: "blur(12px)",
+        WebkitBackdropFilter: "blur(12px)",
+        borderBottom: "1px solid var(--border-color)",
+        padding: {
+          xs: "0.7rem 0",
+          md: "0.85rem 0"
+        },
+        transition: "background-color 0.3s ease, border-color 0.3s ease",
+        opacity: 0.98 // Matches the glass opacity look
+      }}
+    >
+      <Box
+        className="header-inner"
+        sx={{
+          maxWidth: "var(--max-width)",
+          width: "100%",
+          margin: "0 auto",
+          padding: "0 1rem",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center"
+        }}
+      >
+        <Box sx={{ display: "flex", alignItems: "center" }}>
+          <Link
+            href="/"
+            onClick={handleLogoClick}
+            style={{
+              fontSize: "1.35rem",
+              fontWeight: "800",
+              color: "var(--main-color)",
+              letterSpacing: "-0.02em",
+              display: "flex",
+              alignItems: "center",
+              gap: "0.5rem"
+            }}
+          >
+            <Box
+              className="icon-badge icon-badge-emerald"
+              sx={{
+                width: "36px",
+                height: "36px",
+                fontSize: "1.2rem",
+                margin: 0,
+                borderRadius: "50%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center"
+              }}
+            >
               <span className="material-icons-outlined">keyboard</span>
+            </Box>
+            <span>
+              Type<span className="highlight-emerald">Brush</span>
             </span>
-            <span>Type<span className="highlight-emerald">Brush</span></span>
           </Link>
-        </div>
+        </Box>
 
-        <nav className="desktop-nav" style={{ display: "flex", gap: "2rem", alignItems: "center" }}>
-          <Link href="/" style={{ fontWeight: "600", fontSize: "0.95rem" }}>
-            Home
-          </Link>
-          <Link href="/typing-test" style={{ fontWeight: "600", fontSize: "0.95rem" }}>
-            Typing Test
-          </Link>
-          <Link href="/typing-gym" style={{ fontWeight: "600", fontSize: "0.95rem" }}>
-            Typing Gym
-          </Link>
-          <Link href="/typing-practice" style={{ fontWeight: "600", fontSize: "0.95rem" }}>
-            Practice
-          </Link>
-        </nav>
+        <Box
+          component="nav"
+          className="desktop-nav"
+          sx={{
+            display: "flex",
+            gap: "2rem",
+            alignItems: "center"
+          }}
+        >
+          <NavLink href="/">Home</NavLink>
+          <NavLink href="/typing-test">Typing Test</NavLink>
+          <NavLink href="/typing-gym">Typing Gym</NavLink>
+          <NavLink href="/typing-practice">Practice</NavLink>
+        </Box>
 
-        <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+        <Box sx={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
           <ThemeToggle />
-        </div>
-      </div>
-    </header>
+        </Box>
+      </Box>
+    </Box>
   );
 }

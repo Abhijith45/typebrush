@@ -1,8 +1,8 @@
 import Link from "next/link";
 
 export const metadata = {
-  title: "About Us | TypeBrush Typing Platform",
-  description: "Learn more about TypeBrush, a free browser-based typing test and practice platform designed to improve keyboard speed and spelling accuracy.",
+  title: "About TypeBrush — Free Typing Test & Typing Practice Platform",
+  description: "TypeBrush is a free, privacy-first typing platform. Measure your WPM, practice with targeted drills, and improve your typing speed — no account, no ads, no tracking.",
   alternates: {
     canonical: "https://typebrush.in/about"
   }
@@ -14,42 +14,46 @@ export default function AboutPage() {
       <div>
         <h1 style={{ fontSize: "2rem", marginBottom: "0.5rem" }}>About TypeBrush</h1>
         <p style={{ color: "var(--text-color)", opacity: 0.85 }}>
-          TypeBrush is a free, interactive, browser-based typing platform. Our goal is simple: to help individuals improve their typing speed (WPM) and accuracy without annoying distraction ads, unnecessary accounts, or tracking.
+          TypeBrush is a free, privacy-first typing platform built for anyone who wants to type faster and more accurately. No accounts. No ads. No tracking. Just a clean, focused environment where your skill actually improves.
         </p>
       </div>
 
       <section className="card" style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
         <h2 style={{ fontSize: "1.25rem", color: "var(--accent-color)" }}>Our Mission</h2>
         <p style={{ fontSize: "0.95rem", lineHeight: "1.6rem" }}>
-          In today&apos;s digital economy, typing is a fundamental professional skill. Whether you are coding software, writing copy, entering medical records, or preparing for official government typing exams, your keyboard efficiency directly impacts your productivity.
+          In today&apos;s digital economy, typing is a core professional skill. Whether you&apos;re applying for a government job, preparing for SSC CHSL, working as a data entry operator, or simply trying to be more productive at work — your typing speed and accuracy directly affect your output.
         </p>
         <p style={{ fontSize: "0.95rem", lineHeight: "1.6rem" }}>
-          We design responsive, clean layouts that emphasize focus and readability. By presenting real-time stats alongside high-contrast character states, we train muscle memory so your fingers can type naturally without looking at the keys.
+          TypeBrush was built to give everyone access to high-quality, distraction-free typing practice without paywalls, mandatory sign-ups, or intrusive ads. Every test runs entirely in your browser — your keystrokes never leave your device.
         </p>
       </section>
 
       <section style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-        <h2 style={{ fontSize: "1.25rem" }}>Core Features</h2>
+        <h2 style={{ fontSize: "1.25rem" }}>What TypeBrush Offers</h2>
         <ul style={{ paddingLeft: "1.25rem", display: "flex", flexDirection: "column", gap: "0.5rem", fontSize: "0.95rem" }}>
           <li>
-            <strong>Diverse Timed Tests:</strong> Pick from 1-minute, 2-minute, 5-minute, or 10-minute drills.
+            <strong>Timed Typing Tests:</strong> Choose from 1, 2, 5, or 10-minute tests to measure your WPM and accuracy.
           </li>
           <li>
-            <strong>Numeric Practice:</strong> Specialized number keypad training for billing and data entry operations.
+            <strong>Number Typing Test:</strong> Specialized numeric practice for billing, data entry, and accounting operations.
           </li>
           <li>
-            <strong>Paragraph & Passage Practice:</strong> Untimed exercises built for endurance training using natural English text.
+            <strong>Paragraph & Passage Practice:</strong> Untimed exercises in Easy, Medium, and Hard difficulty for deliberate skill-building.
           </li>
           <li>
-            <strong>Client-Side Engine:</strong> Your key logs are evaluated strictly inside the browser. No data ever leaves your device.
+            <strong>Typing Gym:</strong> Targeted drills for weak keys, finger placement, key pairs, symbols, and speed bursts. Personalized recommendations based on your actual typing behavior.
+          </li>
+          <li>
+            <strong>Privacy-First Design:</strong> All typing data is evaluated in your browser. Nothing is sent to a server. No account required.
           </li>
         </ul>
       </section>
 
       <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap", fontSize: "0.95rem", marginTop: "1rem" }}>
-        <span>Explore TypeBrush:</span>
+        <span>Get started with TypeBrush:</span>
         <Link href="/typing-test" style={{ color: "var(--accent-color)", textDecoration: "underline" }}>Typing Tests</Link>
-        <Link href="/typing-practice" style={{ color: "var(--accent-color)", textDecoration: "underline" }}>Practice Modules</Link>
+        <Link href="/typing-gym" style={{ color: "var(--accent-color)", textDecoration: "underline" }}>Typing Gym</Link>
+        <Link href="/typing-practice" style={{ color: "var(--accent-color)", textDecoration: "underline" }}>Practice Exercises</Link>
       </div>
     </div>
   );
