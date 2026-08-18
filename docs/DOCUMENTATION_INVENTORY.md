@@ -1,0 +1,196 @@
+# TypeBrush - Documentation Inventory Specification
+
+This inventory documents all pre-consolidation files inside the `/docs` directory.
+
+---
+
+## 1. Documentation Index
+
+- **PRD.md**
+  - Purpose: Product Requirement Document.
+  - Relevance: **YES**
+  - Action: Retained.
+- **SEARCH_CONSOLE_SETUP.md**
+  - Purpose: GSC ownership verification instructions.
+  - Relevance: **YES**
+  - Action: Retained.
+- **ANALYTICS_ARCHITECTURE.md**
+  - Purpose: Specifies telemetry setups.
+  - Relevance: **NO**
+  - Action: Merged into `docs/ARCHITECTURE.md`.
+- **INDEXEDDB_SCHEMA.md**
+  - Purpose: IndexedDB keys and object stores.
+  - Relevance: **NO**
+  - Action: Merged into `docs/ARCHITECTURE.md`.
+- **TYPING_GYM_FLOW_ANALYSIS.md**
+  - Purpose: Outlines keyboard drill states.
+  - Relevance: **NO**
+  - Action: Merged into `docs/ARCHITECTURE.md`.
+- **STORAGE_ROADMAP.md**
+  - Purpose: IndexedDB integration strategy.
+  - Relevance: **NO**
+  - Action: Merged into `docs/ARCHITECTURE.md`.
+- **STORAGE_MIGRATION.md**
+  - Purpose: LocalStorage to IndexedDB transfer steps.
+  - Relevance: **NO**
+  - Action: Merged into `docs/ARCHITECTURE.md`.
+- **STORAGE_AUDIT.md**
+  - Purpose: Storage abstraction checks.
+  - Relevance: **NO**
+  - Action: Merged into `docs/ARCHITECTURE.md`.
+- **TYPING_GYM_ACCURACY_MODEL.md**
+  - Purpose: Keystroke accuracy definitions.
+  - Relevance: **NO**
+  - Action: Merged into `docs/ARCHITECTURE.md`.
+- **RESULT_ENGINE_AUDIT.md**
+  - Purpose: WPM and Raw speed math audit.
+  - Relevance: **NO**
+  - Action: Merged into `docs/ARCHITECTURE.md`.
+- **MUI_MIGRATION_AUDIT.md**
+  - Purpose: Material UI class mapping checklist.
+  - Relevance: **NO**
+  - Action: Merged into `docs/ARCHITECTURE.md`.
+- **MUI_MIGRATION_REPORT.md**
+  - Purpose: Theme implementation audit.
+  - Relevance: **NO**
+  - Action: Merged into `docs/ARCHITECTURE.md`.
+- **PROJECT_STATE_AUDIT.md**
+  - Purpose: Audits of codebase structure.
+  - Relevance: **NO**
+  - Action: Merged into `docs/ARCHITECTURE.md`.
+- **REMAINING_GAPS.md**
+  - Purpose: Lists missing features from initial build.
+  - Relevance: **NO**
+  - Action: Merged into `docs/ARCHITECTURE.md`.
+- **IMPLEMENTATION_ROADMAP.md**
+  - Purpose: Task schedules for sprint launches.
+  - Relevance: **NO**
+  - Action: Merged into `docs/ARCHITECTURE.md`.
+- **V1.3_PRODUCTION_AUDIT.md**
+  - Purpose: Production ready checks.
+  - Relevance: **NO**
+  - Action: Merged into `docs/ARCHITECTURE.md`.
+- **SPRINT4_IMPLEMENTATION_AUDIT.md**
+  - Purpose: Sprint 4 readiness log.
+  - Relevance: **NO**
+  - Action: Merged into `docs/PROJECT_HISTORY.md`.
+- **GYM_RESTRUCTURE_AUDIT.md**
+  - Purpose: Gym V2 curriculum milestones.
+  - Relevance: **NO**
+  - Action: Merged into `docs/PROJECT_HISTORY.md`.
+- **GYM_CONTENT_AUDIT.md**
+  - Purpose: Exercise copy validation records.
+  - Relevance: **NO**
+  - Action: Merged into `docs/PROJECT_HISTORY.md`.
+- **QA_VERIFICATION_REPORT.md**
+  - Purpose: Sprint V1.9 validation test cases.
+  - Relevance: **NO**
+  - Action: Merged into `docs/PROJECT_HISTORY.md`.
+- **BUILD_VERIFICATION.md**
+  - Purpose: Production Next.js route builds verification.
+  - Relevance: **NO**
+  - Action: Merged into `docs/PROJECT_HISTORY.md`.
+- **FLOW_EXECUTION_REPORT.md**
+  - Purpose: Redirection and user flow checks.
+  - Relevance: **NO**
+  - Action: Merged into `docs/PROJECT_HISTORY.md`.
+- **WEEK1_MONITORING_PLAN.md**
+  - Purpose: Sitemap checks post release.
+  - Relevance: **NO**
+  - Action: Merged into `docs/PROJECT_HISTORY.md`.
+- **WEEK3_SEO_REVIEW.md**
+  - Purpose: Query rank reviews.
+  - Relevance: **NO**
+  - Action: Merged into `docs/PROJECT_HISTORY.md`.
+- **FIRST_30_DAYS_SEO_REPORT.md**
+  - Purpose: Templates for GSC clicks mapping.
+  - Relevance: **NO**
+  - Action: Merged into `docs/PROJECT_HISTORY.md`.
+- **POST_LAUNCH_SUMMARY.md**
+  - Purpose: Post-launch checklist and video audit.
+  - Relevance: **NO**
+  - Action: Merged into `docs/PROJECT_HISTORY.md`.
+- **ANALYTICS_VERIFICATION.md**
+  - Purpose: Telemetry verification.
+  - Relevance: **NO**
+  - Action: Merged into `docs/PROJECT_HISTORY.md`.
+- **BING_WEBMASTER_CHECKLIST.md**
+  - Purpose: Bing verification steps.
+  - Relevance: **NO**
+  - Action: Merged into `docs/PROJECT_HISTORY.md`.
+- **INDEXING_CHECKLIST.md**
+  - Purpose: Crawl indexing checklist.
+  - Relevance: **NO**
+  - Action: Merged into `docs/PROJECT_HISTORY.md`.
+- **SHARING_PREVIEW_REPORT.md**
+  - Purpose: OG sharing preview tests.
+  - Relevance: **NO**
+  - Action: Merged into `docs/PROJECT_HISTORY.md`.
+- **SEARCH_CONSOLE_LAUNCH_CHECKLIST.md**
+  - Purpose: Search Console checklists.
+  - Relevance: **NO**
+  - Action: Merged into `docs/PROJECT_HISTORY.md`.
+- **KEYWORD_MAP.md**
+  - Purpose: SEO keyword intent map.
+  - Relevance: **NO**
+  - Action: Merged into `docs/SEO_GUIDE.md`.
+- **INTERNAL_LINK_STRATEGY.md**
+  - Purpose: Sitemap silos rules.
+  - Relevance: **NO**
+  - Action: Merged into `docs/SEO_GUIDE.md`.
+- **SEO_AUDIT_V1.md**
+  - Purpose: Crawl index checks.
+  - Relevance: **NO**
+  - Action: Merged into `docs/SEO_GUIDE.md`.
+- **SEO_VERIFICATION_REPORT.md**
+  - Purpose: Meta tag validation scores.
+  - Relevance: **NO**
+  - Action: Merged into `docs/SEO_GUIDE.md`.
+- **METADATA_AUDIT.md**
+  - Purpose: Meta tag coverage.
+  - Relevance: **NO**
+  - Action: Merged into `docs/SEO_GUIDE.md`.
+- **SITEMAP_AUDIT.md**
+  - Purpose: Dynamic sitemap crawl coverage.
+  - Relevance: **NO**
+  - Action: Merged into `docs/SEO_GUIDE.md`.
+- **SITEMAP_VALIDATION_REPORT.md**
+  - Purpose: Dynamic XML schema validation.
+  - Relevance: **NO**
+  - Action: Merged into `docs/SEO_GUIDE.md`.
+- **INTERNAL_LINK_AUDIT.md**
+  - Purpose: Inter-linking matrices.
+  - Relevance: **NO**
+  - Action: Merged into `docs/SEO_GUIDE.md`.
+- **INDEXABILITY_AUDIT.md**
+  - Purpose: Robots crawl checks.
+  - Relevance: **NO**
+  - Action: Merged into `docs/SEO_GUIDE.md`.
+- **CONTENT_AUDIT.md**
+  - Purpose: Length verification audits.
+  - Relevance: **NO**
+  - Action: Merged into `docs/SEO_GUIDE.md`.
+- **UX_AUDIT.md**
+  - Purpose: Visual layout review.
+  - Relevance: **NO**
+  - Action: Merged into `docs/UX_GUIDE.md`.
+- **UX_FRICTION_REPORT.md**
+  - Purpose: User friction points.
+  - Relevance: **NO**
+  - Action: Merged into `docs/UX_GUIDE.md`.
+- **NAVIGATION_IMPROVEMENTS.md**
+  - Purpose: Direct path transitions.
+  - Relevance: **NO**
+  - Action: Merged into `docs/UX_GUIDE.md`.
+- **FINAL_UX_SCORECARD.md**
+  - Purpose: UX verification score.
+  - Relevance: **NO**
+  - Action: Merged into `docs/UX_GUIDE.md`.
+- **USER_FLOW_INVENTORY.md**
+  - Purpose: Reachable routes directory.
+  - Relevance: **NO**
+  - Action: Merged into `docs/UX_GUIDE.md`.
+- **USER_FLOW_MAP.md**
+  - Purpose: Flow charts and user transitions.
+  - Relevance: **NO**
+  - Action: Merged into `docs/UX_GUIDE.md`.

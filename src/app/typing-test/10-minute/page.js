@@ -2,15 +2,15 @@ import Link from "next/link";
 import TypingTest from "@/components/typing/TypingTest";
 
 export const metadata = {
-  title: "10-Minute Typing Test — SSC & Certification Exam Prep | TypeBrush",
+  title: "10-Minute Typing Test - SSC & Certification Exam Prep | TypeBrush",
   description: "Practice with a free 10-minute typing test. The standard duration for SSC, government, and professional typing certifications. Check your WPM and accuracy.",
   alternates: {
-    canonical: "https://typebrush.in/typing-test/10-minute"
+    canonical: "https://typebrush.netlify.app/typing-test/10-minute"
   },
   openGraph: {
-    title: "10-Minute Typing Test — SSC & Certification Exam Prep | TypeBrush",
+    title: "10-Minute Typing Test - SSC & Certification Exam Prep | TypeBrush",
     description: "Practice with a free 10-minute typing test. Standard format for SSC and professional typing certifications.",
-    url: "https://typebrush.in/typing-test/10-minute",
+    url: "https://typebrush.netlify.app/typing-test/10-minute",
     siteName: "TypeBrush",
     locale: "en_US",
     type: "website"
@@ -35,7 +35,7 @@ export default function TenMinuteTest() {
       <section className="card" style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
         <h2 style={{ fontSize: "1.25rem", color: "var(--accent-color)" }}>Preparing for Typing Exams & Certifications</h2>
         <p style={{ fontSize: "0.95rem", opacity: 0.8, lineHeight: "1.6rem" }}>
-          Most government and professional typing exams — including SSC CHSL, court clerkships, banking data entry, and state recruitment tests — require 10 minutes of continuous, accurate typing. Regular practice at this duration trains your brain and fingers to maintain concentration and correct posture throughout the full session.
+          Most government and professional typing exams - including SSC CHSL, court clerkships, banking data entry, and state recruitment tests - require 10 minutes of continuous, accurate typing. Regular practice at this duration trains your brain and fingers to maintain concentration and correct posture throughout the full session.
         </p>
         <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap", fontSize: "0.9rem", borderTop: "1px solid var(--sub-alt-color)", paddingTop: "1rem" }}>
           <span>Try other tests:</span>

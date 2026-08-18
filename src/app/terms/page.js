@@ -2,7 +2,7 @@ export const metadata = {
   title: "Terms of Service | TypeBrush",
   description: "Review the Terms of Service for TypeBrush. Clean, free, browser-based typing tests and practice under simple user terms.",
   alternates: {
-    canonical: "https://typebrush.in/terms"
+    canonical: "https://typebrush.netlify.app/terms"
   }
 };
 

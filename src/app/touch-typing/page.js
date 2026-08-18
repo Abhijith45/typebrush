@@ -2,15 +2,15 @@ import Link from "next/link";
 import Schema from "@/components/layout/Schema";
 
 export const metadata = {
-  title: "Touch Typing Guide — Learn Finger Positions & Typing Posture | TypeBrush",
+  title: "Touch Typing Guide - Learn Finger Positions & Typing Posture | TypeBrush",
   description: "Learn how to touch type without looking at your keyboard. Master home row finger placements, typing ergonomics, and practice plans for faster WPM.",
   alternates: {
-    canonical: "https://typebrush.in/touch-typing"
+    canonical: "https://typebrush.netlify.app/touch-typing"
   },
   openGraph: {
-    title: "Touch Typing Guide — Learn Finger Positions & Typing Posture | TypeBrush",
+    title: "Touch Typing Guide - Learn Finger Positions & Typing Posture | TypeBrush",
     description: "Master the art of touch typing. Our complete guide covers finger positions, home row rules, ergonomics, and strategies to boost your WPM.",
-    url: "https://typebrush.in/touch-typing",
+    url: "https://typebrush.netlify.app/touch-typing",
     siteName: "TypeBrush",
     locale: "en_US",
     type: "website"
@@ -57,13 +57,13 @@ export default function TouchTypingLanding() {
         "@type": "ListItem",
         "position": 1,
         "name": "Home",
-        "item": "https://typebrush.in"
+        "item": "https://typebrush.netlify.app"
       },
       {
         "@type": "ListItem",
         "position": 2,
         "name": "Touch Typing Guide",
-        "item": "https://typebrush.in/touch-typing"
+        "item": "https://typebrush.netlify.app/touch-typing"
       }
     ]
   };
@@ -112,7 +112,7 @@ export default function TouchTypingLanding() {
         <p style={{ lineHeight: "1.6rem", opacity: 0.9, margin: 0 }}>
           Your hands should rest lightly on the keyboard with your fingers slightly curved. Here is the standard finger mapping layout for a US QWERTY keyboard:
         </p>
-        
+
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))", gap: "1rem", marginTop: "0.5rem" }}>
           <div className="card" style={{ padding: "1.25rem" }}>
             <h3 style={{ color: "var(--accent-color)", display: "flex", alignItems: "center", gap: "0.4rem", fontSize: "1.1rem" }}>
@@ -176,7 +176,7 @@ export default function TouchTypingLanding() {
       {/* Frequently Asked Questions (FAQ) */}
       <section style={{ display: "flex", flexDirection: "column", gap: "1.25rem", borderTop: "1px solid var(--border-color)", paddingTop: "2rem" }}>
         <h2 style={{ fontSize: "1.6rem" }}>Frequently Asked Questions</h2>
-        
+
         <div style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
           <div>
             <h3 style={{ fontSize: "1.1rem", fontWeight: "600", marginBottom: "0.25rem", color: "var(--main-color)" }}>Why should I learn touch typing?</h3>

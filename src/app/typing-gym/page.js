@@ -5,15 +5,15 @@ import GymWorkspace from "@/components/gym/GymWorkspace";
 import Schema from "@/components/layout/Schema";
 
 export const metadata = {
-  title: "Typing Gym — Train Weak Keys & Build Typing Muscle Memory | TypeBrush",
+  title: "Typing Gym - Train Weak Keys & Build Typing Muscle Memory | TypeBrush",
   description: "TypeBrush Typing Gym helps you practice specific keyboard keys, finger placement, key pairs, numbers, symbols, and speed drills. Fix your weak spots and type faster.",
   alternates: {
-    canonical: "https://typebrush.in/typing-gym"
+    canonical: "https://typebrush.netlify.app/typing-gym"
   },
   openGraph: {
-    title: "Typing Gym — Train Weak Keys & Build Typing Muscle Memory | TypeBrush",
-    description: "Don't just test — train. The Typing Gym targets your specific weak keys, finger placement, and key pairs so every practice session counts.",
-    url: "https://typebrush.in/typing-gym",
+    title: "Typing Gym - Train Weak Keys & Build Typing Muscle Memory | TypeBrush",
+    description: "Don't just test - train. The Typing Gym targets your specific weak keys, finger placement, and key pairs so every practice session counts.",
+    url: "https://typebrush.netlify.app/typing-gym",
     siteName: "TypeBrush",
     locale: "en_US",
     type: "website"
@@ -25,7 +25,7 @@ export default function TypingGymPage() {
     "@context": "https://schema.org",
     "@type": "WebApplication",
     "name": "TypeBrush Typing Gym",
-    "url": "https://typebrush.in/typing-gym",
+    "url": "https://typebrush.netlify.app/typing-gym",
     "applicationCategory": "EducationalApplication",
     "operatingSystem": "All",
     "description": "Interactive touch-typing workout tool for weak key drills, finger placement, key pairs, and speed bursts."
@@ -39,13 +39,13 @@ export default function TypingGymPage() {
         "@type": "ListItem",
         "position": 1,
         "name": "Home",
-        "item": "https://typebrush.in"
+        "item": "https://typebrush.netlify.app"
       },
       {
         "@type": "ListItem",
         "position": 2,
         "name": "Typing Gym",
-        "item": "https://typebrush.in/typing-gym"
+        "item": "https://typebrush.netlify.app/typing-gym"
       }
     ]
   };
@@ -67,7 +67,7 @@ export default function TypingGymPage() {
         </h1>
 
         <p style={{ fontSize: "1.15rem", color: "var(--text-color)", opacity: 0.85, maxWidth: "680px", lineHeight: "1.7rem" }}>
-          Stop training what you&apos;re already good at. The Typing Gym identifies your weak keys, finger habits, and problem combinations — then targets them with focused drills that build permanent muscle memory.
+          Stop training what you&apos;re already good at. The Typing Gym identifies your weak keys, finger habits, and problem combinations - then targets them with focused drills that build permanent muscle memory.
         </p>
 
         {/* Distinctive Concept Positioning Banner */}
@@ -117,7 +117,7 @@ export default function TypingGymPage() {
         <div>
           <h2 style={{ fontSize: "1.6rem", marginBottom: "0.75rem" }}>What is TypeBrush Typing Gym?</h2>
           <p style={{ color: "var(--text-color)", opacity: 0.85, lineHeight: "1.7rem" }}>
-            Standard typing tests measure your overall Words Per Minute (WPM) — but they don&apos;t tell you <em>why</em> you&apos;re slow on certain keys. The <strong>Typing Gym</strong> goes deeper. It isolates individual finger movements, problem key clusters, and symbol combinations so you can build permanent muscle memory without backspace errors interrupting your flow.
+            Standard typing tests measure your overall Words Per Minute (WPM) - but they don&apos;t tell you <em>why</em> you&apos;re slow on certain keys. The <strong>Typing Gym</strong> goes deeper. It isolates individual finger movements, problem key clusters, and symbol combinations so you can build permanent muscle memory without backspace errors interrupting your flow.
           </p>
         </div>
 

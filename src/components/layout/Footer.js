@@ -9,7 +9,7 @@ import FeedbackDialog from "@/components/feedback/FeedbackDialog";
 export default function Footer() {
   const currentYear = new Date().getFullYear();
   const pathname = usePathname();
-  
+
   const [isFeedbackOpen, setIsFeedbackOpen] = useState(false);
   const [snackbar, setSnackbar] = useState({ open: false, message: "", severity: "success" });
 
@@ -98,7 +98,7 @@ export default function Footer() {
                 margin: 0
               }}
             >
-              Free typing test and practice platform. Improve your WPM and accuracy with targeted drills — no account or sign-up required.
+              Free typing test and practice platform. Improve your WPM and accuracy with targeted drills - no account or sign-up required.
             </p>
             <div style={{ display: "flex", gap: "0.6rem" }}>
               <a href="#" className="social-circle" aria-label="Social Link 1">
@@ -196,7 +196,7 @@ export default function Footer() {
                 }}
               >
                 <li>
-                  <Link href="/typing-gym" onClick={(e) => handleLinkClick(e, "/typing-gym")} style={{ fontWeight: "700", color: "var(--accent-color)" }}>
+                  <Link href="/typing-gym" onClick={(e) => handleLinkClick(e, "/typing-gym")}>
                     Typing Gym
                   </Link>
                 </li>
@@ -282,22 +282,9 @@ export default function Footer() {
                 <li>
                   <button
                     onClick={() => setIsFeedbackOpen(true)}
-                    style={{
-                      background: "none",
-                      border: "none",
-                      padding: 0,
-                      color: "inherit",
-                      cursor: "pointer",
-                      fontSize: "inherit",
-                      fontFamily: "inherit",
-                      textAlign: "left",
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "0.25rem",
-                      fontWeight: "700"
-                    }}
+                    className="footer-btn"
                   >
-                    💬 Feedback
+                    Feedback
                   </button>
                 </li>
               </ul>
@@ -321,7 +308,7 @@ export default function Footer() {
           <p style={{ margin: 0 }}>
             Free online typing test &amp; practice |{" "}
             <Link href="/" onClick={(e) => handleLinkClick(e, "/")} style={{ color: "inherit" }}>
-              typebrush.in
+              typebrush.netlify.app
             </Link>
           </p>
         </div>

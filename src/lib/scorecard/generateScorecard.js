@@ -72,7 +72,7 @@ export async function generateScorecard({
   doc.setFont("helvetica", "normal");
   doc.setFontSize(10);
   doc.setTextColor(100, 116, 139); // #64748b
-  doc.text("typebrush.in", 105, 38, { align: "center" });
+  doc.text("typebrush.netlify.app", 105, 38, { align: "center" });
 
   // Document Title Banner
   doc.setFillColor(236, 253, 245); // #ecfdf5 (mint soft bg)
@@ -191,7 +191,7 @@ export async function generateScorecard({
   doc.setFont("helvetica", "bold");
   doc.setFontSize(10);
   doc.setTextColor(5, 150, 105);
-  doc.text("https://typebrush.in", 105, 269, { align: "center" });
+  doc.text("https://typebrush.netlify.app", 105, 269, { align: "center" });
 
   // Save PDF file
   doc.save(filename);

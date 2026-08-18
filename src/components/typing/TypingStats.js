@@ -1,7 +1,7 @@
 import TypingTimer from "./TypingTimer";
 
 export default function TypingStats({ wpm = 0, accuracy = null, seconds = 0 }) {
-  const accuracyText = accuracy === null ? "—" : `${accuracy}%`;
+  const accuracyText = accuracy === null ? "-" : `${accuracy}%`;
 
   return (
     <div className="stats-bar" style={{ display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%", borderBottom: "1px solid var(--sub-alt-color)", paddingBottom: "0.5rem" }}>

@@ -2,15 +2,15 @@ import Link from "next/link";
 import Schema from "@/components/layout/Schema";
 
 export const metadata = {
-  title: "Free Typing Practice Online — Paragraphs & Passages | TypeBrush",
+  title: "Free Typing Practice Online - Paragraphs & Passages | TypeBrush",
   description: "Improve your typing with free untimed exercises. Choose from English paragraphs and passages at Easy, Medium, and Hard difficulty. No account required.",
   alternates: {
-    canonical: "https://typebrush.in/typing-practice"
+    canonical: "https://typebrush.netlify.app/typing-practice"
   },
   openGraph: {
-    title: "Free Typing Practice Online — Paragraphs & Passages | TypeBrush",
+    title: "Free Typing Practice Online - Paragraphs & Passages | TypeBrush",
     description: "Improve your typing with free untimed exercises. Choose from English paragraphs and passages at Easy, Medium, and Hard difficulty.",
-    url: "https://typebrush.in/typing-practice",
+    url: "https://typebrush.netlify.app/typing-practice",
     siteName: "TypeBrush",
     locale: "en_US",
     type: "website"
@@ -57,13 +57,13 @@ export default function TypingPracticeLanding() {
         "@type": "ListItem",
         "position": 1,
         "name": "Home",
-        "item": "https://typebrush.in"
+        "item": "https://typebrush.netlify.app"
       },
       {
         "@type": "ListItem",
         "position": 2,
         "name": "Typing Practice",
-        "item": "https://typebrush.in/typing-practice"
+        "item": "https://typebrush.netlify.app/typing-practice"
       }
     ]
   };

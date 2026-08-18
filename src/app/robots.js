@@ -6,6 +6,6 @@ export default function robots() {
       userAgent: "*",
       allow: "/",
     },
-    sitemap: "https://typebrush.in/sitemap.xml",
+    sitemap: "https://typebrush.netlify.app/sitemap.xml",
   };
 }

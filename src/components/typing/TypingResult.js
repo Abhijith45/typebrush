@@ -82,7 +82,7 @@ export default function TypingResult({
     const correctionRate = totalKeystrokes > 0 ? (correctedErrors / totalKeystrokes) * 100 : 0;
     const typingEfficiency = totalKeystrokes > 0 ? (correctChars / totalKeystrokes) * 100 : 0;
     const consistencyScore = Math.max(0, Math.min(100, Math.round(100 - (errorRate * 1.5) - (correctionRate * 0.5))));
-    
+
     let difficulty = "Medium";
     if (testName.toLowerCase().includes("number") || testName.toLowerCase().includes("symbol")) {
       difficulty = "Hard";
@@ -104,7 +104,7 @@ export default function TypingResult({
     if (!history || history.length <= 1) return null;
     const previousRuns = history.filter(h => h.wpm !== wpm || h.accuracy !== accuracy || h.errors !== errors);
     if (previousRuns.length === 0) return null;
-    
+
     const count = previousRuns.length;
     const avgWpm = previousRuns.reduce((s, r) => s + r.wpm, 0) / count;
     const avgAcc = previousRuns.reduce((s, r) => s + r.accuracy, 0) / count;
@@ -175,7 +175,7 @@ export default function TypingResult({
   });
 
   const handleShareClick = async () => {
-    const isMobileDevice = typeof window !== "undefined" && 
+    const isMobileDevice = typeof window !== "undefined" &&
       (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(window.navigator.userAgent) || window.innerWidth < 768);
 
     if (isMobileDevice && typeof navigator !== "undefined" && navigator.share) {
@@ -205,7 +205,7 @@ export default function TypingResult({
 
   // Dynamic Motivational Insight Block
   let motivationalInsight = "Consistent practice will help you build speed and precision. Keep training!";
-  
+
   const weakKeysList = Object.entries(keyStats)
     .filter(([_, stats]) => {
       const attempts = stats.attempts || 0;
@@ -383,7 +383,7 @@ export default function TypingResult({
                       {ach.icon}
                     </span>
                     <div style={{ fontSize: "0.8rem", color: "var(--main-color)" }}>
-                      <strong>{ach.title}</strong> — {ach.desc}
+                      <strong>{ach.title}</strong> - {ach.desc}
                     </div>
                   </Box>
                 ))}

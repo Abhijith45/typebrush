@@ -1,10 +1,10 @@
 import Link from "next/link";
 
 export const metadata = {
-  title: "About TypeBrush — Free Typing Test & Typing Practice Platform",
-  description: "TypeBrush is a free, privacy-first typing platform. Measure your WPM, practice with targeted drills, and improve your typing speed — no account, no ads, no tracking.",
+  title: "About TypeBrush - Free Typing Test & Typing Practice Platform",
+  description: "TypeBrush is a free, privacy-first typing platform. Measure your WPM, practice with targeted drills, and improve your typing speed - no account, no ads, no tracking.",
   alternates: {
-    canonical: "https://typebrush.in/about"
+    canonical: "https://typebrush.netlify.app/about"
   }
 };
 
@@ -21,10 +21,10 @@ export default function AboutPage() {
       <section className="card" style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
         <h2 style={{ fontSize: "1.25rem", color: "var(--accent-color)" }}>Our Mission</h2>
         <p style={{ fontSize: "0.95rem", lineHeight: "1.6rem" }}>
-          In today&apos;s digital economy, typing is a core professional skill. Whether you&apos;re applying for a government job, preparing for SSC CHSL, working as a data entry operator, or simply trying to be more productive at work — your typing speed and accuracy directly affect your output.
+          In today&apos;s digital economy, typing is a core professional skill. Whether you&apos;re applying for a government job, preparing for SSC CHSL, working as a data entry operator, or simply trying to be more productive at work - your typing speed and accuracy directly affect your output.
         </p>
         <p style={{ fontSize: "0.95rem", lineHeight: "1.6rem" }}>
-          TypeBrush was built to give everyone access to high-quality, distraction-free typing practice without paywalls, mandatory sign-ups, or intrusive ads. Every test runs entirely in your browser — your keystrokes never leave your device.
+          TypeBrush was built to give everyone access to high-quality, distraction-free typing practice without paywalls, mandatory sign-ups, or intrusive ads. Every test runs entirely in your browser - your keystrokes never leave your device.
         </p>
       </section>
 

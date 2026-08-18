@@ -68,7 +68,7 @@ export default function GymWorkspace() {
   const modeParam = searchParams.get("mode");
   const isPersonalizedModeActive = modeParam === "personalized";
   const practiceKeyParam = searchParams.get("practiceKey");
-  
+
   // Selection states
   const [selectedProgram, setSelectedProgram] = useState(null);
   const [selectedLevel, setSelectedLevel] = useState(null);
@@ -123,7 +123,7 @@ export default function GymWorkspace() {
 
     // Default static curriculum text mapping
     return {
-      title: `${selectedProgram.title} — ${selectedLevel.title}`,
+      title: `${selectedProgram.title} - ${selectedLevel.title}`,
       text: selectedLevel.text,
       duration: selectedLevel.duration,
       focusedKeys: selectedProgram.id === "weak-key-recovery" ? ["O", "P", "R"] : []
@@ -159,7 +159,7 @@ export default function GymWorkspace() {
     }
     const program = GYM_PROGRAMS.find((p) => p.id === recommendation.programId) || GYM_PROGRAMS[0];
     const level = program.levels.find((l) => l.level === recommendation.level) || program.levels[0];
-    
+
     setSelectedProgram(program);
     setSelectedLevel(level);
     setActiveDifficulty(recommendation.difficulty);
@@ -279,7 +279,7 @@ export default function GymWorkspace() {
     const isLevel3 = selectedLevel?.level === 3;
     const nextStepTitle = isLevel3
       ? "Gym curriculum completed!"
-      : `${selectedProgram?.title} — Level ${selectedLevel?.level + 1}`;
+      : `${selectedProgram?.title} - Level ${selectedLevel?.level + 1}`;
 
     // Compute dynamic improvement insights
     let insights = [];
@@ -764,7 +764,7 @@ export default function GymWorkspace() {
               >
                 {program.levels.map((level) => {
                   const levelNum = level.level;
-                  
+
                   // Compute level status
                   let status = "LOCKED";
                   if (completedMax >= levelNum) {
