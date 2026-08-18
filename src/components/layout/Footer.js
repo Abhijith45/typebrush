@@ -196,7 +196,7 @@ export default function Footer() {
                 }}
               >
                 <li>
-                  <Link href="/typing-gym" onClick={(e) => handleLinkClick(e, "/typing-gym")} style={{ fontWeight: "700", color: "var(--accent-color)" }}>
+                  <Link href="/typing-gym" onClick={(e) => handleLinkClick(e, "/typing-gym")}>
                     Typing Gym
                   </Link>
                 </li>
@@ -282,22 +282,9 @@ export default function Footer() {
                 <li>
                   <button
                     onClick={() => setIsFeedbackOpen(true)}
-                    style={{
-                      background: "none",
-                      border: "none",
-                      padding: 0,
-                      color: "inherit",
-                      cursor: "pointer",
-                      fontSize: "inherit",
-                      fontFamily: "inherit",
-                      textAlign: "left",
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "0.25rem",
-                      fontWeight: "700"
-                    }}
+                    className="footer-btn"
                   >
-                    💬 Feedback
+                    Feedback
                   </button>
                 </li>
               </ul>
