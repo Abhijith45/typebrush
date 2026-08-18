@@ -380,55 +380,66 @@ export default function Home() {
         <h2 className="section-title">
           Frequently Asked Questions
         </h2>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "1.5rem" }}>
-          <div className="card" style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
-            <h3 style={{ fontSize: "1.15rem", fontWeight: "600", color: "var(--main-color)", margin: 0 }}>
-              What is a good typing speed?
-            </h3>
-            <p style={{ fontSize: "0.9rem", opacity: 0.8, lineHeight: "1.5rem", margin: 0 }}>
+        <div className="faq-accordion">
+          <details className="faq-item" open>
+            <summary className="faq-summary">
+              <span>What is a good typing speed?</span>
+              <span className="material-icons-outlined faq-icon">expand_more</span>
+            </summary>
+            <div className="faq-answer">
               The average is around 40 WPM. Office professionals typically type 55–75 WPM. For most exams and jobs, 40–60 WPM with 95%+ accuracy is acceptable.
-            </p>
-          </div>
-          <div className="card" style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
-            <h3 style={{ fontSize: "1.15rem", fontWeight: "600", color: "var(--main-color)", margin: 0 }}>
-              What is WPM?
-            </h3>
-            <p style={{ fontSize: "0.9rem", opacity: 0.8, lineHeight: "1.5rem", margin: 0 }}>
+            </div>
+          </details>
+
+          <details className="faq-item">
+            <summary className="faq-summary">
+              <span>What is WPM?</span>
+              <span className="material-icons-outlined faq-icon">expand_more</span>
+            </summary>
+            <div className="faq-answer">
               WPM stands for Words Per Minute. In typing tests, one &ldquo;word&rdquo; equals 5 characters. Type 200 correct characters in 1 minute and your WPM is 40.
-            </p>
-          </div>
-          <div className="card" style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
-            <h3 style={{ fontSize: "1.15rem", fontWeight: "600", color: "var(--main-color)", margin: 0 }}>
-              Do I need to sign up?
-            </h3>
-            <p style={{ fontSize: "0.9rem", opacity: 0.8, lineHeight: "1.5rem", margin: 0 }}>
+            </div>
+          </details>
+
+          <details className="faq-item">
+            <summary className="faq-summary">
+              <span>Do I need to sign up?</span>
+              <span className="material-icons-outlined faq-icon">expand_more</span>
+            </summary>
+            <div className="faq-answer">
               No. TypeBrush is completely free and works without an account. Your results and history are stored in your browser — nothing is shared with any server.
-            </p>
-          </div>
-          <div className="card" style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
-            <h3 style={{ fontSize: "1.15rem", fontWeight: "600", color: "var(--main-color)", margin: 0 }}>
-              How do I improve my typing speed?
-            </h3>
-            <p style={{ fontSize: "0.9rem", opacity: 0.8, lineHeight: "1.5rem", margin: 0 }}>
+            </div>
+          </details>
+
+          <details className="faq-item">
+            <summary className="faq-summary">
+              <span>How do I improve my typing speed?</span>
+              <span className="material-icons-outlined faq-icon">expand_more</span>
+            </summary>
+            <div className="faq-answer">
               Focus on accuracy first. Keep fingers on the home row (ASDF / JKL;), avoid looking at your hands, and practice 10–15 minutes daily. Use the Typing Gym to target weak keys.
-            </p>
-          </div>
-          <div className="card" style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
-            <h3 style={{ fontSize: "1.15rem", fontWeight: "600", color: "var(--main-color)", margin: 0 }}>
-              How is accuracy calculated?
-            </h3>
-            <p style={{ fontSize: "0.9rem", opacity: 0.8, lineHeight: "1.5rem", margin: 0 }}>
+            </div>
+          </details>
+
+          <details className="faq-item">
+            <summary className="faq-summary">
+              <span>How is accuracy calculated?</span>
+              <span className="material-icons-outlined faq-icon">expand_more</span>
+            </summary>
+            <div className="faq-answer">
               Accuracy = (Correct Characters ÷ Total Typed) × 100. If you typed 190 correctly out of 200 keystrokes, your accuracy is 95%.
-            </p>
-          </div>
-          <div className="card" style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
-            <h3 style={{ fontSize: "1.15rem", fontWeight: "600", color: "var(--main-color)", margin: 0 }}>
-              How often should I practice?
-            </h3>
-            <p style={{ fontSize: "0.9rem", opacity: 0.8, lineHeight: "1.5rem", margin: 0 }}>
+            </div>
+          </details>
+
+          <details className="faq-item">
+            <summary className="faq-summary">
+              <span>How often should I practice?</span>
+              <span className="material-icons-outlined faq-icon">expand_more</span>
+            </summary>
+            <div className="faq-answer">
               10–15 minutes daily is more effective than one long session per week. Short, consistent practice builds muscle memory faster and lasts longer.
-            </p>
-          </div>
+            </div>
+          </details>
         </div>
       </section>
     </div>
