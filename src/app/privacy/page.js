@@ -19,7 +19,7 @@ export default function PrivacyPage() {
       <section className="card" style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
         <h2 style={{ fontSize: "1.25rem", color: "var(--accent-color)" }}>No Tracking, Just Typing</h2>
         <p style={{ fontSize: "0.95rem", lineHeight: "1.6rem" }}>
-          At TypeBrush, privacy is not a feature—it is our architecture. We do not require account registration, and we do not maintain database records of your name, email, or typing performance.
+          At TypeBrush, privacy is not a feature-it is our architecture. We do not require account registration, and we do not maintain database records of your name, email, or typing performance.
         </p>
         <p style={{ fontSize: "0.95rem", lineHeight: "1.6rem" }}>
           All calculation processes, keystroke validations, speed tracking (WPM), and mistake counts are computed locally in your web browser. No key logging data is transmitted to our servers.

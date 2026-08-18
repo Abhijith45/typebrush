@@ -3,13 +3,13 @@ import WpmCalculator from "@/components/wpm/WpmCalculator";
 import Schema from "@/components/layout/Schema";
 
 export const metadata = {
-  title: "WPM Calculator — Words Per Minute Typing Speed Calculator | TypeBrush",
+  title: "WPM Calculator - Words Per Minute Typing Speed Calculator | TypeBrush",
   description: "Calculate your typing WPM speed and accuracy with our free online WPM calculator. Learn how character-to-word conversions and accuracy formulas operate.",
   alternates: {
     canonical: "https://typebrush.netlify.app/wpm-calculator"
   },
   openGraph: {
-    title: "WPM Calculator — Words Per Minute Typing Speed Calculator | TypeBrush",
+    title: "WPM Calculator - Words Per Minute Typing Speed Calculator | TypeBrush",
     description: "Calculate your typing WPM speed and accuracy with our free online WPM calculator. Learn how character-to-word conversions and accuracy formulas operate.",
     url: "https://typebrush.netlify.app/wpm-calculator",
     siteName: "TypeBrush",
@@ -108,7 +108,7 @@ export default function WPMCalculatorLanding() {
         <p style={{ lineHeight: "1.6rem", opacity: 0.9, margin: 0 }}>
           Calculating Words Per Minute might seem simple, but standardizing it is crucial for fair evaluations. If typing speed was measured in physical words, a typist transcribing medical terminology (e.g. <i>gastroenterology</i>) would appear twice as slow as a typist transcribing basic pronouns (e.g. <i>he, she, it</i>).
         </p>
-        
+
         <h3 style={{ fontSize: "1.2rem", color: "var(--main-color)", margin: "0.5rem 0 0.25rem 0" }}>The 5-Keystroke Rule</h3>
         <p style={{ lineHeight: "1.6rem", opacity: 0.9, margin: 0 }}>
           To create a level playing field, international typing standards define a &ldquo;word&rdquo; as exactly <strong>5 keystrokes</strong>. This count includes spaces, numbers, punctuation marks, and control keys like Shift.

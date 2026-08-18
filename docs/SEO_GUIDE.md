@@ -1,4 +1,4 @@
-# TypeBrush — Search Engine Optimization (SEO) Guide
+# TypeBrush - Search Engine Optimization (SEO) Guide
 
 This guide documents search keywords target mappings, internal link configurations, and indexing requirements.
 

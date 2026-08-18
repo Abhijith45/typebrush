@@ -9,7 +9,7 @@ import FeedbackDialog from "@/components/feedback/FeedbackDialog";
 export default function Footer() {
   const currentYear = new Date().getFullYear();
   const pathname = usePathname();
-  
+
   const [isFeedbackOpen, setIsFeedbackOpen] = useState(false);
   const [snackbar, setSnackbar] = useState({ open: false, message: "", severity: "success" });
 
@@ -98,7 +98,7 @@ export default function Footer() {
                 margin: 0
               }}
             >
-              Free typing test and practice platform. Improve your WPM and accuracy with targeted drills — no account or sign-up required.
+              Free typing test and practice platform. Improve your WPM and accuracy with targeted drills - no account or sign-up required.
             </p>
             <div style={{ display: "flex", gap: "0.6rem" }}>
               <a href="#" className="social-circle" aria-label="Social Link 1">

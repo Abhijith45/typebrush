@@ -1,4 +1,4 @@
-# TypeBrush — Documentation Inventory Specification
+# TypeBrush - Documentation Inventory Specification
 
 This inventory documents all pre-consolidation files inside the `/docs` directory.
 

@@ -1,4 +1,4 @@
-# TypeBrush — Product Requirements Document
+# TypeBrush - Product Requirements Document
 
 **Version:** 1.0
 **Status:** Locked for MVP development
@@ -229,7 +229,7 @@ Future versions may add historical statistics.
 
 ## 5. Differentiating Feature
 
-### Weak-Key Practice — MVP-lite
+### Weak-Key Practice - MVP-lite
 
 After a typing test, identify frequently mistyped characters.
 

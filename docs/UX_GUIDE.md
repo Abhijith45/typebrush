@@ -1,4 +1,4 @@
-# TypeBrush — User Experience & User Flow Guide
+# TypeBrush - User Experience & User Flow Guide
 
 This document specification outlines core user flows, keyboard navigation rules, and responsive layouts checkups.
 

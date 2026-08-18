@@ -19,7 +19,7 @@
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.04), 0 2px 4px -2px rgba(0, 0, 0, 0.04);
   --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
   --shadow-hover: 0 20px 30px -10px rgba(5, 150, 105, 0.12), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
-  
+
   --font-sans: var(--font-geist-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   --font-mono: 'JetBrains Mono', var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
@@ -208,7 +208,8 @@ footer {
   .footer-grid {
     grid-template-columns: 1fr 1fr;
   }
-  .footer-inner{
+
+  .footer-inner {
     padding: 2.5rem 1rem 4rem 1rem;
   }
 }
@@ -217,7 +218,8 @@ footer {
   .footer-grid {
     grid-template-columns: 1fr 1fr;
   }
-  .footer-inner{
+
+  .footer-inner {
     padding: 2.5rem 1rem 6rem 1rem;
   }
 }
@@ -371,7 +373,8 @@ p {
   box-shadow: var(--shadow-sm);
 }
 
-.secondary-button:hover, .secondary-button:focus-visible {
+.secondary-button:hover,
+.secondary-button:focus-visible {
   border-color: var(--accent-color);
   transform: translateY(-2px);
   box-shadow: var(--shadow-md);
@@ -567,8 +570,15 @@ p {
 }
 
 @keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
 }
 
 .stats-bar {
@@ -643,7 +653,8 @@ p {
   font-size: 0.95rem;
 }
 
-.control-btn:hover, .control-btn:focus-visible {
+.control-btn:hover,
+.control-btn:focus-visible {
   background-color: var(--accent-sec-hover);
   transform: translateY(-1px);
   box-shadow: var(--shadow-sm);
@@ -663,7 +674,8 @@ p {
   color: #0b1120;
 }
 
-.control-btn.primary:hover, .control-btn.primary:focus-visible {
+.control-btn.primary:hover,
+.control-btn.primary:focus-visible {
   background-color: var(--accent-hover);
   box-shadow: 0 4px 14px rgba(5, 150, 105, 0.3);
 }
@@ -705,6 +717,7 @@ p {
 }
 
 @media (max-width: 1024px) {
+
   .grid-cards,
   .features-grid,
   .result-breakdown-grid {
@@ -714,6 +727,7 @@ p {
 }
 
 @media (max-width: 640px) {
+
   .grid-cards,
   .features-grid,
   .hero-stats-row,
@@ -721,7 +735,7 @@ p {
     grid-template-columns: repeat(2, 1fr);
     gap: 0.75rem;
   }
-  
+
   .card {
     padding: 1.25rem 1rem;
   }
@@ -823,16 +837,28 @@ p {
 
 /* Animations Keyframes */
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes slideUp {
-  from { opacity: 0; transform: translateY(12px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-/* Typing Gym — Interactive Keyboard & Trainer Styling */
+/* Typing Gym - Interactive Keyboard & Trainer Styling */
 .gym-keyboard-container {
   background-color: var(--surface-color);
   border: 1px solid var(--border-color);
@@ -887,7 +913,8 @@ p {
   width: 240px;
 }
 
-.gym-key:hover, .gym-key.hovered {
+.gym-key:hover,
+.gym-key.hovered {
   transform: translateY(-2px);
   border-color: var(--accent-color);
   box-shadow: var(--shadow-sm);
@@ -908,32 +935,86 @@ p {
 }
 
 /* Finger Color Theme Tokens */
-.finger-purple { border-bottom: 3px solid #8b5cf6 !important; }
-.finger-purple .gym-key-dot, span.finger-purple { background-color: #8b5cf6 !important; }
+.finger-purple {
+  border-bottom: 3px solid #8b5cf6 !important;
+}
 
-.finger-blue { border-bottom: 3px solid #3b82f6 !important; }
-.finger-blue .gym-key-dot, span.finger-blue { background-color: #3b82f6 !important; }
+.finger-purple .gym-key-dot,
+span.finger-purple {
+  background-color: #8b5cf6 !important;
+}
 
-.finger-teal { border-bottom: 3px solid #14b8a6 !important; }
-.finger-teal .gym-key-dot, span.finger-teal { background-color: #14b8a6 !important; }
+.finger-blue {
+  border-bottom: 3px solid #3b82f6 !important;
+}
 
-.finger-emerald { border-bottom: 3px solid #10b981 !important; }
-.finger-emerald .gym-key-dot, span.finger-emerald { background-color: #10b981 !important; }
+.finger-blue .gym-key-dot,
+span.finger-blue {
+  background-color: #3b82f6 !important;
+}
 
-.finger-amber { border-bottom: 3px solid #f59e0b !important; }
-.finger-amber .gym-key-dot, span.finger-amber { background-color: #f59e0b !important; }
+.finger-teal {
+  border-bottom: 3px solid #14b8a6 !important;
+}
 
-.finger-rose { border-bottom: 3px solid #f43f5e !important; }
-.finger-rose .gym-key-dot, span.finger-rose { background-color: #f43f5e !important; }
+.finger-teal .gym-key-dot,
+span.finger-teal {
+  background-color: #14b8a6 !important;
+}
 
-.finger-indigo { border-bottom: 3px solid #6366f1 !important; }
-.finger-indigo .gym-key-dot, span.finger-indigo { background-color: #6366f1 !important; }
+.finger-emerald {
+  border-bottom: 3px solid #10b981 !important;
+}
 
-.finger-pink { border-bottom: 3px solid #ec4899 !important; }
-.finger-pink .gym-key-dot, span.finger-pink { background-color: #ec4899 !important; }
+.finger-emerald .gym-key-dot,
+span.finger-emerald {
+  background-color: #10b981 !important;
+}
 
-.finger-slate { border-bottom: 3px solid #64748b !important; }
-.finger-slate .gym-key-dot, span.finger-slate { background-color: #64748b !important; }
+.finger-amber {
+  border-bottom: 3px solid #f59e0b !important;
+}
+
+.finger-amber .gym-key-dot,
+span.finger-amber {
+  background-color: #f59e0b !important;
+}
+
+.finger-rose {
+  border-bottom: 3px solid #f43f5e !important;
+}
+
+.finger-rose .gym-key-dot,
+span.finger-rose {
+  background-color: #f43f5e !important;
+}
+
+.finger-indigo {
+  border-bottom: 3px solid #6366f1 !important;
+}
+
+.finger-indigo .gym-key-dot,
+span.finger-indigo {
+  background-color: #6366f1 !important;
+}
+
+.finger-pink {
+  border-bottom: 3px solid #ec4899 !important;
+}
+
+.finger-pink .gym-key-dot,
+span.finger-pink {
+  background-color: #ec4899 !important;
+}
+
+.finger-slate {
+  border-bottom: 3px solid #64748b !important;
+}
+
+.finger-slate .gym-key-dot,
+span.finger-slate {
+  background-color: #64748b !important;
+}
 
 .finger-badge {
   display: inline-flex;
@@ -1087,4 +1168,3 @@ p {
   line-height: 1.6rem;
   color: var(--sub-color);
 }
-

@@ -2,13 +2,13 @@ import Link from "next/link";
 import TypingTest from "@/components/typing/TypingTest";
 
 export const metadata = {
-  title: "Number Typing Test — Practice Numeric Keypad Speed | TypeBrush",
+  title: "Number Typing Test - Practice Numeric Keypad Speed | TypeBrush",
   description: "Free number typing test online. Practice typing digit sequences, decimals, and number codes. Ideal for data entry operators, billing staff, and banking exam prep.",
   alternates: {
     canonical: "https://typebrush.netlify.app/typing-test/number"
   },
   openGraph: {
-    title: "Number Typing Test — Practice Numeric Keypad Speed | TypeBrush",
+    title: "Number Typing Test - Practice Numeric Keypad Speed | TypeBrush",
     description: "Free number typing test online. Practice typing digit sequences and number codes. No sign-up required.",
     url: "https://typebrush.netlify.app/typing-test/number",
     siteName: "TypeBrush",
@@ -35,7 +35,7 @@ export default function NumberTest() {
       <section className="card" style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
         <h2 style={{ fontSize: "1.25rem", color: "var(--accent-color)" }}>Why Practice Number Typing?</h2>
         <p style={{ fontSize: "0.95rem", opacity: 0.8, lineHeight: "1.6rem" }}>
-          Typing numbers requires reaching away from the home row to the top number row or using the Numpad — an entirely different muscle movement than standard letter typing. Regular number typing practice builds the accuracy and speed needed for data entry jobs, banking operations, inventory management, and financial record-keeping.
+          Typing numbers requires reaching away from the home row to the top number row or using the Numpad - an entirely different muscle movement than standard letter typing. Regular number typing practice builds the accuracy and speed needed for data entry jobs, banking operations, inventory management, and financial record-keeping.
         </p>
         <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap", fontSize: "0.9rem", borderTop: "1px solid var(--sub-alt-color)", paddingTop: "1rem" }}>
           <span>Try standard tests:</span>

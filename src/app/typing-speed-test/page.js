@@ -3,13 +3,13 @@ import TypingTest from "@/components/typing/TypingTest";
 import Schema from "@/components/layout/Schema";
 
 export const metadata = {
-  title: "Typing Speed Test — Check Your WPM & Accuracy | TypeBrush",
+  title: "Typing Speed Test - Check Your WPM & Accuracy | TypeBrush",
   description: "Test your typing speed (WPM) and accuracy online with our free typing speed test. Choose from multiple time durations and receive instant performance metrics.",
   alternates: {
     canonical: "https://typebrush.netlify.app/typing-speed-test"
   },
   openGraph: {
-    title: "Typing Speed Test — Check Your WPM & Accuracy | TypeBrush",
+    title: "Typing Speed Test - Check Your WPM & Accuracy | TypeBrush",
     description: "Find out how fast you type. Take our free online typing speed test, measure WPM and raw keystroke precision, and download your printable scorecard.",
     url: "https://typebrush.netlify.app/typing-speed-test",
     siteName: "TypeBrush",
@@ -121,7 +121,7 @@ export default function TypingSpeedTestLanding() {
       {/* Tips and Recommendations */}
       <section style={{ display: "flex", flexDirection: "column", gap: "1.25rem", maxWidth: "900px", margin: "0 auto" }}>
         <h2 style={{ fontSize: "1.6rem" }}>Three Core Rules to Improve Your Speed Test Scores</h2>
-        
+
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "1rem" }}>
           <div className="card" style={{ padding: "1.25rem" }}>
             <h3 style={{ color: "var(--accent-color)", fontSize: "1.05rem", marginBottom: "0.5rem" }}>1. Float Your Wrists</h3>
@@ -129,7 +129,7 @@ export default function TypingSpeedTestLanding() {
               Never rest your wrists flat on the desk or key frame while typing. Keeping them elevated lets your fingers move vertically, reducing joint tension and boosting speed.
             </p>
           </div>
-          
+
           <div className="card" style={{ padding: "1.25rem" }}>
             <h3 style={{ color: "var(--accent-color)", fontSize: "1.05rem", marginBottom: "0.5rem" }}>2. Focus on Accuracy</h3>
             <p style={{ fontSize: "0.85rem", opacity: 0.8, lineHeight: "1.4rem", margin: 0 }}>
@@ -149,7 +149,7 @@ export default function TypingSpeedTestLanding() {
       {/* FAQs */}
       <section style={{ display: "flex", flexDirection: "column", gap: "1.25rem", borderTop: "1px solid var(--border-color)", paddingTop: "2rem", maxWidth: "900px", margin: "0 auto" }}>
         <h2 style={{ fontSize: "1.6rem" }}>Frequently Asked Questions</h2>
-        
+
         <div style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
           <div>
             <h3 style={{ fontSize: "1.1rem", fontWeight: "600", marginBottom: "0.25rem", color: "var(--main-color)" }}>How is WPM calculated on this speed test?</h3>

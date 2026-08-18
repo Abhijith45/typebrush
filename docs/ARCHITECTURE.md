@@ -1,4 +1,4 @@
-# TypeBrush — Application Architecture Specification
+# TypeBrush - Application Architecture Specification
 
 This specification documents the frontend, storage, analytics, and styling architecture of TypeBrush.
 

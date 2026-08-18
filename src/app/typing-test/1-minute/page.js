@@ -2,13 +2,13 @@ import Link from "next/link";
 import TypingTest from "@/components/typing/TypingTest";
 
 export const metadata = {
-  title: "1-Minute Typing Test — Free WPM Speed Test | TypeBrush",
+  title: "1-Minute Typing Test - Free WPM Speed Test | TypeBrush",
   description: "Take a free 1-minute typing test and get your WPM instantly. No sign-up required. Ideal for a quick daily warm-up or checking your baseline typing speed.",
   alternates: {
     canonical: "https://typebrush.netlify.app/typing-test/1-minute"
   },
   openGraph: {
-    title: "1-Minute Typing Test — Free WPM Speed Test | TypeBrush",
+    title: "1-Minute Typing Test - Free WPM Speed Test | TypeBrush",
     description: "Take a free 1-minute typing test and get your WPM instantly. No sign-up required.",
     url: "https://typebrush.netlify.app/typing-test/1-minute",
     siteName: "TypeBrush",

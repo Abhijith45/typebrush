@@ -1,4 +1,4 @@
-# TypeBrush — Code Contribution Guidelines
+# TypeBrush - Code Contribution Guidelines
 
 Thank you for contributing to TypeBrush! Follow these steps to submit clean code changes.
 

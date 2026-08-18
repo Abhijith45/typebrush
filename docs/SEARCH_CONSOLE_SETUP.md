@@ -1,4 +1,4 @@
-# TypeBrush — Search Console Setup & Readiness Configuration
+# TypeBrush - Search Console Setup & Readiness Configuration
 
 This report details indexing rules and structures verified for Search Console submissions.
 

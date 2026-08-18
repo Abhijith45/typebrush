@@ -1,4 +1,4 @@
-# TypeBrush — Documentation Consolidation Report
+# TypeBrush - Documentation Consolidation Report
 
 This report outlines the files merged, removed, and retained to consolidate TypeBrush docs.
 

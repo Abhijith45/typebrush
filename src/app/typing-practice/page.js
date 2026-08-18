@@ -2,13 +2,13 @@ import Link from "next/link";
 import Schema from "@/components/layout/Schema";
 
 export const metadata = {
-  title: "Free Typing Practice Online — Paragraphs & Passages | TypeBrush",
+  title: "Free Typing Practice Online - Paragraphs & Passages | TypeBrush",
   description: "Improve your typing with free untimed exercises. Choose from English paragraphs and passages at Easy, Medium, and Hard difficulty. No account required.",
   alternates: {
     canonical: "https://typebrush.netlify.app/typing-practice"
   },
   openGraph: {
-    title: "Free Typing Practice Online — Paragraphs & Passages | TypeBrush",
+    title: "Free Typing Practice Online - Paragraphs & Passages | TypeBrush",
     description: "Improve your typing with free untimed exercises. Choose from English paragraphs and passages at Easy, Medium, and Hard difficulty.",
     url: "https://typebrush.netlify.app/typing-practice",
     siteName: "TypeBrush",

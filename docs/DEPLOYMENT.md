@@ -1,4 +1,4 @@
-# TypeBrush — Production Deployment Guide
+# TypeBrush - Production Deployment Guide
 
 This guide documents the procedures for compiling and launching TypeBrush.
 

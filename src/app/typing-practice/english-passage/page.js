@@ -2,13 +2,13 @@ import Link from "next/link";
 import PassagePracticeContainer from "@/components/typing/PassagePracticeContainer";
 
 export const metadata = {
-  title: "English Passage Typing Practice — Build Stamina & Speed | TypeBrush",
+  title: "English Passage Typing Practice - Build Stamina & Speed | TypeBrush",
   description: "Improve your typing stamina with free English passage practice. Choose from articles, essays, and stories at your own pace. No account required.",
   alternates: {
     canonical: "https://typebrush.netlify.app/typing-practice/english-passage"
   },
   openGraph: {
-    title: "English Passage Typing Practice — Build Stamina & Speed | TypeBrush",
+    title: "English Passage Typing Practice - Build Stamina & Speed | TypeBrush",
     description: "Improve your typing stamina with free English passage practice. Choose from articles, essays, and stories.",
     url: "https://typebrush.netlify.app/typing-practice/english-passage",
     siteName: "TypeBrush",

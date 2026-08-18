@@ -19,7 +19,7 @@ const geistMono = Geist_Mono({
 export const metadata = {
   metadataBase: new URL("https://typebrush.netlify.app"),
   title: {
-    default: "Free Typing Test Online — Check Your WPM & Accuracy | TypeBrush",
+    default: "Free Typing Test Online - Check Your WPM & Accuracy | TypeBrush",
     template: "%s"
   },
   description: "Take a free online typing test and check your WPM and accuracy. Practice with timed tests, paragraphs, passages, and targeted Typing Gym drills. No account required.",
@@ -43,7 +43,7 @@ export const metadata = {
     canonical: "/"
   },
   openGraph: {
-    title: "Free Typing Test Online — Check Your WPM & Accuracy | TypeBrush",
+    title: "Free Typing Test Online - Check Your WPM & Accuracy | TypeBrush",
     description: "Test and improve your typing speed for free. Timed tests, targeted Typing Gym drills, and personalized weak-key recommendations. No account needed.",
     url: "https://typebrush.netlify.app",
     siteName: "TypeBrush",
@@ -52,7 +52,7 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Free Typing Test Online — Check Your WPM & Accuracy | TypeBrush",
+    title: "Free Typing Test Online - Check Your WPM & Accuracy | TypeBrush",
     description: "Test and improve your typing speed for free. Timed tests, targeted drills, and personalized weak-key recommendations.",
     site: "@typebrush"
   },
