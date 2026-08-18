@@ -17,7 +17,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  metadataBase: new URL("https://typebrush.in"),
+  metadataBase: new URL("https://typebrush.netlify.app"),
   title: {
     default: "Free Typing Test Online — Check Your WPM & Accuracy | TypeBrush",
     template: "%s"
@@ -45,7 +45,7 @@ export const metadata = {
   openGraph: {
     title: "Free Typing Test Online — Check Your WPM & Accuracy | TypeBrush",
     description: "Test and improve your typing speed for free. Timed tests, targeted Typing Gym drills, and personalized weak-key recommendations. No account needed.",
-    url: "https://typebrush.in",
+    url: "https://typebrush.netlify.app",
     siteName: "TypeBrush",
     locale: "en_US",
     type: "website"

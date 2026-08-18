@@ -308,7 +308,7 @@ export default function Footer() {
           <p style={{ margin: 0 }}>
             Free online typing test &amp; practice |{" "}
             <Link href="/" onClick={(e) => handleLinkClick(e, "/")} style={{ color: "inherit" }}>
-              typebrush.in
+              typebrush.netlify.app
             </Link>
           </p>
         </div>

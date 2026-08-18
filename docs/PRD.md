@@ -3,7 +3,7 @@
 **Version:** 1.0
 **Status:** Locked for MVP development
 **Product:** TypeBrush
-**Domain:** typebrush.in
+**Domain:** typebrush.netlify.app
 **Tagline:** Free Typing Tests & Practice
 
 ---
@@ -352,7 +352,7 @@ Deployment should be static/CDN-first.
 Requirements:
 
 * Production HTTPS.
-* Custom domain: `typebrush.in`
+* Custom domain: `typebrush.netlify.app`
 * `www` handling/redirect.
 * `robots.txt`
 * `sitemap.xml`
@@ -461,7 +461,7 @@ The MVP is complete when:
 * Canonical URLs are correct.
 * Internal linking is implemented.
 * Lighthouse/Core Web Vitals are optimized as far as reasonably possible.
-* Site is deployed successfully on `typebrush.in`.
+* Site is deployed successfully on `typebrush.netlify.app`.
 * Google Search Console can discover the sitemap.
 * No backend/database is required.
 

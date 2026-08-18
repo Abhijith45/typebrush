@@ -5,12 +5,12 @@ export const metadata = {
   title: "2-Minute Typing Test — Free Online Speed Test | TypeBrush",
   description: "Take a free 2-minute typing test and measure your WPM and accuracy. Build consistency and typing stamina with this popular practice format.",
   alternates: {
-    canonical: "https://typebrush.in/typing-test/2-minute"
+    canonical: "https://typebrush.netlify.app/typing-test/2-minute"
   },
   openGraph: {
     title: "2-Minute Typing Test — Free Online Speed Test | TypeBrush",
     description: "Take a free 2-minute typing test and measure your WPM and accuracy. No sign-up required.",
-    url: "https://typebrush.in/typing-test/2-minute",
+    url: "https://typebrush.netlify.app/typing-test/2-minute",
     siteName: "TypeBrush",
     locale: "en_US",
     type: "website"

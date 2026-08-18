@@ -5,12 +5,12 @@ export const metadata = {
   title: "10-Minute Typing Test — SSC & Certification Exam Prep | TypeBrush",
   description: "Practice with a free 10-minute typing test. The standard duration for SSC, government, and professional typing certifications. Check your WPM and accuracy.",
   alternates: {
-    canonical: "https://typebrush.in/typing-test/10-minute"
+    canonical: "https://typebrush.netlify.app/typing-test/10-minute"
   },
   openGraph: {
     title: "10-Minute Typing Test — SSC & Certification Exam Prep | TypeBrush",
     description: "Practice with a free 10-minute typing test. Standard format for SSC and professional typing certifications.",
-    url: "https://typebrush.in/typing-test/10-minute",
+    url: "https://typebrush.netlify.app/typing-test/10-minute",
     siteName: "TypeBrush",
     locale: "en_US",
     type: "website"

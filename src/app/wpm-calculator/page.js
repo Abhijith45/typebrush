@@ -6,12 +6,12 @@ export const metadata = {
   title: "WPM Calculator — Words Per Minute Typing Speed Calculator | TypeBrush",
   description: "Calculate your typing WPM speed and accuracy with our free online WPM calculator. Learn how character-to-word conversions and accuracy formulas operate.",
   alternates: {
-    canonical: "https://typebrush.in/wpm-calculator"
+    canonical: "https://typebrush.netlify.app/wpm-calculator"
   },
   openGraph: {
     title: "WPM Calculator — Words Per Minute Typing Speed Calculator | TypeBrush",
     description: "Calculate your typing WPM speed and accuracy with our free online WPM calculator. Learn how character-to-word conversions and accuracy formulas operate.",
-    url: "https://typebrush.in/wpm-calculator",
+    url: "https://typebrush.netlify.app/wpm-calculator",
     siteName: "TypeBrush",
     locale: "en_US",
     type: "website"
@@ -58,13 +58,13 @@ export default function WPMCalculatorLanding() {
         "@type": "ListItem",
         "position": 1,
         "name": "Home",
-        "item": "https://typebrush.in"
+        "item": "https://typebrush.netlify.app"
       },
       {
         "@type": "ListItem",
         "position": 2,
         "name": "WPM Calculator",
-        "item": "https://typebrush.in/wpm-calculator"
+        "item": "https://typebrush.netlify.app/wpm-calculator"
       }
     ]
   };
@@ -73,7 +73,7 @@ export default function WPMCalculatorLanding() {
     "@context": "https://schema.org",
     "@type": "WebApplication",
     "name": "TypeBrush WPM Calculator",
-    "url": "https://typebrush.in/wpm-calculator",
+    "url": "https://typebrush.netlify.app/wpm-calculator",
     "applicationCategory": "EducationalApplication",
     "operatingSystem": "All",
     "description": "Interactive utility to compute typing speed metrics, net accuracy, and raw keystroke performance."

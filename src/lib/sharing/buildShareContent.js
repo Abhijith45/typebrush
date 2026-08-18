@@ -9,7 +9,7 @@ export function buildShareContent({
   testName = "Typing Test",
   canonicalPath = "/typing-test"
 }) {
-  const BASE_URL = "https://typebrush.in";
+  const BASE_URL = "https://typebrush.netlify.app";
   
   // Ensure path starts with a single slash and is clean
   let cleanPath = canonicalPath || "/typing-test";

@@ -6,12 +6,12 @@ export const metadata = {
   title: "Free Online Typing Test — Measure Your WPM & Accuracy | TypeBrush",
   description: "Take a free online typing test and find out your WPM in seconds. Choose 1, 2, 5, or 10 minute tests. Instant results, no account needed.",
   alternates: {
-    canonical: "https://typebrush.in/typing-test"
+    canonical: "https://typebrush.netlify.app/typing-test"
   },
   openGraph: {
     title: "Free Online Typing Test — Measure Your WPM & Accuracy | TypeBrush",
     description: "Take a free online typing test and find out your WPM in seconds. Choose 1, 2, 5, or 10 minute tests. Instant results, no account needed.",
-    url: "https://typebrush.in/typing-test",
+    url: "https://typebrush.netlify.app/typing-test",
     siteName: "TypeBrush",
     locale: "en_US",
     type: "website"
@@ -58,13 +58,13 @@ export default function TypingTestLanding() {
         "@type": "ListItem",
         "position": 1,
         "name": "Home",
-        "item": "https://typebrush.in"
+        "item": "https://typebrush.netlify.app"
       },
       {
         "@type": "ListItem",
         "position": 2,
         "name": "Typing Test",
-        "item": "https://typebrush.in/typing-test"
+        "item": "https://typebrush.netlify.app/typing-test"
       }
     ]
   };

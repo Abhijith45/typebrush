@@ -5,12 +5,12 @@ export const metadata = {
   title: "Free Typing Test Online — Check Your WPM & Accuracy | TypeBrush",
   description: "Take a free online typing test and find out how fast you type. Measure your WPM, accuracy, and error rate in 1 to 10 minutes. No sign-up required.",
   alternates: {
-    canonical: "https://typebrush.in/"
+    canonical: "https://typebrush.netlify.app/"
   },
   openGraph: {
     title: "Free Typing Test Online — Check Your WPM & Accuracy | TypeBrush",
     description: "Test your typing speed for free. Practice with timed tests, targeted drills, and personalized weak-key training. No account needed.",
-    url: "https://typebrush.in",
+    url: "https://typebrush.netlify.app",
     siteName: "TypeBrush",
     locale: "en_US",
     type: "website"
@@ -27,7 +27,7 @@ export default function Home() {
     "@context": "https://schema.org",
     "@type": "WebSite",
     "name": "TypeBrush",
-    "url": "https://typebrush.in",
+    "url": "https://typebrush.netlify.app",
     "description": "Free online typing test and practice platform. Measure WPM, improve accuracy, and train weak keys — no account required."
   };
 

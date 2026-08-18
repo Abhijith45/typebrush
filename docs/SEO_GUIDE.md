@@ -24,6 +24,6 @@ To flow authority throughout TypeBrush, the link layout is structured in silos:
 
 ## 3. Crawl & Indexing Audit Rules
 
-- **Sitemap Location**: `https://typebrush.in/sitemap.xml`
+- **Sitemap Location**: `https://typebrush.netlify.app/sitemap.xml`
 - **Canonical Setup**: Always override layouts with `alternates: { canonical: "/" }` matching the static directory URL mapping.
 - **Microdata Scripts**: Deliver BreadcrumbList schemas and WebApplication metadata configurations to optimize search ranking visuals.

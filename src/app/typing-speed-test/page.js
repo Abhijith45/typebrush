@@ -6,12 +6,12 @@ export const metadata = {
   title: "Typing Speed Test — Check Your WPM & Accuracy | TypeBrush",
   description: "Test your typing speed (WPM) and accuracy online with our free typing speed test. Choose from multiple time durations and receive instant performance metrics.",
   alternates: {
-    canonical: "https://typebrush.in/typing-speed-test"
+    canonical: "https://typebrush.netlify.app/typing-speed-test"
   },
   openGraph: {
     title: "Typing Speed Test — Check Your WPM & Accuracy | TypeBrush",
     description: "Find out how fast you type. Take our free online typing speed test, measure WPM and raw keystroke precision, and download your printable scorecard.",
-    url: "https://typebrush.in/typing-speed-test",
+    url: "https://typebrush.netlify.app/typing-speed-test",
     siteName: "TypeBrush",
     locale: "en_US",
     type: "website"
@@ -58,13 +58,13 @@ export default function TypingSpeedTestLanding() {
         "@type": "ListItem",
         "position": 1,
         "name": "Home",
-        "item": "https://typebrush.in"
+        "item": "https://typebrush.netlify.app"
       },
       {
         "@type": "ListItem",
         "position": 2,
         "name": "Typing Speed Test",
-        "item": "https://typebrush.in/typing-speed-test"
+        "item": "https://typebrush.netlify.app/typing-speed-test"
       }
     ]
   };
@@ -73,7 +73,7 @@ export default function TypingSpeedTestLanding() {
     "@context": "https://schema.org",
     "@type": "WebApplication",
     "name": "TypeBrush Typing Speed Test",
-    "url": "https://typebrush.in/typing-speed-test",
+    "url": "https://typebrush.netlify.app/typing-speed-test",
     "applicationCategory": "EducationalApplication",
     "operatingSystem": "All",
     "description": "Free web utility to measure typing speed (WPM), uncorrected mistakes, and raw keystroke precision."

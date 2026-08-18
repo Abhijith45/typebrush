@@ -2,7 +2,7 @@ export const metadata = {
   title: "Privacy Policy | TypeBrush",
   description: "Read the TypeBrush Privacy Policy. We do not track, collect, or store your typing logs or personal information. All tests run client-side.",
   alternates: {
-    canonical: "https://typebrush.in/privacy"
+    canonical: "https://typebrush.netlify.app/privacy"
   }
 };
 
@@ -36,7 +36,7 @@ export default function PrivacyPage() {
       <section style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
         <h2 style={{ fontSize: "1.25rem" }}>Contact Us</h2>
         <p style={{ fontSize: "0.95rem", lineHeight: "1.6rem" }}>
-          If you have questions regarding this privacy statement, you can consult our public codebase or contact us at contact@typebrush.in.
+          If you have questions regarding this privacy statement, you can consult our public codebase or contact us at contact@typebrush.netlify.app.
         </p>
       </section>
     </div>

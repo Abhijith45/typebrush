@@ -8,12 +8,12 @@ export const metadata = {
   title: "Typing Gym — Train Weak Keys & Build Typing Muscle Memory | TypeBrush",
   description: "TypeBrush Typing Gym helps you practice specific keyboard keys, finger placement, key pairs, numbers, symbols, and speed drills. Fix your weak spots and type faster.",
   alternates: {
-    canonical: "https://typebrush.in/typing-gym"
+    canonical: "https://typebrush.netlify.app/typing-gym"
   },
   openGraph: {
     title: "Typing Gym — Train Weak Keys & Build Typing Muscle Memory | TypeBrush",
     description: "Don't just test — train. The Typing Gym targets your specific weak keys, finger placement, and key pairs so every practice session counts.",
-    url: "https://typebrush.in/typing-gym",
+    url: "https://typebrush.netlify.app/typing-gym",
     siteName: "TypeBrush",
     locale: "en_US",
     type: "website"
@@ -25,7 +25,7 @@ export default function TypingGymPage() {
     "@context": "https://schema.org",
     "@type": "WebApplication",
     "name": "TypeBrush Typing Gym",
-    "url": "https://typebrush.in/typing-gym",
+    "url": "https://typebrush.netlify.app/typing-gym",
     "applicationCategory": "EducationalApplication",
     "operatingSystem": "All",
     "description": "Interactive touch-typing workout tool for weak key drills, finger placement, key pairs, and speed bursts."
@@ -39,13 +39,13 @@ export default function TypingGymPage() {
         "@type": "ListItem",
         "position": 1,
         "name": "Home",
-        "item": "https://typebrush.in"
+        "item": "https://typebrush.netlify.app"
       },
       {
         "@type": "ListItem",
         "position": 2,
         "name": "Typing Gym",
-        "item": "https://typebrush.in/typing-gym"
+        "item": "https://typebrush.netlify.app/typing-gym"
       }
     ]
   };

@@ -5,12 +5,12 @@ export const metadata = {
   title: "English Paragraph Typing Practice — Free Online Exercises | TypeBrush",
   description: "Practice typing English paragraphs at your own pace. Choose Easy, Medium, or Hard difficulty. No timer, no pressure — just focused accuracy practice.",
   alternates: {
-    canonical: "https://typebrush.in/typing-practice/english-paragraph"
+    canonical: "https://typebrush.netlify.app/typing-practice/english-paragraph"
   },
   openGraph: {
     title: "English Paragraph Typing Practice — Free Online Exercises | TypeBrush",
     description: "Practice typing English paragraphs at your own pace. Choose Easy, Medium, or Hard difficulty.",
-    url: "https://typebrush.in/typing-practice/english-paragraph",
+    url: "https://typebrush.netlify.app/typing-practice/english-paragraph",
     siteName: "TypeBrush",
     locale: "en_US",
     type: "website"

@@ -5,12 +5,12 @@ export const metadata = {
   title: "5-Minute Typing Test — Build Stamina & Improve WPM | TypeBrush",
   description: "Take a free 5-minute typing test online. Build keyboard stamina and sustained accuracy. Ideal for SSC, banking exam prep, and daily typing practice.",
   alternates: {
-    canonical: "https://typebrush.in/typing-test/5-minute"
+    canonical: "https://typebrush.netlify.app/typing-test/5-minute"
   },
   openGraph: {
     title: "5-Minute Typing Test — Build Stamina & Improve WPM | TypeBrush",
     description: "Take a free 5-minute typing test online. Build keyboard stamina and sustained accuracy.",
-    url: "https://typebrush.in/typing-test/5-minute",
+    url: "https://typebrush.netlify.app/typing-test/5-minute",
     siteName: "TypeBrush",
     locale: "en_US",
     type: "website"

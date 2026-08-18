@@ -5,12 +5,12 @@ export const metadata = {
   title: "Number Typing Test — Practice Numeric Keypad Speed | TypeBrush",
   description: "Free number typing test online. Practice typing digit sequences, decimals, and number codes. Ideal for data entry operators, billing staff, and banking exam prep.",
   alternates: {
-    canonical: "https://typebrush.in/typing-test/number"
+    canonical: "https://typebrush.netlify.app/typing-test/number"
   },
   openGraph: {
     title: "Number Typing Test — Practice Numeric Keypad Speed | TypeBrush",
     description: "Free number typing test online. Practice typing digit sequences and number codes. No sign-up required.",
-    url: "https://typebrush.in/typing-test/number",
+    url: "https://typebrush.netlify.app/typing-test/number",
     siteName: "TypeBrush",
     locale: "en_US",
     type: "website"

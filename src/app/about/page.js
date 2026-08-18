@@ -4,7 +4,7 @@ export const metadata = {
   title: "About TypeBrush — Free Typing Test & Typing Practice Platform",
   description: "TypeBrush is a free, privacy-first typing platform. Measure your WPM, practice with targeted drills, and improve your typing speed — no account, no ads, no tracking.",
   alternates: {
-    canonical: "https://typebrush.in/about"
+    canonical: "https://typebrush.netlify.app/about"
   }
 };
 

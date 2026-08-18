@@ -5,12 +5,12 @@ export const metadata = {
   title: "Touch Typing Guide — Learn Finger Positions & Typing Posture | TypeBrush",
   description: "Learn how to touch type without looking at your keyboard. Master home row finger placements, typing ergonomics, and practice plans for faster WPM.",
   alternates: {
-    canonical: "https://typebrush.in/touch-typing"
+    canonical: "https://typebrush.netlify.app/touch-typing"
   },
   openGraph: {
     title: "Touch Typing Guide — Learn Finger Positions & Typing Posture | TypeBrush",
     description: "Master the art of touch typing. Our complete guide covers finger positions, home row rules, ergonomics, and strategies to boost your WPM.",
-    url: "https://typebrush.in/touch-typing",
+    url: "https://typebrush.netlify.app/touch-typing",
     siteName: "TypeBrush",
     locale: "en_US",
     type: "website"
@@ -57,13 +57,13 @@ export default function TouchTypingLanding() {
         "@type": "ListItem",
         "position": 1,
         "name": "Home",
-        "item": "https://typebrush.in"
+        "item": "https://typebrush.netlify.app"
       },
       {
         "@type": "ListItem",
         "position": 2,
         "name": "Touch Typing Guide",
-        "item": "https://typebrush.in/touch-typing"
+        "item": "https://typebrush.netlify.app/touch-typing"
       }
     ]
   };

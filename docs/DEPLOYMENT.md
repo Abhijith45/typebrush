@@ -25,6 +25,6 @@ Ensure the following variables are declared inside `.env.local` before building:
 ---
 
 ## 3. Post-Deployment Verification
-1. Verify `https://typebrush.in/sitemap.xml` returns valid sitemap XML content.
+1. Verify `https://typebrush.netlify.app/sitemap.xml` returns valid sitemap XML content.
 2. Confirm robots access triggers are allowing search crawler indexes.
 3. Validate client-side feedback submission dispatches.
